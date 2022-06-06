@@ -45,9 +45,9 @@ map <C-b> :NERDTreeToggle<CR>
 nnoremap <C-f> :NERDTreeFind<CR>
 
 " Open DiffView
-map <leader>do <buffer><nowait> :DiffviewOpen><CR> 
-map <leader>dc <buffer><nowait> :DiffviewClose><CR>
-map <leader>dr <buffer><nowait> :DiffviewRefresh><CR>
-map <leader>dt <buffer><nowait> :DiffviewToggleFiles<CR>
+map <leader>do <nowait> <Cmd>DiffviewOpen<CR> 
+map <leader>dc <nowait> <Cmd>DiffviewClose<CR>
+map <leader>dr <nowait> <Cmd>DiffviewRefresh<CR>
+map <leader>dt <nowait> <Cmd>DiffviewToggleFiles<CR>
 " Exit Terminal Mode
 tnoremap <Esc> <C-\><C-n>
