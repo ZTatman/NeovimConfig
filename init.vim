@@ -1,3 +1,5 @@
+" General Settings {{{
+" =======================================================================
 " init autocmd
 autocmd!
 
@@ -23,7 +25,6 @@ set cmdheight=1
 set laststatus=2
 set scrolloff=10
 set expandtab
-
 "let loaded_matchparen = 1
 
 " Shell Setup
@@ -32,9 +33,6 @@ let &shellcmdflag = '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [
 let &shellredir = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
 let &shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
 set shellquote= shellxquote=
-
-
-
 set backupskip=/tmp/*,/private/tmp/*
 
 " incremental substitution (neovim)
@@ -75,6 +73,12 @@ set wildignore+=*/node_modules/*
 " Give more space for displaying messages.
 set cmdheight=2
 
+" Turn off paste mode when leaving insert
+autocmd InsertLeave * set nopaste
+
+" Add asterisks in block comments
+set formatoptions+=r
+" }}}
 " COC {{{
 " =======================================================================
 
@@ -159,10 +163,10 @@ augroup end
 command! -nargs=0 Format :call CocAction('format')
 
 " Add `:Fold` command to fold current buffer.
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+command! -nargs=? Fold :call CocAction('fold', <f-args>)
 
 " Add `:OR` command for organize imports of the current buffer.
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
 
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
@@ -186,23 +190,11 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
-" }}}
-
 
 " Navigate quickfix list with ease
 nnoremap <silent> [q :cprevious<CR>
 nnoremap <silent> ]q :cnext<CR>
-
-
-" Turn off paste mode when leaving insert
-autocmd InsertLeave * set nopaste
-
-" Add asterisks in block comments
-set formatoptions+=r
-
-"}}}
-
-
+" }}}
 " Imports "{{{
 " ---------------------------------------------------------------------
 runtime ./plug.vim
@@ -221,8 +213,6 @@ endif
 " runtime ./after/plugin/lspconfig.rc.vim
 runtime ./maps.vim
 "}}}
-
-
 " File types "{{{
 " ---------------------------------------------------------------------
 " JavaScript
@@ -244,8 +234,6 @@ autocmd FileType ruby setlocal shiftwidth=2 tabstop=2
 autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
 
 "}}}
-
-
 " Highlights "{{{
 " ---------------------------------------------------------------------
 set cursorline
@@ -267,11 +255,8 @@ if &term =~ "screen"
 endif
 
 "}}}
-
-
 " Syntax theme "{{{
 " ---------------------------------------------------------------------
-
 " true color
 if exists("&termguicolors") && exists("&winblend")
   syntax enable
@@ -281,21 +266,16 @@ if exists("&termguicolors") && exists("&winblend")
   set pumblend=0
   set background=dark
 
+  " Nerd Tree
+  let g:NERDTreeDirArrowExpandable = '+'
+  let g:NERDTreeDirArrowCollapsible = '^'
+
   " Sonokai
   " let g:sonokai_style = 'default' 
   let g:sonokai_menu_selection_background = 'red'
   let g:sonokai_transparent_background = 1
   let g:sonokai_better_performance = 1
-  let g:NERDTreeDirArrowExpandable = '+'
-  let g:NERDTreeDirArrowCollapsible = '^'
   runtime ./colors/Sonokai.vim
-  " Nerd Tree
-  " highlight! NERDTreeCWD guifg=#78796c
-  " highlight! NERDTreeDir guifg=#fc5d7c
-  " highlight! NERDTreeDirSlash guifg=#fc5d7c
-  " highlight! NERDTreeFlags guifg=#fc5d7c
-  " highlight! NERDTreeFile guifg=#78796c
-  
   " colorscheme sonokai
 
   " NEO_SOLARIZED 
@@ -333,15 +313,12 @@ if exists("&termguicolors") && exists("&winblend")
 endif
 
 "}}}
-
 " Debugging "{{{
 " ---------------------------------------------------------------------
   vim.lsp.set_log_level("debug")
 "}}}
-
 " Extras "{{{
 " ---------------------------------------------------------------------
 set exrc
 "}}}
-
 " vim: set foldmethod=marker foldlevel=1:
