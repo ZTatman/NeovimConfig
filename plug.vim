@@ -13,7 +13,6 @@ if has("nvim")
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} 
   " Netwr Enhancement
   Plug 'tpope/vim-vinegar'
-  Plug 'preservim/nerdtree'
   Plug 'kyazdani42/nvim-tree.lua'
   " Commenting code
   Plug 'tpope/vim-commentary'
