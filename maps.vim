@@ -25,5 +25,15 @@ map <leader>do <nowait> <Cmd>DiffviewOpen<CR>
 map <leader>dc <nowait> <Cmd>DiffviewClose<CR>
 map <leader>dr <nowait> <Cmd>DiffviewRefresh<CR>
 map <leader>dt <nowait> <Cmd>DiffviewToggleFiles<CR>
+
 " Exit Terminal Mode
 tnoremap <Esc> <C-\><C-n>
+
+" Increase window height by a factor of 1.5 and decrease the window size by 0.67
+" nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
+" nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
+
+" increase the window size by a factor of 1.5 and decrease the window size by 0.67
+nnoremap <silent> <Leader>+ :exe "resize " . (winwidth(0) * 3/2)<CR>
+nnoremap <silent> <Leader>- :exe "resize " . (winwidth(0) * 2/3)<CR>
+

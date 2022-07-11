@@ -1,7 +1,7 @@
 " General Settings {{{
 " =======================================================================
 " init autocmd
-autocmd!
+            autocmd!
 
 " set script encoding
 scriptencoding utf-8
@@ -28,11 +28,12 @@ set expandtab
 "let loaded_matchparen = 1
 
 " Shell Setup
-let &shell = has('win32') ? 'pwsh' : 'powershell'
-let &shellcmdflag = '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;'
-let &shellredir = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
-let &shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
-set shellquote= shellxquote=
+" let shell = has('mac') ? '/binzsh' : 'pwsh'
+set shell=zsh 
+" let &shellcmdflag = '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;'
+" let &shellredir = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
+" let &shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
+" set shellquote= shellxquote=
 set backupskip=/tmp/*,/private/tmp/*
 
 " incremental substitution (neovim)
@@ -267,16 +268,18 @@ if exists("&termguicolors") && exists("&winblend")
   set background=dark
 
   " Nerd Tree
-  let g:NERDTreeDirArrowExpandable = '+'
-  let g:NERDTreeDirArrowCollapsible = '^'
+  " let g:NERDTreeDirArrowExpandable = '+'
+  " let g:NERDTreeDirArrowCollapsible = '^'
 
   " Sonokai
-  " let g:sonokai_style = 'default' 
-  let g:sonokai_menu_selection_background = 'red'
-  let g:sonokai_transparent_background = 1
-  let g:sonokai_better_performance = 1
-  runtime ./colors/Sonokai.vim
-  " colorscheme sonokai
+  " let g:sonokai_menu_selection_background = 'red'
+  " let g:sonokai_transparent_background = 1
+  " let g:sonokai_better_performance = 1
+  " runtime ./colors/Sonokai.vim
+
+  " leave commented to use custom theme
+  " let g:sonokai_style = 'default'
+  " colorscheme sonokai 
 
   " NEO_SOLARIZED 
   " Use NeoSolarized 
@@ -284,14 +287,10 @@ if exists("&termguicolors") && exists("&winblend")
   " runtime ./colors/NeoSolarized.vim
 
   " ONE_DARK
-  " Change the "hint" color to the "orange0" color, and make the "error" color bright red
-  " let g:onedark_colors = {
-  "   \ 'hint': 'orange0',
-  "   \ 'error': '#ff0000'
-  " \ }
-  " let g:onedark_transparent = "true"
-  " let g:onedark_transparent_sidebar = "true" 
-  " colorscheme onedark
+  let g:onedark_config = {
+     \ 'style': 'cool',
+  \}
+  colorscheme onedark
   
   " ONE_HALF
   " set t_Co=256
@@ -315,7 +314,7 @@ endif
 "}}}
 " Debugging "{{{
 " ---------------------------------------------------------------------
-  vim.lsp.set_log_level("debug")
+  " vim.lsp.set_log_level("debug")
 "}}}
 " Extras "{{{
 " ---------------------------------------------------------------------

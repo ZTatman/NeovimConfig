@@ -1,0 +1,5 @@
+{
+   "eslint.autoFixOnSave": false,
+   "eslint.alwaysShowStatus": true,
+   "eslint.nodePath": "/opt/homebrew/bin/node" 
+}

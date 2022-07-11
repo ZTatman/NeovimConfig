@@ -14,13 +14,13 @@ if has("nvim")
   " Netwr Enhancement
   Plug 'tpope/vim-vinegar'
   Plug 'kyazdani42/nvim-tree.lua'
+  Plug 'kyazdani42/nvim-web-devicons'
   " Commenting code
   Plug 'tpope/vim-commentary'
-  " COC langauage support/completion
-  " Use release branch (recommend)
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   " Themes
-  Plug 'git@github.com:ful1e5/onedark.nvim.git'
+  " Plug 'git@github.com:ful1e5/onedark.nvim.git
+  Plug 'navarasu/onedark.nvim'
   Plug 'wadackel/vim-dogrun'
   Plug 'liuchengxu/space-vim-dark'
   Plug 'sonph/onehalf', { 'rtp': 'vim' }
@@ -41,6 +41,7 @@ if has("nvim")
   Plug 'ryanoasis/vim-devicons'
   " Lualine
   Plug 'hoob3rt/lualine.nvim'
+  Plug 'SmiteshP/nvim-gps'
   "braces and tag completion
   Plug 'windwp/nvim-autopairs'
   Plug 'windwp/nvim-ts-autotag'
