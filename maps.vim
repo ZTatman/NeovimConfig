@@ -1,6 +1,6 @@
 " Keymaps
 
-" Maps undo to CTRL+Z
+" Map undo \"u" to CTRL+Z
 nnoremap <C-z> u
 nnoremap <S-z> <C-R>
 inoremap <C-z> <C-O>u
@@ -14,7 +14,7 @@ inoremap <C-s> <C-O>:update<CR>
 
 " FZF fuzzy search
 nnoremap <silent> <C-_> :Files<CR>
-nnoremap <silent> <C-c> :Rg<CR>
+nnoremap <silent> <C-r> :Rg<CR>
 
 " Toggle Nvim Tree
 map <C-b> :NvimTreeToggle<CR>

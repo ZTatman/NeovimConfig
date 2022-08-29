@@ -1,5 +1,6 @@
 {
    "eslint.autoFixOnSave": false,
    "eslint.alwaysShowStatus": true,
-   "eslint.nodePath": "/opt/homebrew/bin/node" 
+  "eslint.nodePath": "/opt/homebrew/bin/node",
+  "coc.preferences.extensionUpdateCheck": "daily"
 }

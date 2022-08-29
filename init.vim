@@ -79,6 +79,14 @@ autocmd InsertLeave * set nopaste
 
 " Add asterisks in block comments
 set formatoptions+=r
+
+" Use persistent history.
+if !isdirectory("/tmp/.vim-undo-dir")
+    call mkdir("/tmp/.vim-undo-dir", "", 0700)
+endif
+set undodir=/tmp/.vim-undo-dir
+set undofile
+
 " }}}
 " COC {{{
 " =======================================================================
@@ -288,7 +296,7 @@ if exists("&termguicolors") && exists("&winblend")
 
   " ONE_DARK
   let g:onedark_config = {
-     \ 'style': 'cool',
+     \ 'style': 'dark',
   \}
   colorscheme onedark
   
