@@ -31,9 +31,13 @@ tnoremap <Esc> <C-\><C-n>
 
 " Increase window height by a factor of 1.5 and decrease the window size by 0.67
 " nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
-" nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
+" nnoremap <silent> <Leader>- :exe \"resize " . (winheight(0) * 2/3)<CR>
 
 " increase the window size by a factor of 1.5 and decrease the window size by 0.67
-nnoremap <silent> <Leader>+ :exe "resize " . (winwidth(0) * 3/2)<CR>
-nnoremap <silent> <Leader>- :exe "resize " . (winwidth(0) * 2/3)<CR>
+nnoremap <Leader>+ :exe "resize " . (winwidth(0) * 3/2)<CR>
+nnoremap <Leader>- :exe "resize " . (winwidth(0) * 2/3)<CR>
 
+" Fugitive Conflict Resolution
+nnoremap <leader>gd :Gvdiffsplit!<CR>
+nnoremap gdh :diffget //2<CR>
+nnoremap gdl :diffget //3<CR>
