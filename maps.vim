@@ -41,3 +41,6 @@ nnoremap <Leader>- :exe "resize " . (winwidth(0) * 2/3)<CR>
 nnoremap <leader>gd :Gvdiffsplit!<CR>
 nnoremap gdh :diffget //2<CR>
 nnoremap gdl :diffget //3<CR>
+
+"Substitute command
+nnoremap <leader>s :%s/
