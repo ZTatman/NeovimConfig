@@ -14,7 +14,7 @@ set number
 set mouse=a
 syntax enable
 set fileencodings=utf-8,sjis,euc-jp,latin
-set encoding=utf-8
+set encoding=utf8
 set title
 set autoindent
 set background=dark

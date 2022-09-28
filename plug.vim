@@ -17,6 +17,7 @@ if has("nvim")
   Plug 'kyazdani42/nvim-web-devicons'
   " Commenting code
   Plug 'tpope/vim-commentary'
+  " COC
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   " Themes
   " Plug 'git@github.com:ful1e5/onedark.nvim.git
@@ -27,8 +28,6 @@ if has("nvim")
   Plug 'sainnhe/sonokai'
   " Git signs
   Plug 'lewis6991/gitsigns.nvim'
-  " Diff view 
-  Plug 'sindrets/diffview.nvim'
   " Tmux pane navigation 
   Plug 'christoomey/vim-tmux-navigator'
   " ToggleTerm
@@ -54,6 +53,8 @@ if has("nvim")
   " File Search Across Project
   Plug 'junegunn/fzf.vim'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }  
+  " Window Resizing
+  Plug 'junegunn/goyo.vim'
 endif
 
 call plug#end()
