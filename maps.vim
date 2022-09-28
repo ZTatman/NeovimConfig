@@ -36,7 +36,10 @@ nnoremap <leader>s :%s/
 " Open $MYVIMRC
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 " Source $MYVIMRC
-:nnoremap <leader>sv :source $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
 " Source Current File
-:nnoremap <leader>so :source %<cr>
+nnoremap <leader>so :source %<cr>
 
+" Surround word with quotation marks
+nnoremap <leader>' viw<esc>a'<esc>bi'<esc>lel
+nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel

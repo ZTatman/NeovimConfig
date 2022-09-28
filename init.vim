@@ -87,6 +87,11 @@ endif
 set undodir=/tmp/.vim-undo-dir
 set undofile
 
+" Goyo Settings
+let g:goyo_linenr=1 " Enable line numbers
+let g:goyo_height= '90%'   
+let g:goyo_width = 120
+
 " }}}
 " COC {{{
 " =======================================================================
@@ -103,7 +108,6 @@ endif
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
-
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 inoremap <silent><expr> <C-x><C-z> coc#pum#visible() ? coc#pum#stop() : "\<C-x>\<C-z>"
 " remap for complete to use tab and <cr>
@@ -116,7 +120,6 @@ inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 " Make <CR> auto-select the first completion item and notify coc.nvim to
 " format on enter, <cr> could be remapped by other vim plugin
 " inoremap <silent><expr> <cr> coc#pum#visible() ? coc#_select_confirm() \: \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
@@ -228,24 +231,35 @@ runtime ./maps.vim
 " File types "{{{
 " ---------------------------------------------------------------------
 " JavaScript
-au BufNewFile,BufRead *.es6 setf javascript
-" TypeScript
-au BufNewFile,BufRead *.tsx setf typescriptreact
-" Markdown
-au BufNewFile,BufRead *.md set filetype=markdown
-au BufNewFile,BufRead *.mdx set filetype=markdown
-" Flow
-au BufNewFile,BufRead *.flow set filetype=javascript
-" Fish
-au BufNewFile,BufRead *.fish set filetype=fish
+function! Eatchar(pat)
+  let c = nr2char(getchar(0))
+  return (c =~ a:pat) ? '' : c
+endfunction
 
-set suffixesadd=.js,.es,.jsx,.json,.css,.less,.sass,.styl,.php,.py,.md
+augroup filetypes
+    autocmd!
+    au BufNewFile,BufRead *.es6 setf javascript
+    au FileType javascript,typescriptreact iabbrev <buffer> if if(z)<Esc>?z<CR>xi
+    au FileType javascript,typescriptreact iabbrev <buffer> log console.log(z);<Esc>?z<CR>xi
+    au FileType javascript,typescriptreact iabbrev <buffer> arrw (z)<Space>=><Space>{}<Esc>?z<CR>xi
+    " TypeScript
+    au BufNewFile,BufRead *.tsx setf typescriptreact
+    " Markdown
+    au BufNewFile,BufRead *.md set filetype=markdown
+    au BufNewFile,BufRead *.mdx set filetype=markdown
+    " Flow
+    au BufNewFile,BufRead *.flow set filetype=javascript
+    " Fish
+    au BufNewFile,BufRead *.fish set filetype=fish
 
-autocmd FileType coffee setlocal shiftwidth=2 tabstop=2
-autocmd FileType ruby setlocal shiftwidth=2 tabstop=2
-autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
+    set suffixesadd=.js,.es,.jsx,.json,.css,.less,.sass,.styl,.php,.py,.md
 
+    autocmd FileType coffee setlocal shiftwidth=2 tabstop=2
+    autocmd FileType ruby setlocal shiftwidth=2 tabstop=2
+    autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
+augroup END
 "}}}
+"
 " Highlights "{{{
 " ---------------------------------------------------------------------
 set cursorline
@@ -278,10 +292,6 @@ if exists("&termguicolors") && exists("&winblend")
   set pumblend=0
   set background=dark
 
-  " Nerd Tree
-  " let g:NERDTreeDirArrowExpandable = '+'
-  " let g:NERDTreeDirArrowCollapsible = '^'
-
   " Sonokai
   " let g:sonokai_menu_selection_background = 'red'
   " let g:sonokai_transparent_background = 1
@@ -302,26 +312,7 @@ if exists("&termguicolors") && exists("&winblend")
      \ 'style': 'dark',
   \}
   colorscheme onedark
-  
-  " ONE_HALF
-  " set t_Co=256
-  " colorscheme onehalfdark
-
-
-  " DOGRUN 
-  " let g:clap_theme = 'dogrun'
-  " colorscheme dogrun
-  
-  " SPACE_VIM_DARK
-  " let g:space_vim_dark_background = 235
-  " colorscheme space-vim-dark
-  " hi Comment cterm=italic
-  " hi Comment guifg=#5C6370 ctermfg=59
-  " hi Normal     ctermbg=NONE guibg=NONE
-  " hi LineNr     ctermbg=NONE guibg=NONE
-  " hi SignColumn ctermbg=NONE guibg=NONE
 endif
-
 "}}}
 " Debugging "{{{
 " ---------------------------------------------------------------------
