@@ -4,16 +4,21 @@ if not status_ok then
     end
 
 toggleterm.setup({
-	size = 20,
+	size = 15,
 	open_mapping = [[<c-\>]],
 	hide_numbers = true,
 	shade_filetypes = {},
-	shade_terminals = true,
-	shading_factor = 2,
+	shade_terminals = false,
+    highlights = {
+        Normal = {
+            guibg = "#1C1E25"
+        }
+    },
+	-- shading_factor = 2,
 	start_in_insert = true,
 	insert_mappings = true,
 	persist_size = true,
-	direction = "float",
+	direction = "horizontal",
 	close_on_exit = true,
 	shell = 'zsh',
 	float_opts = {
@@ -21,7 +26,7 @@ toggleterm.setup({
 		winblend = 0,
 		highlights = {
 			border = "Normal",
-			background = "Normal",
+            background = "Normal"
 		},
 	},
 })

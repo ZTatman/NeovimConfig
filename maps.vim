@@ -1,4 +1,4 @@
-" Map undo \"u" to CTRL+Z
+" Map undo \"u" to CTRL+Z, and redo to SHIFT+z
 nnoremap <C-z> u
 nnoremap <S-z> <C-R>
 inoremap <C-z> <C-O>u
@@ -43,3 +43,20 @@ nnoremap <leader>so :source %<cr>
 " Surround word with quotation marks
 nnoremap <leader>' viw<esc>a'<esc>bi'<esc>lel
 nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
+
+" Toggle Goyo
+nnoremap go :Goyo<cr>
+
+" Show the highlight groups being used for word under cursor
+" https://jordanelver.co.uk/blog/2015/05/27/working-with-vim-colorschemes/
+nnoremap <leader>sp :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
+
+" List all highlight groups currently active
+"
+nnoremap <leader>hi :so $VIMRUNTIME/syntax/hitest.vim<cr>
