@@ -18,13 +18,16 @@ toggleterm.setup({
 	start_in_insert = true,
 	insert_mappings = true,
 	persist_size = true,
-	direction = "horizontal",
+	direction = "float",
 	close_on_exit = true,
 	shell = 'zsh',
 	float_opts = {
 		border = "curved",
 		winblend = 0,
 		highlights = {
+            Normal = {
+                guibg = "#1C1E25"
+            },
 			border = "Normal",
             background = "Normal"
 		},

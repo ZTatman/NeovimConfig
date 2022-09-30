@@ -1,8 +1,8 @@
-" Map undo \"u" to CTRL+Z, and redo to SHIFT+z
+:" Map undo \"u" to CTRL+Z, and redo to SHIFT+z
 nnoremap <C-z> u
-nnoremap <S-z> <C-R>
+nnoremap zx <C-R>
 inoremap <C-z> <C-O>u
-inoremap <S-z> <C-O><C-R>
+inoremap zx <C-O><C-R>
 
 " Exit insert mode
 inoremap <C-Space> <Esc>
@@ -45,8 +45,8 @@ nnoremap <leader>' viw<esc>a'<esc>bi'<esc>lel
 nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
 
 " Toggle Goyo
-nnoremap go :Goyo<cr>
-
+" nnoremap go :Goyo<cr>
+nnoremap <leader>z :ZenMode<cr> 
 " Show the highlight groups being used for word under cursor
 " https://jordanelver.co.uk/blog/2015/05/27/working-with-vim-colorschemes/
 nnoremap <leader>sp :call <SID>SynStack()<CR>
@@ -58,5 +58,4 @@ function! <SID>SynStack()
 endfunc
 
 " List all highlight groups currently active
-"
 nnoremap <leader>hi :so $VIMRUNTIME/syntax/hitest.vim<cr>

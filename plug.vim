@@ -53,8 +53,9 @@ if has("nvim")
   " File Search Across Project
   Plug 'junegunn/fzf.vim'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }  
-  " Window Resizing
-  Plug 'junegunn/goyo.vim'
+  " Distraction free coding (zen mode)
+  Plug 'folke/zen-mode.nvim'
+  " Plug 'junegunn/goyo.vim'
 endif
 
 call plug#end()
