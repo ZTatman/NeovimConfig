@@ -9,12 +9,20 @@ toggleterm.setup({
 	hide_numbers = true,
 	shade_filetypes = {},
 	shade_terminals = false,
+    -- shading_factor = 1,
     highlights = {
         Normal = {
             guibg = "#1C1E25"
+        },
+        NormalFloat = {
+           guibg = "#1C1E25",
+        },
+        FloatBorder = {
+            guifg = "#1C1E25",
+            guibg = "#1C1E25"
         }
     },
-	-- shading_factor = 2,
+    autoScroll = true,
 	start_in_insert = true,
 	insert_mappings = true,
 	persist_size = true,
@@ -24,13 +32,8 @@ toggleterm.setup({
 	float_opts = {
 		border = "curved",
 		winblend = 0,
-		highlights = {
-            Normal = {
-                guibg = "#1C1E25"
-            },
-			border = "Normal",
-            background = "Normal"
-		},
+        width = 120,
+        height = 20
 	},
 })
 
