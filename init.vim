@@ -90,7 +90,7 @@ set undofile
 " Goyo Settings
 let g:goyo_linenr=1 " Enable line numbers
 let g:goyo_height= '100%'   
-let g:goyo_width = '50%'
+let g:goyo_width = 120
 
 " }}}
 " COC {{{
@@ -320,6 +320,13 @@ endif
 "}}}
 " Extras "{{{
 " ---------------------------------------------------------------------
+"-- FOLDING --  
+set foldmethod=syntax "syntax highlighting items specify folds  
+set foldcolumn=1 "defines 1 col at window left, to indicate folding  
+let javaScript_fold=1 "activate folding by JS syntax  
+set foldlevelstart=99 "start file with all folds opened
+set foldnestmax=2
+
 set exrc
 "}}}
 " vim: set foldmethod=marker foldlevel=1:
