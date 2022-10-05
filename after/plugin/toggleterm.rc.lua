@@ -28,11 +28,12 @@ toggleterm.setup({
 	persist_size = true,
 	direction = "float",
 	close_on_exit = true,
-	shell = 'zsh',
+	shell = vim.o.shell,
 	float_opts = {
 		border = "curved",
 		winblend = 0,
-        width = 120,
+        width = function()
+      math.floor(vim.api.nvim_win_get_width(0) * 0.5) end,
         height = 20
 	},
 })

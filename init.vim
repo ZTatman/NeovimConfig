@@ -87,15 +87,9 @@ endif
 set undodir=/tmp/.vim-undo-dir
 set undofile
 
-" Goyo Settings
-let g:goyo_linenr=1 " Enable line numbers
-let g:goyo_height= '100%'   
-let g:goyo_width = 120
-
 " }}}
 " COC {{{
 " =======================================================================
-
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
 if has("nvim-0.5.0") || has("patch-8.1.1564")
@@ -110,6 +104,7 @@ endif
 " other plugin before putting this into your config.
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 inoremap <silent><expr> <C-x><C-z> coc#pum#visible() ? coc#pum#stop() : "\<C-x>\<C-z>"
+
 " remap for complete to use tab and <cr>
 inoremap <silent><expr> <TAB>
     \ coc#pum#visible() ? coc#pum#next(1):
@@ -161,7 +156,6 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
-
 " Formatting selected code.
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
@@ -231,16 +225,11 @@ runtime ./maps.vim
 " File types "{{{
 " ---------------------------------------------------------------------
 " JavaScript
-function! Eatchar(pat)
-  let c = nr2char(getchar(0))
-  return (c =~ a:pat) ? '' : c
-endfunction
-
 augroup filetypes
     autocmd!
     au BufNewFile,BufRead *.es6 setf javascript
     au FileType javascript,typescriptreact iabbrev <buffer> if if(z)<Esc>?z<CR>xi
-    au FileType javascript,typescriptreact iabbrev <buffer> log console.log(z);<Esc>?z<CR>xi
+    au FileType javascript,typescriptreact iabbrev <buffer> consl console.log(z);<Esc>?z<CR>xi
     au FileType javascript,typescriptreact iabbrev <buffer> arrw (z)<Space>=><Space>{}<Esc>?z<CR>xi
     " TypeScript
     au BufNewFile,BufRead *.tsx setf typescriptreact
@@ -266,8 +255,12 @@ set cursorline
 "set cursorcolumn
 
 " Set cursor line color on visual mode
-highlight Visual cterm=NONE ctermbg=236 ctermfg=NONE guibg=Grey40
-highlight LineNr cterm=none ctermfg=240 guifg=#2b506e guibg=#000000
+hi Visual cterm=NONE ctermbg=236 ctermfg=NONE guibg=Grey40
+hi LineNr cterm=NONE ctermfg=240 guifg=#2b506e guibg=#000000
+augroup CursorLineNr
+    autocmd!
+    au ColorScheme * hi CursorLineNr guifg=#DCA42E
+augroup END
 
 augroup BgHighlight
   autocmd!
@@ -292,24 +285,9 @@ if exists("&termguicolors") && exists("&winblend")
   set pumblend=0
   set background=dark
 
-  " Sonokai
-  " let g:sonokai_menu_selection_background = 'red'
-  " let g:sonokai_transparent_background = 1
-  " let g:sonokai_better_performance = 1
-  " runtime ./colors/Sonokai.vim
-
-  " leave commented to use custom theme
-  " let g:sonokai_style = 'default'
-  " colorscheme sonokai 
-
-  " NEO_SOLARIZED 
-  " Use NeoSolarized 
-  " let g:neosolarized_termtrans=1
-  " runtime ./colors/NeoSolarized.vim
-
   " ONE_DARK
   let g:onedark_config = {
-     \ 'style': 'dark',
+     \ 'style': 'warm',
   \}
   colorscheme onedark
 endif

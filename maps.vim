@@ -44,9 +44,13 @@ nnoremap <leader>so :source %<cr>
 nnoremap <leader>' viw<esc>a'<esc>bi'<esc>lel
 nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
 
-" Toggle Goyo
-" nnoremap go :Goyo<cr>
-nnoremap <leader>z :ZenMode<cr> 
+" Toggle zen-mode
+nnoremap <leader>z :ZenMode<cr>
+
+" Navigate up/down to first non blank character of line
+nmap <S-Up> <Up>^
+nmap <S-Down> <Down>^
+
 " Show the highlight groups being used for word under cursor
 " https://jordanelver.co.uk/blog/2015/05/27/working-with-vim-colorschemes/
 nnoremap <leader>sp :call <SID>SynStack()<CR>
