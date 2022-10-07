@@ -48,8 +48,16 @@ nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
 nnoremap <leader>z :ZenMode<cr>
 
 " Navigate up/down to first non blank character of line
-nmap <S-Up> <Up>^
-nmap <S-Down> <Down>^
+nmap <S-k> <Up>^
+nmap <S-j> <Down>^
+
+" Move lines up or down
+nnoremap <Space>k :m .-2<CR>==
+nnoremap <Space>j :m .+1<CR>==
+" inoremap <Space>j <Esc>:m .+1<CR>==gi
+" inoremap <Space>k <Esc>:m .-2<CR>==gi
+vnoremap <Space>j :m '>+1<CR>gv=gv
+vnoremap <Space>k :m '<-2<CR>gv=gv
 
 " Show the highlight groups being used for word under cursor
 " https://jordanelver.co.uk/blog/2015/05/27/working-with-vim-colorschemes/
