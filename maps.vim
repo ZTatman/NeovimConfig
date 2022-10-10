@@ -48,8 +48,8 @@ nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
 nnoremap <leader>z :ZenMode<cr>
 
 " Navigate up/down to first non blank character of line
-nmap <S-k> <Up>^
-nmap <S-j> <Down>^
+nmap <S-Up> <Up>^
+nmap <S-Down> <Down>^
 
 " Move lines up or down
 nnoremap <Space>k :m .-2<CR>==

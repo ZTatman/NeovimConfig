@@ -32,9 +32,8 @@ toggleterm.setup({
 	float_opts = {
 		border = "curved",
 		winblend = 0,
-        width = function()
-      math.floor(vim.api.nvim_win_get_width(0) * 0.5) end,
-        height = 20
+        width = 120,
+        height = 30
 	},
 })
 

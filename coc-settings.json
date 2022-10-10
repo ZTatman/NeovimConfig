@@ -1,6 +1,8 @@
 {
-   "eslint.autoFixOnSave": false,
-   "eslint.alwaysShowStatus": true,
-  "eslint.nodePath": "/opt/homebrew/bin/node",
-  "coc.preferences.extensionUpdateCheck": "daily"
+"codeLens.enable": true,
+"java.referencesCodeLens.enabled": true,
+"eslint.autoFixOnSave": false,
+"eslint.alwaysShowStatus": true,
+"eslint.nodePath": "/opt/homebrew/bin/node",
+"coc.preferences.extensionUpdateCheck": "daily"
 }
