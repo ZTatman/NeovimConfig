@@ -25,6 +25,8 @@ set cmdheight=1
 set laststatus=2
 set scrolloff=10
 set expandtab
+
+
 "let loaded_matchparen = 1
 
 " Shell Setup
@@ -91,7 +93,7 @@ set undofile
 " COC {{{
 " =======================================================================
 " Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
+"diagnostics appear/become resolved.
 if has("nvim-0.5.0") || has("patch-8.1.1564")
   " Recently vim can merge signcolumn and number column into one
   set signcolumn=number
@@ -120,11 +122,21 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" Use <c-space> to trigger completion.
+" Use <c-c> to trigger completion.
 if has('nvim')
   inoremap <silent><expr> <c-c> coc#refresh()
 else
   inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Install coc-prettier or coc-eslint based on which one is found in
+" node_modules
+if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
+  let g:coc_global_extensions += ['coc-prettier']
+endif
+
+if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
+  let g:coc_global_extensions += ['coc-eslint']
 endif
 
 " Use `[g` and `]g` to navigate diagnostics
@@ -151,11 +163,25 @@ function! s:show_documentation()
   endif
 endfunction
 
+function! ShowDocIfNoDiagnostic(timer_id)
+  if (coc#float#has_float() == 0 && CocHasProvider('hover') == 1)
+    silent call CocActionAsync('doHover')
+  endif
+endfunction
+
+function! s:show_hover_doc()
+  call timer_start(500, 'ShowDocIfNoDiagnostic')
+endfunction
+
+autocmd CursorHoldI * :call <SID>show_hover_doc()
+autocmd CursorHold * :call <SID>show_hover_doc()
+
 " Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
+" autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
+
 " Formatting selected code.
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
@@ -204,6 +230,7 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 nnoremap <silent> [q :cprevious<CR>
 nnoremap <silent> ]q :cnext<CR>
 " }}}
+
 " Imports "{{{
 " ---------------------------------------------------------------------
 runtime ./plug.vim
@@ -225,8 +252,13 @@ runtime ./maps.vim
 " File types "{{{
 " ---------------------------------------------------------------------
 " JavaScript
+let g:javascript_plugin_jsdoc = 1
 augroup filetypes
     autocmd!
+    
+    au BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
+    au BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
+
     au BufNewFile,BufRead *.es6 setf javascript
     au FileType javascript,typescriptreact iabbrev <buffer> if if(z)<Esc>?z<CR>xi
     au FileType javascript,typescriptreact iabbrev <buffer> consl console.log(z);<Esc>?z<CR>xi

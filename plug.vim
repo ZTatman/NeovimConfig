@@ -11,13 +11,14 @@ Plug 'tpope/vim-rhubarb'
 if has("nvim")
   " Improved syntax highlighting
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} 
- 
+  Plug 'pangloss/vim-javascript'
+
   Plug 'tpope/vim-vinegar'      " Enhancement to netrw (file explorer)
   Plug 'tpope/vim-commentary'   " Code commenter
   Plug 'tpope/vim-surround'     " braces and tag add/delete
  
-  Plug 'kyazdani42/nvim-tree.lua'
-  Plug 'kyazdani42/nvim-web-devicons'
+  Plug 'kyazdani42/nvim-tree.lua' " File tree
+  Plug 'kyazdani42/nvim-web-devicons' " File tree icons
  
   " COC
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -66,6 +67,7 @@ if has("nvim")
   Plug 'folke/zen-mode.nvim'    " Distraction free coding (zen mode)
   Plug 'folke/twilight.nvim'    " Dim inactive portions of code
 
+  " Indentation guide
   Plug 'lukas-reineke/indent-blankline.nvim'
 endif
 

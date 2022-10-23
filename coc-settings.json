@@ -1,8 +1,19 @@
 {
-"codeLens.enable": true,
-"java.referencesCodeLens.enabled": true,
-"eslint.autoFixOnSave": false,
-"eslint.alwaysShowStatus": true,
-"eslint.nodePath": "/opt/homebrew/bin/node",
-"coc.preferences.extensionUpdateCheck": "daily"
+    "coc.preferences.extensionUpdateCheck": "daily",
+    "coc.preferences.formatOnSaveFiletypes": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "json",
+        "css",
+        "markdown"
+    ],
+    "coc.preferences.formatOnType": true,
+    "codeLens.enable": true,
+    "eslint.nodePath": "/opt/homebrew/bin/node",
+    "eslint.autoFixOnSave": true,
+    "eslint.filetypes": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+    "java.referencesCodeLens.enabled": true,
+    "prettier.disableSuccessMessage": true
 }
