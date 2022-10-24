@@ -131,13 +131,13 @@ endif
 
 " Install coc-prettier or coc-eslint based on which one is found in
 " node_modules
-if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
-  let g:coc_global_extensions += ['coc-prettier']
-endif
+" if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
+"   let g:coc_global_extensions = ['coc-prettier']
+" endif
 
-if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
-  let g:coc_global_extensions += ['coc-eslint']
-endif
+" if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
+"   let g:coc_global_extensions = ['coc-eslint']
+" endif
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
@@ -178,6 +178,9 @@ autocmd CursorHold * :call <SID>show_hover_doc()
 
 " Highlight the symbol and its references when holding the cursor.
 " autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" List of code action fixes for diagnostic
+nmap <leader>do <Plug>(coc-codeaction)
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
@@ -230,7 +233,6 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 nnoremap <silent> [q :cprevious<CR>
 nnoremap <silent> ]q :cnext<CR>
 " }}}
-
 " Imports "{{{
 " ---------------------------------------------------------------------
 runtime ./plug.vim
@@ -255,7 +257,6 @@ runtime ./maps.vim
 let g:javascript_plugin_jsdoc = 1
 augroup filetypes
     autocmd!
-    
     au BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
     au BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
 
@@ -280,7 +281,14 @@ augroup filetypes
     autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
 augroup END
 "}}}
-"
+" Emmet "{{{
+" ---------------------------------------------------------------------
+    " Enable just for react, typescriptreact, html, css
+    let g:user_emmet_install_global = 0
+    autocmd FileType html,css,javascript,*.tsx,*.jsx EmmetInstall
+    " Map leader key to ",,"
+    let g:user_emmet_leader_key=',' 
+"}}}
 " Highlights "{{{
 " ---------------------------------------------------------------------
 set cursorline

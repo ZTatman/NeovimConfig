@@ -9,7 +9,6 @@
         "css",
         "markdown"
     ],
-    "coc.preferences.formatOnType": true,
     "codeLens.enable": true,
     "eslint.nodePath": "/opt/homebrew/bin/node",
     "eslint.autoFixOnSave": true,

@@ -11,7 +11,7 @@ Plug 'tpope/vim-rhubarb'
 if has("nvim")
   " Improved syntax highlighting
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} 
-  Plug 'pangloss/vim-javascript'
+  " Plug 'pangloss/vim-javascript'
 
   Plug 'tpope/vim-vinegar'      " Enhancement to netrw (file explorer)
   Plug 'tpope/vim-commentary'   " Code commenter
@@ -69,6 +69,9 @@ if has("nvim")
 
   " Indentation guide
   Plug 'lukas-reineke/indent-blankline.nvim'
+
+  " Emmet abbreviations
+  Plug 'mattn/emmet-vim'
 endif
 
 call plug#end()
