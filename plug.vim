@@ -55,7 +55,7 @@ if has("nvim")
   "braces and tag completion
   Plug 'windwp/nvim-autopairs'
   Plug 'windwp/nvim-ts-autotag'
-  
+
   " Clear highlight after search
   Plug 'jesseleite/vim-noh'
   

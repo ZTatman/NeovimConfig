@@ -263,7 +263,9 @@ augroup filetypes
     au BufNewFile,BufRead *.es6 setf javascript
     au FileType javascript,typescriptreact iabbrev <buffer> if if(z)<Esc>?z<CR>xi
     au FileType javascript,typescriptreact iabbrev <buffer> consl console.log(z);<Esc>?z<CR>xi
-    au FileType javascript,typescriptreact iabbrev <buffer> arrw (z)<Space>=><Space>{}<Esc>?z<CR>xi
+    au FileType javascript,typescriptreact iabbrev <buffer> conse console.error(z);<Esc>?z<CR>xi
+    au FileType javascript,typescriptreact iabbrev <buffer> constb console.table(z);<Esc>?z<CR>xi
+    au FileType javascript,typescriptreact iabbrev <buffer> arrw ()<Space>=><Space>{z}<Esc>?z<CR>xi
     " TypeScript
     au BufNewFile,BufRead *.tsx setf typescriptreact
     " Markdown
