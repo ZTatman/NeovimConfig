@@ -31,7 +31,7 @@ set expandtab
 
 " Shell Setup
 " let shell = has('mac') ? '/binzsh' : 'pwsh'
-set shell=zsh 
+set shell=zsh
 " let &shellcmdflag = '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;'
 " let &shellredir = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
 " let &shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
@@ -304,6 +304,13 @@ augroup CursorLineNr
     au ColorScheme * hi CursorLineNr guifg=#DCA42E
 augroup END
 
+augroup NvimTree
+    autocmd!
+    au ColorScheme * hi NvimTreeFolderName guifg=#bb9af7
+    au ColorScheme * hi NvimTreeOpenedFolderName guifg=#f7768e
+    au ColorScheme * hi NvimTreeOpenedFile guifg=#7dcfff
+augroup END
+
 augroup BgHighlight
   autocmd!
   autocmd WinEnter * set cul
@@ -328,11 +335,19 @@ if exists("&termguicolors") && exists("&winblend")
   set background=dark
 
   " ONE_DARK
-  let g:onedark_config = {
-     \ 'style': 'warm',
-  \}
+  " let g:onedark_config = {
+  "    \ 'style': 'warm',
+  " \}
   colorscheme onedark
+
+" lua << EOF
+"     local everblush = require('everblush')
+
+"     everblush.setup({contrast = true})
+" EOF
 endif
+
+
 "}}}
 " Debugging "{{{
 " ---------------------------------------------------------------------

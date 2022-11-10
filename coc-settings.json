@@ -1,18 +1,22 @@
 {
     "coc.preferences.extensionUpdateCheck": "daily",
     "coc.preferences.formatOnSaveFiletypes": [
-        "javascript",
-        "javascriptreact",
-        "typescript",
-        "typescriptreact",
         "json",
         "css",
         "markdown"
     ],
     "codeLens.enable": true,
     "eslint.nodePath": "/opt/homebrew/bin/node",
-    "eslint.autoFixOnSave": true,
-    "eslint.filetypes": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+    "eslint.run": "onType",
+    "eslint.filetypes": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact"
+    ],
+    "java.home": "/Library/Java/JavaVirtualMachines/jdk-11.0.15.jdk/Contents/Home",
+    "java.format.onType.enabled": true,
+    "java.format.settings.url": "~/Tools/charter-gateway-eclipse-formatter.xml",
     "java.referencesCodeLens.enabled": true,
     "prettier.disableSuccessMessage": true
 }

@@ -26,8 +26,7 @@ if has("nvim")
   " Themes
   " Plug 'git@github.com:ful1e5/onedark.nvim.git
   Plug 'navarasu/onedark.nvim'
-  Plug 'wadackel/vim-dogrun'
-  Plug 'liuchengxu/space-vim-dark'
+  Plug 'Everblush/everblush.nvim', { 'as': 'everblush' }
   Plug 'sonph/onehalf', { 'rtp': 'vim' }
   Plug 'sainnhe/sonokai'
 
@@ -65,7 +64,6 @@ if has("nvim")
 
   Plug 'folke/which-key.nvim'   " Key map reminder
   Plug 'folke/zen-mode.nvim'    " Distraction free coding (zen mode)
-  Plug 'folke/twilight.nvim'    " Dim inactive portions of code
 
   " Indentation guide
   Plug 'lukas-reineke/indent-blankline.nvim'
