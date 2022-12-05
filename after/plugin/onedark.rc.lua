@@ -2,7 +2,7 @@ local onedark_status, onedark = pcall(require, "onedark")
 if (not onedark) then return end
 
 
-onedark.setup  {
+require('onedark').setup {
     -- Main options --
     style = 'warm', -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
     transparent = false,  -- Show/hide background
@@ -33,8 +33,11 @@ onedark.setup  {
     -- Custom Highlights --
     colors = {
         -- yellow = "#f7768e"
+        comment = "#939395"
     }, -- Override default colors
-    highlights = {}, -- Override highlight groups
+    highlights = {
+        ["@comment"] = {fg = '$comment', fmt = 'bold'},
+    }, -- Override highlight groups
 
     -- Plugins Config --
     diagnostics = {

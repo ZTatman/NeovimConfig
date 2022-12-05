@@ -11,8 +11,8 @@ if !1 | finish | endif
 
 set nocompatible
 set number
-set mouse=a
 syntax enable
+set mouse=a
 set fileencodings=utf-8,sjis,euc-jp,latin
 set encoding=utf8
 set title
@@ -92,6 +92,8 @@ set undofile
 " }}}
 " COC {{{
 " =======================================================================
+set updatetime=300
+
 " Always show the signcolumn, otherwise it would shift the text each time
 "diagnostics appear/become resolved.
 if has("nvim-0.5.0") || has("patch-8.1.1564")
@@ -101,28 +103,25 @@ else
   set signcolumn=yes
 endif
 
-" Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" make <cr> select the first completion item and confirm the completion when no item has been selected
+inoremap <silent><expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
 inoremap <silent><expr> <C-x><C-z> coc#pum#visible() ? coc#pum#stop() : "\<C-x>\<C-z>"
 
-" remap for complete to use tab and <cr>
-inoremap <silent><expr> <TAB>
-    \ coc#pum#visible() ? coc#pum#next(1):
-    \ <SID>check_back_space() ? "\<Tab>" :
-    \ coc#refresh()
-inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
-
-" Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
-" inoremap <silent><expr> <cr> coc#pum#visible() ? coc#_select_confirm() \: \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" Use <c-c> to trigger completion.
+" Use <Tab> for trigger completion and navigate to the next complete item
+inoremap <silent><expr> <Tab>
+    \ coc#pum#visible() ? coc#pum#next(1):
+    \ <SID>check_back_space() ? "\<Tab>" :
+    \ coc#refresh()
+" Use <S-tab> to navigate backwards
+inoremap <expr><S-Tab> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+" Use <c-c> to open completion floating window.
 if has('nvim')
   inoremap <silent><expr> <c-c> coc#refresh()
 else
@@ -131,16 +130,15 @@ endif
 
 " Install coc-prettier or coc-eslint based on which one is found in
 " node_modules
-" if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
-"   let g:coc_global_extensions = ['coc-prettier']
-" endif
+if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
+  let g:coc_global_extensions = ['coc-prettier']
+endif
 
-" if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
-"   let g:coc_global_extensions = ['coc-eslint']
-" endif
+if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
+  let g:coc_global_extensions = ['coc-eslint']
+endif
 
 " Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
@@ -163,21 +161,31 @@ function! s:show_documentation()
   endif
 endfunction
 
-function! ShowDocIfNoDiagnostic(timer_id)
-  if (coc#float#has_float() == 0 && CocHasProvider('hover') == 1)
-    silent call CocActionAsync('doHover')
-  endif
-endfunction
+" function! ShowDocIfNoDiagnostic(timer_id)
+"   if (coc#float#has_float() == 0 && CocHasProvider('hover') == 1)
+"     silent call CocActionAsync('doHover')
+"   endif
+" endfunction
 
-function! s:show_hover_doc()
-  call timer_start(500, 'ShowDocIfNoDiagnostic')
-endfunction
+" function! s:show_hover_doc()
+"   call timer_start(500, 'ShowDocIfNoDiagnostic')
+" endfunction
 
-autocmd CursorHoldI * :call <SID>show_hover_doc()
-autocmd CursorHold * :call <SID>show_hover_doc()
+" autocmd CursorHoldI * :call <SID>show_hover_doc()
+" autocmd CursorHold * :call <SID>show_hover_doc()
 
 " Highlight the symbol and its references when holding the cursor.
 " autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap keys for apply code actions at the cursor position.
+nmap <leader>ac  <Plug>(coc-codeaction-cursor)
+" Remap keys for apply code actions affect whole buffer.
+nmap <leader>as  <Plug>(coc-codeaction-source)
+" Apply the most preferred quickfix action to fix diagnostic on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Run the Code Lens action on the current line.
+nmap <leader>cl  <Plug>(coc-codelens-action)
 
 " List of code action fixes for diagnostic
 nmap <leader>do <Plug>(coc-codeaction)
@@ -185,9 +193,14 @@ nmap <leader>do <Plug>(coc-codeaction)
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
 
+" Remap keys for apply refactor code actions.
+nmap <silent> <leader>re <Plug>(coc-codeaction-refactor)
+xmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
+nmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
+
 " Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+xmap <leader>f <Plug>(coc-format-selected)
+nmap <leader>f <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
@@ -211,7 +224,6 @@ command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport
 " provide custom statusline: lightline.vim, vim-airline.
 " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
-" Mappings for CoCList
 " Show all diagnostics.
 nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
 " Manage extensions.
@@ -228,6 +240,8 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+" Show CocList Marketplace extensions
+nnoremap <silent><nowait> <space>m :<C-u>CocList marketplace<CR>
 
 " Navigate quickfix list with ease
 nnoremap <silent> [q :cprevious<CR>
@@ -257,15 +271,24 @@ runtime ./maps.vim
 let g:javascript_plugin_jsdoc = 1
 augroup filetypes
     autocmd!
-    au BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
-    au BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
+    au BufEnter,BufRead *.{js,jsx,ts,tsx} :syntax sync fromstart
+    au BufLeave,BufRead *.{js,jsx,ts,tsx} :syntax sync clear
+    " au BufNewFile,BufRead,BufEnter *.js,*.jsx set syntax=javascript
+    " au BufNewFile,BufRead,BufEnter *.ts,*.tsx set syntax=typescript
 
-    au BufNewFile,BufRead *.es6 setf javascript
-    au FileType javascript,typescriptreact iabbrev <buffer> if if(z)<Esc>?z<CR>xi
-    au FileType javascript,typescriptreact iabbrev <buffer> consl console.log(z);<Esc>?z<CR>xi
-    au FileType javascript,typescriptreact iabbrev <buffer> conse console.error(z);<Esc>?z<CR>xi
-    au FileType javascript,typescriptreact iabbrev <buffer> constb console.table(z);<Esc>?z<CR>xi
-    au FileType javascript,typescriptreact iabbrev <buffer> arrw ()<Space>=><Space>{z}<Esc>?z<CR>xi
+    " Abbreviations for js development
+    au FileType javascript,javascriptreact,typescriptreact iabbrev <buffer> if if(z)<Esc>?z<CR>xi
+    au FileType javascript,javascriptreact,typescriptreact iabbrev <buffer> consl console.log(z);<Esc>?z<CR>xi
+    au FileType javascript,javascriptreact,typescriptreact iabbrev <buffer> conse console.error(z);<Esc>?z<CR>xi
+    au FileType javascript,javascriptreact,typescriptreact iabbrev <buffer> constb console.table(z);<Esc>?z<CR>xi
+    au FileType javascript,javascriptreact,typescriptreact iabbrev <buffer> ** /**z */<Esc>?z<CR>xi
+    au FileType javascript,javascriptreact,typescriptreact iabbrev <buffer> arrw ()<Space>=><Space>{z}<Esc>?z<CR>xi
+
+
+    " JavasScript
+    au BufNewFile,BufRead *es6,*.js,*.mjs setf javascript
+    " Javascript React
+    au BufNewFile,BufRead *.js setf javascript
     " TypeScript
     au BufNewFile,BufRead *.tsx setf typescriptreact
     " Markdown
@@ -278,18 +301,19 @@ augroup filetypes
 
     set suffixesadd=.js,.es,.jsx,.json,.css,.less,.sass,.styl,.php,.py,.md
 
-    autocmd FileType coffee setlocal shiftwidth=2 tabstop=2
-    autocmd FileType ruby setlocal shiftwidth=2 tabstop=2
-    autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
+    au FileType coffee setlocal shiftwidth=2 tabstop=2
+    au FileType ruby setlocal shiftwidth=2 tabstop=2
+    au FileType yaml setlocal shiftwidth=2 tabstop=2
 augroup END
 "}}}
+
 " Emmet "{{{
 " ---------------------------------------------------------------------
     " Enable just for react, typescriptreact, html, css
     let g:user_emmet_install_global = 0
-    autocmd FileType html,css,javascript,*.tsx,*.jsx EmmetInstall
+    autocmd FileType html,css,javascript,javascriptreact,*.tsx,*.jsx EmmetInstall
     " Map leader key to ",,"
-    let g:user_emmet_leader_key=',' 
+    let g:user_emmet_leader_key=','
 "}}}
 " Highlights "{{{
 " ---------------------------------------------------------------------
@@ -299,68 +323,50 @@ set cursorline
 " Set cursor line color on visual mode
 hi Visual cterm=NONE ctermbg=236 ctermfg=NONE guibg=Grey40
 hi LineNr cterm=NONE ctermfg=240 guifg=#2b506e guibg=#000000
-augroup CursorLineNr
-    autocmd!
-    au ColorScheme * hi CursorLineNr guifg=#DCA42E
-augroup END
-
-augroup NvimTree
-    autocmd!
-    au ColorScheme * hi NvimTreeFolderName guifg=#bb9af7
-    au ColorScheme * hi NvimTreeOpenedFolderName guifg=#f7768e
-    au ColorScheme * hi NvimTreeOpenedFile guifg=#7dcfff
-augroup END
 
 augroup BgHighlight
   autocmd!
-  autocmd WinEnter * set cul
-  autocmd WinLeave * set nocul
+  au WinEnter * set cul
+  au WinLeave * set nocul
 augroup END
 
 if &term =~ "screen"
   autocmd BufEnter * if bufname("") !~ "^?[A-Za-z0-9?]*://" | silent! exe '!echo -n "\ek[`hostname`:`basename $PWD`/`basename %`]\e\\"' | endif
   autocmd VimLeave * silent!  exe '!echo -n "\ek[`hostname`:`basename $PWD`]\e\\"'
 endif
-
 "}}}
+
 " Syntax theme "{{{
 " ---------------------------------------------------------------------
 " true color
 if exists("&termguicolors") && exists("&winblend")
   syntax enable
   set termguicolors
-  set winblend=0
+  set winblend=10
   set wildoptions=pum
-  set pumblend=0
+  set pumblend=25
   set background=dark
+  augroup scheme
+        autocmd!
+        au colorScheme * hi CursorLineNr guifg=#DCA42E
+        au colorScheme * hi NvimTreeFolderName guifg=#7dcfff
+        au colorScheme * hi NvimTreeOpenedFolderName guifg=#bb9af7
+        au colorScheme * hi CocFloating guibg=#191b20 guifg=white
+        au colorScheme * hi Pmenu guibg=gray guifg=white
+        " au colorScheme * hi PmenuSel guibg=#22252c guif
+  augroup END
 
-  " ONE_DARK
-  " let g:onedark_config = {
-  "    \ 'style': 'warm',
-  " \}
   colorscheme onedark
-
-" lua << EOF
-"     local everblush = require('everblush')
-
-"     everblush.setup({contrast = true})
-" EOF
 endif
-
 
 "}}}
 " Debugging "{{{
 " ---------------------------------------------------------------------
   " vim.lsp.set_log_level("debug")
 "}}}
+
 " Extras "{{{
 " ---------------------------------------------------------------------
-"-- FOLDING --  
-set foldmethod=syntax "syntax highlighting items specify folds  
-set foldcolumn=1 "defines 1 col at window left, to indicate folding  
-let javaScript_fold=1 "activate folding by JS syntax  
-set foldlevelstart=99 "start file with all folds opened
-set foldnestmax=2
 
 set exrc
 "}}}
