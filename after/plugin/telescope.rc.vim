@@ -1,9 +1,13 @@
 if !exists('g:loaded_telescope') | finish | endif
 
-nnoremap <silent> ;f <cmd>lua require('telescope.builtin').find_files({layout_strategy='bottom_pane',layout_config={height=0.35}})<cr>
-nnoremap <silent> ;r <cmd>lua require('telescope.builtin').live_grep({layout_strategy='bottom_pane',layout_config={height=0.35}})<cr>
+nnoremap <silent> ;f <cmd>lua require('telescope.builtin').find_files({layout_strategy='bottom_pane',layout_config={width=0.45}})<cr>
+nnoremap <silent> ;r <cmd>lua require('telescope.builtin').live_grep({layout_strategy='bottom_pane',layout_config={width=0.45}})<cr>
+nnoremap <silent> ;p <cmd>lua require('telescope.builtin').oldfiles({layout_strategy='bottom_pane',layout_config={height=0.45}})<cr>
+nnoremap <silent> ;ps <cmd>lua require('telescope.builtin').search_history({layout_strategy='bottom_pane',layout_config={height=0.25}})<cr>
+nnoremap <silent> ;k <cmd>lua require('telescope.builtin').keymaps({layout_strategy='bottom_pane',layout_config={height=0.25}})<cr>
+nnoremap <silent> ;s <cmd>lua require('telescope.builtin').current_buffer_fuzzy_find({layout_strategy='bottom_pane',layout_config={height=0.25}})<cr>
 nnoremap <silent> \\ <cmd>Telescope buffers<cr>
-nnoremap <silent> ;; <cmd>Telescope help_tags<cr>
+noremap <silent> ;; <cmd>Telescope help_tags<cr>
 
 lua << EOF
 function telescope_buffer_dir()
@@ -27,7 +31,6 @@ telescope.setup({
       },
     },
     layout_config = {
-      bottom_pane = { height = 0.5}
       -- other layout configuration here
     },
   }
