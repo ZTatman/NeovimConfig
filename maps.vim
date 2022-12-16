@@ -22,8 +22,11 @@ nnoremap <C-f> :NvimTreeFindFile<CR>
 tnoremap <Esc> <C-\><C-n>
 
 " increase the window size by a factor of 1.5 and decrease the window size by 0.67
-nnoremap <Leader>+ :exe "resize " . (winwidth(0) * 3/2)<CR>
-nnoremap <Leader>- :exe "resize " . (winwidth(0) * 2/3)<CR>
+" nnoremap <Leader>+ :exe "resize " . (winwidth(0) * 3/2)<CR>
+" nnoremap <Leader>- :exe "resize " . (winwidth(0) * 2/3)<CR>
+nnoremap <leader>= <c-w>=
+nnoremap <leader>+ 10<c-w>>
+nnoremap <leader>- 10<c-w><
 
 " Fugitive Conflict Resolution
 nnoremap <leader>gd :Gvdiffsplit!<CR>
