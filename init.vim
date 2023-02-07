@@ -202,6 +202,10 @@ nmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
 xmap <leader>f <Plug>(coc-format-selected)
 nmap <leader>f <Plug>(coc-format-selected)
 
+" Formatting entire document
+xmap <leader>fd <plug>(coc-format-document)
+nmap <leader>fd <plug>(coc-format-document)
+
 augroup mygroup
   autocmd!
   " Setup formatexpr specified filetype(s).
@@ -212,7 +216,6 @@ augroup end
 
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
-
 " Add `:Fold` command to fold current buffer.
 command! -nargs=? Fold :call CocAction('fold', <f-args>)
 
