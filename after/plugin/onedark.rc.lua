@@ -1,7 +1,7 @@
 local onedark_status, onedark = pcall(require, "onedark")
 if (not onedark) then return end
 
-
+-- sdfsdf
 require('onedark').setup {
     -- Main options --
     style = 'warm', -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
@@ -12,13 +12,13 @@ require('onedark').setup {
 
     -- toggle theme style ---
     toggle_style_key = "<leader>od", -- keybind to toggle theme style. Leave it nil to disable it, or set it to a string, for example "<leader>ts"
-    toggle_style_list = {'dark', 'darker', 'cool', 'deep', 'warm', 'warmer', 'light'}, -- List of styles to toggle between
+    toggle_style_list = {'warm', 'warmer', 'light'}, -- List of styles to toggle between
 
     -- Change code style ---
     -- Options are italic, bold, underline, none
     -- You can configure multiple style with comma seperated, For e.g., keywords = 'italic,bold'
     code_style = {
-        comments = 'italic',
+        comments = 'none',
         keywords = 'none',
         functions = 'none',
         strings = 'none',
@@ -36,7 +36,7 @@ require('onedark').setup {
         comment = "#939395"
     }, -- Override default colors
     highlights = {
-        ["@comment"] = {fg = '$comment', fmt = 'bold'},
+        ["@comment"] = {fg = '$comment', fmt = 'italic'},
     }, -- Override highlight groups
 
     -- Plugins Config --

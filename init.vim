@@ -202,6 +202,10 @@ nmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
 xmap <leader>f <Plug>(coc-format-selected)
 nmap <leader>f <Plug>(coc-format-selected)
 
+" Formatting entire document
+xmap <leader>fd <plug>(coc-format-document)
+nmap <leader>fd <plug>(coc-format-document)
+
 augroup mygroup
   autocmd!
   " Setup formatexpr specified filetype(s).
@@ -212,7 +216,6 @@ augroup end
 
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
-
 " Add `:Fold` command to fold current buffer.
 command! -nargs=? Fold :call CocAction('fold', <f-args>)
 
@@ -308,7 +311,6 @@ augroup filetypes
     au FileType yaml setlocal shiftwidth=2 tabstop=2
 augroup END
 "}}}
-
 " Emmet "{{{
 " ---------------------------------------------------------------------
     " Enable just for react, typescriptreact, html, css
@@ -337,7 +339,6 @@ if &term =~ "screen"
   autocmd VimLeave * silent!  exe '!echo -n "\ek[`hostname`:`basename $PWD`]\e\\"'
 endif
 "}}}
-
 " Syntax theme "{{{
 " ---------------------------------------------------------------------
 " true color
@@ -349,7 +350,7 @@ if exists("&termguicolors") && exists("&winblend")
   set pumblend=25
   set background=dark
   augroup scheme
-        autocmd!
+        au!
         au colorScheme * hi CursorLineNr guifg=#DCA42E
         au colorScheme * hi NvimTreeFolderName guifg=#7dcfff
         au colorScheme * hi NvimTreeOpenedFolderName guifg=#bb9af7
@@ -366,10 +367,13 @@ endif
 " ---------------------------------------------------------------------
   " vim.lsp.set_log_level("debug")
 "}}}
-
 " Extras "{{{
 " ---------------------------------------------------------------------
-
+" Source vim.init after vim is done setting up and on VimEnter
+augroup ON_STARTUP
+    au!
+    au VimEnter * source $MYVIMRC
+augroup END
 set exrc
 "}}}
 " vim: set foldmethod=marker foldlevel=1:
