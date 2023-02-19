@@ -370,10 +370,10 @@ endif
 " Extras "{{{
 " ---------------------------------------------------------------------
 " Source vim.init after vim is done setting up and on VimEnter
-augroup ON_STARTUP
-    au!
-    au VimEnter * source $MYVIMRC
-augroup END
+" augroup ON_STARTUP
+"     au!
+"     au VimEnter * source $MYVIMRC
+" augroup END
 set exrc
 "}}}
 " vim: set foldmethod=marker foldlevel=1:

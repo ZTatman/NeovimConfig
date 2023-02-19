@@ -38,7 +38,7 @@ nnoremap <leader>s :%s/
 
 " Open $MYVIMRC
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-" Source $MYVIMRC
+" Shttps://bitbucket.corp.chartercom.com/projects/GUMD/repos/account/pull-requests/502/overviewource $MYVIMRC
 nnoremap <leader>sv :source $MYVIMRC<cr>
 " Source Current File
 nnoremap <leader>so :source %<cr>
@@ -53,6 +53,11 @@ nnoremap <leader>z :ZenMode<cr>
 " Navigate up/down to first non blank character of line
 nmap <S-Up> <Up>^
 nmap <S-Down> <Down>^
+
+" Move up and down by 3 lines at a time
+nmap <S-k> 4k<cr>
+nmap <S-j> 2j<cr>
+nmap <leader>j <S-j><cr>
 
 " Move lines up or down
 nnoremap <Space>k :m .-2<CR>==
