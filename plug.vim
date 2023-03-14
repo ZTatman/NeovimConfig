@@ -26,9 +26,7 @@ if has("nvim")
   " Themes
   " Plug 'git@github.com:ful1e5/onedark.nvim.git
   Plug 'navarasu/onedark.nvim'
-  Plug 'Everblush/everblush.nvim', { 'as': 'everblush' }
-  Plug 'sonph/onehalf', { 'rtp': 'vim' }
-  Plug 'sainnhe/sonokai'
+  Plug 'EdenEast/nightfox.nvim'
 
   " Git signs
   Plug 'lewis6991/gitsigns.nvim'
