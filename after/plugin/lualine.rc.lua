@@ -1,6 +1,8 @@
 local lualine_status, lualine = pcall(require, "lualine")
+local bufferline_status, bufferline = pcall(require, "bufferline")
 local gps_status, gps = pcall(require, "nvim-gps")
 if (not lualine_status) then return end
+if (not bufferline_status) then return end
 if (not gps_status) then return end
 
 function branch_formatter(branch_name)
@@ -53,28 +55,32 @@ lualine.setup {
     lualine_y = {},
     lualine_z = {}
   },
-  tabline = {
-      lualine_a = {},
-      lualine_b = {},
-      lualine_c = {{
-          'tabs',
-          max_length = math.floor(vim.o.columns * 0.33),
-          mode = 2,
-          tabs_color = {
-            active = 'TabLineSel',
-            inactive = 'TabLine',
-          },
-          fmt = function(tabname)
-            local bufnr = vim.fn.tabpagenr()
-            local mod = vim.api.nvim_buf_get_option(bufnr, 'modified')
-            local symbol = mod == 1 and '+' or ''
-            return tabname .. symbol
-          end
-        }},
-      -- lualine_x = {},
-      lualine_x = {},
-      lualine_y = {},
-      lualine_z = {}
-  },
+  -- tabline = {
+  --     lualine_a = {},
+  --     lualine_b = {},
+  --     lualine_c = {},
+  --     -- lualine_c = {{
+  --     --     'tabs',
+  --     --     max_length = math.floor(vim.o.columns * 0.33),
+  --     --     mode = 1,
+  --     --     tabs_color = {
+  --     --       active = 'TabLineSel',
+  --     --       inactive = 'TabLine',
+  --     --     },
+  --     --     section_separators = { left = '|', right = '|' }, -- add section separators
+  --     --     component_separators = { left = '', right = '' }, -- remove component separators
+  --     --   -- ORIGINAL
+  --     --   fmt = function(tabname)
+  --     --       local bufnr = vim.fn.tabpagenr()
+  --     --       if vim.fn.bufexists(bufnr) == 0 then return '' end
+  --     --       local mod = vim.api.nvim_buf_get_option(bufnr, 'modified')
+  --     --       local symbol = mod == 1 and '*' or ''
+  --     --       return tabname .. symbol
+  --     --   end
+  --     --   }},
+  --     lualine_x = {},   
+  --     lualine_y = {},
+  --     lualine_z = {}
+  -- },
   extensions = {'fugitive', 'toggleterm', 'nvim-tree'},
 }

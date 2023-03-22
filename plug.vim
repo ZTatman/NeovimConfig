@@ -19,7 +19,11 @@ if has("nvim")
  
   Plug 'kyazdani42/nvim-tree.lua' " File tree
   Plug 'kyazdani42/nvim-web-devicons' " File tree icons
- 
+  " File Icons
+  " Plug 'ryanoasis/vim-devicons'
+  Plug 'nvim-tree/nvim-web-devicons' " Recommended (for coloured icons)
+  " Plug 'ryanoasis/vim-devicons' Icons without colours
+  Plug 'akinsho/bufferline.nvim', { 'tag': 'v3.*' }
   " COC
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   
@@ -42,8 +46,6 @@ if has("nvim")
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim'
   
-  " File Icons
-  Plug 'ryanoasis/vim-devicons'
   
   " Lualine
   Plug 'hoob3rt/lualine.nvim'

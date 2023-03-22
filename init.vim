@@ -245,7 +245,6 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 " Show CocList Marketplace extensions
 nnoremap <silent><nowait> <space>m :<C-u>CocList marketplace<CR>
-
 " Navigate quickfix list with ease
 nnoremap <silent> [q :cprevious<CR>
 nnoremap <silent> ]q :cnext<CR>
@@ -264,8 +263,6 @@ if has('win32')
   	" let &shell = 'pwsh'
     runtime ./windows.vim
 endif
-
-" runtime ./after/plugin/lspconfig.rc.vim
 runtime ./maps.vim
 "}}}
 " File types "{{{
@@ -276,9 +273,6 @@ augroup filetypes
     autocmd!
     au BufEnter,BufRead *.{js,jsx,ts,tsx} :syntax sync fromstart
     au BufLeave,BufRead *.{js,jsx,ts,tsx} :syntax sync clear
-    " au BufNewFile,BufRead,BufEnter *.js,*.jsx set syntax=javascript
-    " au BufNewFile,BufRead,BufEnter *.ts,*.tsx set syntax=typescript
-
     " Abbreviations for js development
     au FileType javascript,javascriptreact,typescriptreact iabbrev <buffer> if if(z)<Esc>?z<CR>xi
     au FileType javascript,javascriptreact,typescriptreact iabbrev <buffer> consl console.log(z);<Esc>?z<CR>xi
@@ -286,8 +280,6 @@ augroup filetypes
     au FileType javascript,javascriptreact,typescriptreact iabbrev <buffer> constb console.table(z);<Esc>?z<CR>xi
     au FileType javascript,javascriptreact,typescriptreact iabbrev <buffer> ** /**z */<Esc>?z<CR>xi
     au FileType javascript,javascriptreact,typescriptreact iabbrev <buffer> arrw ()<Space>=><Space>{z}<Esc>?z<CR>xi
-
-
     " JavasScript
     au BufNewFile,BufRead *es6,*.js,*.mjs setf javascript
     " Javascript React

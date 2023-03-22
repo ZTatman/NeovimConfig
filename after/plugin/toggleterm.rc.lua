@@ -32,7 +32,7 @@ toggleterm.setup({
 	float_opts = {
 		border = "curved",
 		winblend = 0,
-        width = 120,
+        width = 180,
         height = 30
 	},
 })
