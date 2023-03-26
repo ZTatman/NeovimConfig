@@ -79,3 +79,12 @@ endfunc
 
 " List all highlight groups currently active
 nnoremap <leader>hi :so $VIMRUNTIME/syntax/hitest.vim<cr>
+
+" Tab Navigation
+nnoremap tn :tabnew<CR>
+nnoremap tnf :tabnew<space>
+nnoremap ]t :tabnext<CR>
+nnoremap [t :tabprevious<CR>
+nnoremap tq :confirm tabclose<CR>
+nnoremap tqa :if tabpagenr('$') > 1 \| tabonly \| else \| %bd \| endif<CR>
+nnoremap tl :tabs<CR>

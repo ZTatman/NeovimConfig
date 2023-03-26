@@ -19,16 +19,18 @@ if has("nvim")
  
   Plug 'kyazdani42/nvim-tree.lua' " File tree
   Plug 'kyazdani42/nvim-web-devicons' " File tree icons
- 
+  " File Icons
+  " Plug 'ryanoasis/vim-devicons'
+  Plug 'nvim-tree/nvim-web-devicons' " Recommended (for coloured icons)
+  " Plug 'ryanoasis/vim-devicons' Icons without colours
+  Plug 'akinsho/bufferline.nvim', { 'tag': 'v3.*' }
   " COC
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   
   " Themes
   " Plug 'git@github.com:ful1e5/onedark.nvim.git
   Plug 'navarasu/onedark.nvim'
-  Plug 'Everblush/everblush.nvim', { 'as': 'everblush' }
-  Plug 'sonph/onehalf', { 'rtp': 'vim' }
-  Plug 'sainnhe/sonokai'
+  Plug 'EdenEast/nightfox.nvim'
 
   " Git signs
   Plug 'lewis6991/gitsigns.nvim'
@@ -44,8 +46,6 @@ if has("nvim")
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim'
   
-  " File Icons
-  Plug 'ryanoasis/vim-devicons'
   
   " Lualine
   Plug 'hoob3rt/lualine.nvim'

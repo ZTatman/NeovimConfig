@@ -96,16 +96,16 @@ set updatetime=300
 
 " Always show the signcolumn, otherwise it would shift the text each time
 "diagnostics appear/become resolved.
-if has("nvim-0.5.0") || has("patch-8.1.1564")
+" if has("nvim-0.5.0") || has("patch-8.1.1564")
   " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
-else
+  " set signcolumn=number
+" else
   set signcolumn=yes
-endif
+" endif
 
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" make <cr> select the first completion item and confirm the completion when no item has been selected
-inoremap <silent><expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
+" select the first completion item, confirm the completion when no item has been selected, and format the selection
+inoremap <silent><expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 inoremap <silent><expr> <C-x><C-z> coc#pum#visible() ? coc#pum#stop() : "\<C-x>\<C-z>"
 
 function! s:check_back_space() abort
@@ -245,7 +245,6 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 " Show CocList Marketplace extensions
 nnoremap <silent><nowait> <space>m :<C-u>CocList marketplace<CR>
-
 " Navigate quickfix list with ease
 nnoremap <silent> [q :cprevious<CR>
 nnoremap <silent> ]q :cnext<CR>
@@ -264,8 +263,6 @@ if has('win32')
   	" let &shell = 'pwsh'
     runtime ./windows.vim
 endif
-
-" runtime ./after/plugin/lspconfig.rc.vim
 runtime ./maps.vim
 "}}}
 " File types "{{{
@@ -276,9 +273,6 @@ augroup filetypes
     autocmd!
     au BufEnter,BufRead *.{js,jsx,ts,tsx} :syntax sync fromstart
     au BufLeave,BufRead *.{js,jsx,ts,tsx} :syntax sync clear
-    " au BufNewFile,BufRead,BufEnter *.js,*.jsx set syntax=javascript
-    " au BufNewFile,BufRead,BufEnter *.ts,*.tsx set syntax=typescript
-
     " Abbreviations for js development
     au FileType javascript,javascriptreact,typescriptreact iabbrev <buffer> if if(z)<Esc>?z<CR>xi
     au FileType javascript,javascriptreact,typescriptreact iabbrev <buffer> consl console.log(z);<Esc>?z<CR>xi
@@ -287,8 +281,6 @@ augroup filetypes
     au FileType javascript,javascriptreact,typescriptreact iabbrev <buffer> ** /**z */<Esc>?z<CR>xi
     au FileType javascript,javascriptreact,typescriptreact iabbrev <buffer> arrw ()<Space>=><Space>{z}<Esc>?z<CR>xi
     au FileType javascript,javascriptreact,typescriptreact iabbrev <buffer> hook ()<Space>=><Space>{z},<Space>[]<Esc>?z<CR>xi
-
-
 
     " JavasScript
     au BufNewFile,BufRead *es6,*.js,*.mjs setf javascript
@@ -349,16 +341,17 @@ if exists("&termguicolors") && exists("&winblend")
   set wildoptions=pum
   set pumblend=25
   set background=dark
-  augroup scheme
-        au!
-        au colorScheme * hi CursorLineNr guifg=#DCA42E
-        au colorScheme * hi NvimTreeFolderName guifg=#7dcfff
-        au colorScheme * hi NvimTreeOpenedFolderName guifg=#bb9af7
-        au colorScheme * hi CocFloating guibg=#191b20 guifg=white
-        au colorScheme * hi Pmenu guibg=gray guifg=white
-        " au colorScheme * hi PmenuSel guibg=#22252c guif
-  augroup END
-
+  " augroup scheme
+  "       au!
+  "       au colorScheme * hi CursorLineNr guifg=#DCA42E
+  "       au colorScheme * hi NvimTreeFolderName guifg=#7dcfff
+  "       au colorScheme * hi NvimTreeOpenedFolderName guifg=#bb9af7
+  "       au colorScheme * hi CocFloating guibg=#191b20 guifg=white
+  "       au colorScheme * hi Pmenu guibg=gray guifg=white
+  "       " au colorScheme * hi PmenuSel guibg=#22252c guif
+  " augroup END
+  hi TabLine ctermfg=gray ctermbg=black guifg=#808080 guibg=#282c34
+  hi TabLineSel guibg=#DCA42E
   colorscheme onedark
 endif
 

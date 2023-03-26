@@ -26,7 +26,7 @@ telescope.setup({
         ["<C-s>"] = actions.select_vertical,
       },
       i = {
-        ["q"] = actions.close,
+        ["Q"] = actions.close,
         ["<C-s>"] = actions.select_vertical
       },
     },
