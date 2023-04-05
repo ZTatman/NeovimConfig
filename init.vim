@@ -1,5 +1,7 @@
 " General Settings {{{
 " =======================================================================
+" load plugins
+runtime ./plug.vim
 " init autocmd
 autocmd!
 
@@ -105,7 +107,16 @@ set updatetime=300
 
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " select the first completion item, confirm the completion when no item has been selected, and format the selection
-inoremap <silent><expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" inoremap <silent><expr> <CR> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
+" inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+"                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" Using augroup bc for life of me this <CR> mapping wont work unless sourcing
+" init.vim on VimEnter
+augroup MyAutoCmds
+  autocmd!
+  autocmd VimEnter * inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                            \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+augroup END
 inoremap <silent><expr> <C-x><C-z> coc#pum#visible() ? coc#pum#stop() : "\<C-x>\<C-z>"
 
 function! s:check_back_space() abort
@@ -251,7 +262,6 @@ nnoremap <silent> ]q :cnext<CR>
 " }}}
 " Imports "{{{
 " ---------------------------------------------------------------------
-runtime ./plug.vim
 if has("unix")
   let s:uname = system("uname -s")
   " Do Mac stuff
@@ -339,15 +349,7 @@ if exists("&termguicolors") && exists("&winblend")
   set wildoptions=pum
   set pumblend=25
   set background=dark
-  " augroup scheme
-  "       au!
-  "       au colorScheme * hi CursorLineNr guifg=#DCA42E
-  "       au colorScheme * hi NvimTreeFolderName guifg=#7dcfff
-  "       au colorScheme * hi NvimTreeOpenedFolderName guifg=#bb9af7
-  "       au colorScheme * hi CocFloating guibg=#191b20 guifg=white
-  "       au colorScheme * hi Pmenu guibg=gray guifg=white
-  "       " au colorScheme * hi PmenuSel guibg=#22252c guif
-  " augroup END
+
   hi TabLine ctermfg=gray ctermbg=black guifg=#808080 guibg=#282c34
   hi TabLineSel guibg=#DCA42E
   colorscheme onedark

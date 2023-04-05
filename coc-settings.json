@@ -1,4 +1,7 @@
 {
+"snippets.ultisnips.directories": [],
+"snippets.userSnippetsDirectory": "~/.config/coc/snippets",
+"snippets.additionalSnippetDirectories": ["~/.local/share/nvim/plugged/vscode-es7-javascript-react-snippets/snippets"],
     "coc.preferences.extensionUpdateCheck": "daily",
     "coc.preferences.formatOnType": true,
     "codeLens.enable": true,
@@ -12,8 +15,9 @@
         "typescript",
         "typescriptreact"
     ],
-    "java.home": "/Library/Java/JavaVirtualMachines/jdk-11.0.15.jdk/Contents/Home",
+    "java.jdt.ls.java.home": "/Library/Java/JavaVirtualMachines/jdk-11.0.15.jdk/Contents/Home",
     "java.format.onType.enabled": true,
     "java.format.settings.url": "~/Tools/charter-gateway-eclipse-formatter.xml",
-    "java.referencesCodeLens.enabled": true
+    "java.referencesCodeLens.enabled": true,
+    "snippets.ultisnips.pythonPrompt": false
 }

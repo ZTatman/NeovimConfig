@@ -62,8 +62,6 @@ nmap <leader>j <S-j><cr>
 " Move lines up or down
 nnoremap <Space>k :m .-2<CR>==
 nnoremap <Space>j :m .+1<CR>==
-" inoremap <Space>j <Esc>:m .+1<CR>==gi
-" inoremap <Space>k <Esc>:m .-2<CR>==gi
 vnoremap <Space>j :m '>+1<CR>gv=gv
 vnoremap <Space>k :m '<-2<CR>gv=gv
 
