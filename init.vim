@@ -290,6 +290,8 @@ augroup filetypes
     au FileType javascript,javascriptreact,typescriptreact iabbrev <buffer> constb console.table(z);<Esc>?z<CR>xi
     au FileType javascript,javascriptreact,typescriptreact iabbrev <buffer> ** /**z */<Esc>?z<CR>xi
     au FileType javascript,javascriptreact,typescriptreact iabbrev <buffer> arrw ()<Space>=><Space>{z}<Esc>?z<CR>xi
+    au FileType javascript,javascriptreact,typescriptreact iabbrev <buffer> hook ()<Space>=><Space>{z},<Space>[]<Esc>?z<CR>xi
+
     " JavasScript
     au BufNewFile,BufRead *es6,*.js,*.mjs setf javascript
     " Javascript React
