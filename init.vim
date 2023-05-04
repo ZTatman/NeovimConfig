@@ -1,13 +1,7 @@
-" General Settings {{{
-" =======================================================================
-" load plugins
+" General Settings
 runtime ./plug.vim
-" init autocmd
 autocmd!
-
-" set script encoding
 scriptencoding utf-8
-
 " stop loading config if it's on tiny or small
 if !1 | finish | endif
 
@@ -28,16 +22,10 @@ set laststatus=2
 set scrolloff=10
 set expandtab
 
-
 "let loaded_matchparen = 1
 
 " Shell Setup
-" let shell = has('mac') ? '/binzsh' : 'pwsh'
 set shell=zsh
-" let &shellcmdflag = '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;'
-" let &shellredir = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
-" let &shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
-" set shellquote= shellxquote=
 set backupskip=/tmp/*,/private/tmp/*
 
 " incremental substitution (neovim)
@@ -46,15 +34,10 @@ if has('nvim')
 endif
 
 " Suppress appending <PasteStart> and <PasteEnd> when pasting
-set t_BE=
 set nosc noru nosm
 
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
-"set showmatch
-
-" How many tenths of a second to blink when matching brackets
-"set mat=2
 
 " Ignore case when searching
 set ignorecase
@@ -91,25 +74,13 @@ endif
 set undodir=/tmp/.vim-undo-dir
 set undofile
 
-" }}}
-" COC {{{
-" =======================================================================
+" COC
 set updatetime=300
 
 " Always show the signcolumn, otherwise it would shift the text each time
 "diagnostics appear/become resolved.
-" if has("nvim-0.5.0") || has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  " set signcolumn=number
-" else
   set signcolumn=yes
-" endif
 
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" select the first completion item, confirm the completion when no item has been selected, and format the selection
-" inoremap <silent><expr> <CR> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
-" inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-"                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 " Using augroup bc for life of me this <CR> mapping wont work unless sourcing
 " init.vim on VimEnter
 augroup MyAutoCmds
@@ -117,6 +88,7 @@ augroup MyAutoCmds
   autocmd VimEnter * inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
                             \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 augroup END
+
 inoremap <silent><expr> <C-x><C-z> coc#pum#visible() ? coc#pum#stop() : "\<C-x>\<C-z>"
 
 function! s:check_back_space() abort
@@ -129,6 +101,7 @@ inoremap <silent><expr> <Tab>
     \ coc#pum#visible() ? coc#pum#next(1):
     \ <SID>check_back_space() ? "\<Tab>" :
     \ coc#refresh()
+
 " Use <S-tab> to navigate backwards
 inoremap <expr><S-Tab> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
@@ -160,7 +133,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <c-k> :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -172,21 +145,8 @@ function! s:show_documentation()
   endif
 endfunction
 
-" function! ShowDocIfNoDiagnostic(timer_id)
-"   if (coc#float#has_float() == 0 && CocHasProvider('hover') == 1)
-"     silent call CocActionAsync('doHover')
-"   endif
-" endfunction
-
-" function! s:show_hover_doc()
-"   call timer_start(500, 'ShowDocIfNoDiagnostic')
-" endfunction
-
-" autocmd CursorHoldI * :call <SID>show_hover_doc()
-" autocmd CursorHold * :call <SID>show_hover_doc()
-
 " Highlight the symbol and its references when holding the cursor.
-" autocmd CursorHold * silent call CocActionAsync('highlight')
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Remap keys for apply code actions at the cursor position.
 nmap <leader>ac  <Plug>(coc-codeaction-cursor)
@@ -233,11 +193,6 @@ command! -nargs=? Fold :call CocAction('fold', <f-args>)
 " Add `:OR` command for organize imports of the current buffer.
 command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
 
-" Add (Neo)Vim's native statusline support.
-" NOTE: Please see `:h coc-status` for integrations with external plugins that
-" provide custom statusline: lightline.vim, vim-airline.
-" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
 " Show all diagnostics.
 nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
 " Manage extensions.
@@ -259,9 +214,8 @@ nnoremap <silent><nowait> <space>m :<C-u>CocList marketplace<CR>
 " Navigate quickfix list with ease
 nnoremap <silent> [q :cprevious<CR>
 nnoremap <silent> ]q :cnext<CR>
-" }}}
-" Imports "{{{
-" ---------------------------------------------------------------------
+
+" Imports 
 if has("unix")
   let s:uname = system("uname -s")
   " Do Mac stuff
@@ -274,9 +228,8 @@ if has('win32')
     runtime ./windows.vim
 endif
 runtime ./maps.vim
-"}}}
-" File types "{{{
-" ---------------------------------------------------------------------
+
+" File types
 " JavaScript
 let g:javascript_plugin_jsdoc = 1
 augroup filetypes
@@ -312,17 +265,15 @@ augroup filetypes
     au FileType ruby setlocal shiftwidth=2 tabstop=2
     au FileType yaml setlocal shiftwidth=2 tabstop=2
 augroup END
-"}}}
-" Emmet "{{{
-" ---------------------------------------------------------------------
+
+" Emmet
     " Enable just for react, typescriptreact, html, css
     let g:user_emmet_install_global = 0
     autocmd FileType html,css,javascript,javascriptreact,*.tsx,*.jsx EmmetInstall
     " Map leader key to ",,"
     let g:user_emmet_leader_key=','
-"}}}
-" Highlights "{{{
-" ---------------------------------------------------------------------
+
+" Highlights
 set cursorline
 "set cursorcolumn
 
@@ -340,9 +291,9 @@ if &term =~ "screen"
   autocmd BufEnter * if bufname("") !~ "^?[A-Za-z0-9?]*://" | silent! exe '!echo -n "\ek[`hostname`:`basename $PWD`/`basename %`]\e\\"' | endif
   autocmd VimLeave * silent!  exe '!echo -n "\ek[`hostname`:`basename $PWD`]\e\\"'
 endif
-"}}}
-" Syntax theme "{{{
-" ---------------------------------------------------------------------
+
+" Syntax theme
+
 " true color
 if exists("&termguicolors") && exists("&winblend")
   syntax enable
@@ -357,18 +308,7 @@ if exists("&termguicolors") && exists("&winblend")
   colorscheme onedark
 endif
 
-"}}}
-" Debugging "{{{
-" ---------------------------------------------------------------------
-  " vim.lsp.set_log_level("debug")
-"}}}
-" Extras "{{{
-" ---------------------------------------------------------------------
-" Source vim.init after vim is done setting up and on VimEnter
-" augroup ON_STARTUP
-"     au!
-"     au VimEnter * source $MYVIMRC
-" augroup END
+" Debugging
+" vim.lsp.set_log_level("debug")
+
 set exrc
-"}}}
-" vim: set foldmethod=marker foldlevel=1:

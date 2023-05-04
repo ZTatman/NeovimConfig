@@ -30,7 +30,8 @@ if has("nvim")
   " Themes
   " Plug 'git@github.com:ful1e5/onedark.nvim.git
   Plug 'navarasu/onedark.nvim'
-  Plug 'EdenEast/nightfox.nvim'
+  Plug 'sonph/onehalf', { 'rtp': 'vim' }
+  Plug 'wuelnerdotexe/vim-enfocado'
 
   " Git signs
   Plug 'lewis6991/gitsigns.nvim'
@@ -63,13 +64,18 @@ if has("nvim")
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
   Plug 'folke/which-key.nvim'   " Key map reminder
-  Plug 'folke/zen-mode.nvim'    " Distraction free coding (zen mode)
 
   " Indentation guide
   Plug 'lukas-reineke/indent-blankline.nvim'
 
   " Emmet abbreviations
   Plug 'mattn/emmet-vim'
+
+  " Gihub copilot
+  Plug 'github/copilot.vim'
+
+  " React ES7 snippets
+  " Plug 'dsznajder/vscode-es7-javascript-react-snippets', { 'do': 'yarn install --frozen-lockfile && yarn compile' }
 endif
 
 call plug#end()
