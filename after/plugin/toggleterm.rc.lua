@@ -1,4 +1,5 @@
 local status_ok, toggleterm = pcall(require, "toggleterm")
+
 if not status_ok then
 	return
 end
@@ -26,7 +27,7 @@ toggleterm.setup({
 	start_in_insert = true,
 	insert_mappings = true,
 	persist_size = true,
-	direction = "float",
+	direction = "horizontal",
 	close_on_exit = true,
 	shell = vim.o.shell,
 	float_opts = {
@@ -45,6 +46,10 @@ function _G.set_terminal_keymaps()
   vim.api.nvim_buf_set_keymap(0, 't', '<C-j>', [[<C-\><C-n><C-W>j]], opts)
   vim.api.nvim_buf_set_keymap(0, 't', '<C-k>', [[<C-\><C-n><C-W>k]], opts)
   vim.api.nvim_buf_set_keymap(0, 't', '<C-l>', [[<C-\><C-n><C-W>l]], opts)
+  -- close current terminal
+  vim.api.nvim_buf_set_keymap(0, 't', '<C-x>', '<C-c>exit<CR>', opts)
+  --  Open a new terminal with an incremented ID, start in insert mode
+  vim.api.nvim_buf_set_keymap(0, 't', '<C-n>', '<C-\\><C-n>:lua _OPEN_NEW_TERMINAL()<CR>', opts)
 end
 
 vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
@@ -54,4 +59,17 @@ local lazygit = Terminal:new({ cmd = "lazygit", hidden = true })
 
 function _LAZYGIT_TOGGLE()
 	lazygit:toggle()
+end
+
+function _OPEN_NEW_TERMINAL()
+  local last_terminal_id = 0
+  for _, buffer in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_get_option(buffer, 'buftype') == 'terminal' then
+      local buffer_id = vim.api.nvim_buf_get_number(buffer)
+      if buffer_id > last_terminal_id then
+        last_terminal_id = buffer_id
+      end
+    end
+  end
+  vim.cmd(last_terminal_id .. 'ToggleTerm start_in_insert=true')
 end
