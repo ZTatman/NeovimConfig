@@ -293,7 +293,6 @@ if &term =~ "screen"
 endif
 
 " Syntax theme
-
 " true color
 if exists("&termguicolors") && exists("&winblend")
   syntax enable

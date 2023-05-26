@@ -70,12 +70,6 @@ if has("nvim")
 
   " Emmet abbreviations
   Plug 'mattn/emmet-vim'
-
-  " Gihub copilot
-  Plug 'github/copilot.vim'
-
-  " React ES7 snippets
-  " Plug 'dsznajder/vscode-es7-javascript-react-snippets', { 'do': 'yarn install --frozen-lockfile && yarn compile' }
 endif
 
 call plug#end()
