@@ -4,6 +4,10 @@ nnoremap zx <C-R>
 inoremap <C-z> <C-O>u
 inoremap zx <C-O><C-R>
 
+" remap backspace
+inoremap <C-w> <C-\><C-o>dB
+inoremap <C-BS> <C-\><C-o>db
+
 " Exit insert mode
 inoremap <C-Space> <Esc>
 
