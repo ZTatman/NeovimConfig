@@ -47,6 +47,7 @@ if has("nvim")
   
   " Lualine
   Plug 'hoob3rt/lualine.nvim'
+  " @Deprecated, use nvim-navic && nav-buddy instead (requires lsp-config)
   Plug 'SmiteshP/nvim-gps'
   
   "braces and tag completion
