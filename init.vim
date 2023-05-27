@@ -304,7 +304,8 @@ if exists("&termguicolors") && exists("&winblend")
 
   hi TabLine ctermfg=gray ctermbg=black guifg=#808080 guibg=#282c34
   hi TabLineSel guibg=#DCA42E
-  colorscheme onedark
+  colorscheme vscode
+
 endif
 
 " Debugging
