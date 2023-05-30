@@ -29,6 +29,7 @@ if has("nvim")
   Plug 'navarasu/onedark.nvim'
   Plug 'rebelot/kanagawa.nvim'
   Plug 'srcery-colors/srcery-vim'
+  Plug 'martinsione/darkplus.nvim'
   Plug 'Mofiqul/vscode.nvim'
 
   " Git signs

@@ -42,7 +42,7 @@ nnoremap <leader>s :%s/
 
 " Open $MYVIMRC
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-" Shttps://bitbucket.corp.chartercom.com/projects/GUMD/repos/account/pull-requests/502/overviewource $MYVIMRC
+" Source $MYVIMRC
 nnoremap <leader>sv :source $MYVIMRC<cr>
 " Source Current File
 nnoremap <leader>so :source %<cr>
