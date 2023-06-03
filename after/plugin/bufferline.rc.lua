@@ -7,6 +7,7 @@ bufferline.setup {
     mode = "tabs",
     numbers = "none",
     number_style = "",
+    themable = true,
     mappings = true,
     indicator = {
         -- icon = '▎', -- this should be omitted if indicator style is not 'icon'
@@ -39,8 +40,8 @@ bufferline.setup {
     show_close_icon = true,
     show_tab_indicators = true,
     persist_buffer_sort = true,
-    separator_style = "slant",
-    enforce_regular_tabs = false,
+    separator_style = "thick",
+    enforce_regular_tabs = true,
     always_show_bufferline = true,
     sort_by = "id",
     custom_areas = {
@@ -83,5 +84,35 @@ bufferline.setup {
       -- end
     },
   },
+  highlights = {
+        fill = {
+            fg = { attribute = "fg", highlight = "Normal" },
+            bg = { attribute = "bg", highlight = "StatusLine" },
+        },
+        -- background = {
+        --     fg = { attribute = "fg", highlight = "Normal" },
+        --     bg = { attribute = "bg", highlight = "StatusLine" },
+        -- },
+        tab = {
+            fg = { attribute = "fg", highlight = "Label" },
+            bg = { attribute = "bg", highlight = "Normal" },
+        },
+        tab_selected = {
+            fg = { attribute = "fg", highlight = "Special" },
+            bg = { attribute = "bg", highlight = "Normal" },
+        },
+        -- separator = {
+        --     fg = { attribute = "bg", highlight = "Normal" },
+        --     bg = { attribute = "bg", highlight = "StatusLine" },
+        -- },
+        -- separator_selected = {
+        --     fg = { attribute = "fg", highlight = "Special" },
+        --     bg = { attribute = "bg", highlight = "Normal" },
+        -- },
+        -- separator_visible = {
+        --     fg = { attribute = "fg", highlight = "Normal" },
+        --     bg = { attribute = "bg", highlight = "StatusLineNC" },
+        -- },
+    }
 }
 
