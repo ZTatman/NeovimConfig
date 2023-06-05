@@ -39,9 +39,12 @@ local options = {
 -- Make this dynamic clipboard paste in the future
 vim.opt.clipboard:append { "unnamedplus" }
 
+--  More options 
 vim.opt.formatoptions = "r"
 vim.opt.path:append {"**"}
 vim.opt.wildignore:append {"*/node_modules/*"}
+
+vim.cmd [[ set nosc noru nosm ]]
 
 for k, v in pairs(options) do
   vim.opt[k] = v

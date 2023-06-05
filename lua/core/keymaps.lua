@@ -5,6 +5,9 @@ local map = vim.keymap.set
 vim.g.mapleader = '\\'
 vim.g.maplocalleader = '\\'
 
+-- Remap exit insert
+map('i', '<Space>e', '<ESC>', opts)
+
 -- Move faster between windows
 map('n', '<C-h>', '<C-w>h', opts)
 map('n', '<C-j>', '<C-w>j', opts)
@@ -25,6 +28,11 @@ map('n', '<leader>s', ':%s/')
 
 -- Remap write to buffer
 map('i', '<c-s>', '<C-O>:update<CR>')
+
+-- Navigate up/down to first non blank character of line
+map('n', '<m-Up>', '<Up>^', opts)
+map('n', '<m-Down>', '<Down>^', opts)
+-- nmap <S-Down> <Down>^
 
 -- Move lines up and down
 map('n', '<Space>k', ':m .-2<CR>==', opts)
