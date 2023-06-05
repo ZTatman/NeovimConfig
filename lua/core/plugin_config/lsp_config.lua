@@ -1,10 +1,14 @@
+-- Mason
 require("mason").setup()
-
 require("mason-lspconfig").setup({
   ensure_installed = { "lua_ls", "eslint", "tsserver", "html", "cssmodules_ls", "jdtls" }
 })
 
+-- Navic
 local navic = require("nvim-navic")
+
+-- Lspconfig capabilities
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- Highlight under cursor
 local function lsp_highlight_document(client)
@@ -31,9 +35,9 @@ local function quickfix()
     })
 end
 
+-- Keymaps
 local opts = { noremap=true, silent=true }
 vim.keymap.set("n", "<leader>qf", quickfix, opts)
-
 local function lsp_keymaps(bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>do', "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
@@ -55,24 +59,31 @@ local function lsp_keymaps(bufnr)
   )
   vim.api.nvim_buf_set_keymap(bufnr, "n", "]d", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>d", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
-  vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
+  vim.cmd [[ command! Format execute 'lua vim.lsp.buf.format()' ]]
 end
 
--- Set up lspconfig.
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
--- On attach functions
+-- On attach function
 local on_attach = function(client, bufnr)
-  lsp_keymaps(bufnr)
-  lsp_highlight_document(client)
+  client.server_capabilities.documentFormattingProvider = true
   if client.server_capabilities.documentSymbolProvider then
     navic.attach(client, bufnr)
   end
+  lsp_keymaps(bufnr)
+  lsp_highlight_document(client)
 end
 
+-- LSP server setups
 require("lspconfig").eslint.setup {
   on_attach = on_attach,
-  capabilities = capabilities
+  capabilities = capabilities,
+  root_dir = function() return vim.loop.cwd() end,
+  settings = {
+    filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "vue" },
+    nodePath = "~/Users/P3062728/Projects/Charter/mui/charter-mui-platform",
+    options = {
+      overrideConfigFile = "~/Users/P3062728/Projects/Charter/mui/charter-mui-platform/eslint/config.json"
+    },
+  }
 }
 require("lspconfig").tsserver.setup{
   on_attach = on_attach,
@@ -94,3 +105,35 @@ require("lspconfig").lua_ls.setup{
   on_attach = on_attach,
   capabilities = capabilities
 }
+
+-- Diagnostics
+local signs = {
+  { name = "DiagnosticSignError", text = "" },
+  { name = "DiagnosticSignWarn", text = "" },
+  { name = "DiagnosticSignInfo", text = "" },
+  { name = "DiagnosticSignHint", text = "" },
+}
+
+for _, sign in ipairs(signs) do
+  vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
+end
+
+vim.diagnostic.config({
+  -- disable virtual text
+  virtual_text = true,
+  -- show signs
+  signs = {
+    active = signs,
+  },
+  update_in_insert = true,
+  underline = true,
+  severity_sort = true,
+  float = {
+    focusable = false,
+    style = "minimal",
+    border = "rounded",
+    source = "always",
+    header = "",
+    prefix = "",
+  },
+})

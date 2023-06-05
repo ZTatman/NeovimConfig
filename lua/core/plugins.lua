@@ -28,6 +28,7 @@ local plugins = {
   'tpope/vim-surround',
   {'nvim-treesitter/nvim-treesitter', build = ":TSUpdate"},
   {'nvim-telescope/telescope.nvim', tag = '0.1.1', dependencies = { 'nvim-lua/plenary.nvim', 'nvim-lua/popup.nvim' }},
+  -- Language Server Protocol (LSP)
   { "williamboman/mason.nvim"},
   { "williamboman/mason-lspconfig.nvim" },
   { "neovim/nvim-lspconfig" },
@@ -39,6 +40,7 @@ local plugins = {
     dependencies = { "rafamadriz/friendly-snippets" }
   },
   {'akinsho/bufferline.nvim', version = "*", dependencies = 'nvim-tree/nvim-web-devicons'},
+  -- Completion
   'hrsh7th/nvim-cmp',
   'hrsh7th/cmp-nvim-lsp',
   'onsails/lspkind.nvim',

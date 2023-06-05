@@ -1,14 +1,14 @@
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
 
-local import_cmp, cmp = pcall(require, 'cmp')
-if not import_cmp then return end
+local status_cmp, cmp = pcall(require, 'cmp')
+if not status_cmp then return end
 
-local import_luasnip, luasnip = pcall(require, 'luasnip')
-if not import_luasnip then return end
+local status_luasnip, luasnip = pcall(require, 'luasnip')
+if not status_luasnip then return end
 
-local import_lspkind, lspkind = pcall(require, "lspkind")
-if not import_lspkind then return end
+local status_lspkind, lspkind = pcall(require, "lspkind")
+if not status_lspkind then return end
 
 require("luasnip.loaders.from_vscode").lazy_load();
 
@@ -106,7 +106,7 @@ cmp.setup({
       winhighlight = "Normal:Normal,FloatBorder:Normal,CursorLine:PmenuSel,Search:None",
     }),
 
-    documentation = cmp.config.window.bordered({
+  documentation = cmp.config.window.bordered({
       border = "single"
     }),
   },
