@@ -62,5 +62,5 @@ lualine.setup {
           },
       }
   },
-  extensions = {'fugitive', 'toggleterm', 'nvim-tree'},
+  extensions = {'fugitive'},
 }

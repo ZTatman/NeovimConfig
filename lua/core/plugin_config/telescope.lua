@@ -1,10 +1,8 @@
 local t_status, telescope = pcall(require, "telescope")
 local a_status, actions = pcall(require, "telescope.actions")
-local b_status, builtin = pcall(require, 'telescope.builtin')
 
-if (not t_status) then return end 
-if (not a_status) then return end 
-if (not b_status) then return end 
+if (not t_status) then return end
+if (not a_status) then return end
 
 -- Keymap options
 local opts = { noremap = true, silent = true }
@@ -21,9 +19,9 @@ vim.api.nvim_set_keymap('n', ';b', "<cmd>lua require('telescope.builtin').buffer
 vim.api.nvim_set_keymap('n', ';;', "<cmd>lua require('telescope.builtin').help_tags()<cr>", opts)
 
 -- Lua functions
--- function telescope_buffer_dir()
---   return vim.fn.expand('%:p:h')
--- end
+function telescope_buffer_dir()
+  return vim.fn.expand('%:p:h')
+end
 
 -- Telescope setup
 telescope.setup({

@@ -53,10 +53,13 @@ function _G.set_terminal_keymaps()
   vim.api.nvim_buf_set_keymap(0, 't', '<C-n>', '<C-\\><C-n>:lua _OPEN_NEW_TERMINAL()<CR>', opts)
 end
 
+--  Open a floating lazygit terminal
+vim.keymap.set('n', '<leader>g', '<cmd>TermExec cmd="lazygit" direction=float<CR>', {})
+
 vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 
 local Terminal = require("toggleterm.terminal").Terminal
-local lazygit = Terminal:new({ cmd = "lazygit", hidden = true })
+local lazygit = Terminal:new({ cmd = "lg", direction = "float"})
 
 function _LAZYGIT_TOGGLE()
 	lazygit:toggle()

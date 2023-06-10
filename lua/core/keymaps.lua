@@ -5,6 +5,10 @@ local map = vim.keymap.set
 vim.g.mapleader = '\\'
 vim.g.maplocalleader = '\\'
 
+-- Open Mason and LspInfo
+map('n', '<leader>m', '<cmd>:Mason<CR>', opts)
+map('n', '<leader>l', '<cmd>:LspInfo<CR>', opts)
+
 -- Remap exit insert
 map('i', '<Space>e', '<ESC>', opts)
 

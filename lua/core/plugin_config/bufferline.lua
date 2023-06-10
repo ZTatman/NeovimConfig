@@ -22,10 +22,10 @@ bufferline.setup {
     max_prefix_length = 10,
     tab_size = 20,
     -- padding = {left = 4, right = 4},
-    diagnostics = "nvim_lsp",
+    diagnostics = "coc",
     diagnostics_indicator = function(count, level)
       local icon = level:match("error") and " " or " "
-      return "  " .. icon .. " " .. count
+      return "  " .. icon .. "" .. count
     end,
     offsets = {
       {
@@ -84,23 +84,23 @@ bufferline.setup {
       -- end
     },
   },
-  highlights = {
-        fill = {
-            fg = { attribute = "fg", highlight = "Normal" },
-            bg = { attribute = "bg", highlight = "StatusLine" },
-        },
+  -- highlights = {
+        -- fill = {
+        --     fg = { attribute = "fg", highlight = "Normal" },
+        --     bg = { attribute = "bg", highlight = "StatusLine" },
+        -- },
         -- background = {
         --     fg = { attribute = "fg", highlight = "Normal" },
         --     bg = { attribute = "bg", highlight = "StatusLine" },
         -- },
-        tab = {
-            fg = { attribute = "fg", highlight = "Label" },
-            bg = { attribute = "bg", highlight = "Normal" },
-        },
-        tab_selected = {
-            fg = { attribute = "fg", highlight = "Special" },
-            bg = { attribute = "bg", highlight = "Normal" },
-        },
+        -- tab = {
+        --     fg = { attribute = "fg", highlight = "Label" },
+        --     bg = { attribute = "bg", highlight = "Normal" },
+        -- },
+        -- tab_selected = {
+        --     fg = { attribute = "fg", highlight = "Special" },
+        --     bg = { attribute = "bg", highlight = "Normal" },
+        -- },
         -- separator = {
         --     fg = { attribute = "bg", highlight = "Normal" },
         --     bg = { attribute = "bg", highlight = "StatusLine" },
@@ -113,5 +113,5 @@ bufferline.setup {
         --     fg = { attribute = "fg", highlight = "Normal" },
         --     bg = { attribute = "bg", highlight = "StatusLineNC" },
         -- },
-    }
+    -- }
 }

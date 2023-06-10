@@ -32,7 +32,7 @@ navic.setup {
     },
     lsp = {
         auto_attach = false,
-        preference = nil,
+        preference = {},
     },
     highlight = true,
     separator = " -> ",

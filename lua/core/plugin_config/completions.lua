@@ -12,6 +12,11 @@ if not status_lspkind then return end
 
 require("luasnip.loaders.from_vscode").lazy_load();
 
+-- Tailwindcss completion
+require("tailwindcss-colorizer-cmp").setup({
+      color_square_width = 2,
+})
+
 local check_backspace = function()
   local col = vim.fn.col "." - 1
   return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
@@ -49,6 +54,7 @@ end
 cmp.setup({
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
+    { name = 'nvim_lsp_signature_help' },
     { name = 'luasnip' }, -- For luasnip users.
   }, {
     { name = 'buffer' },
@@ -101,28 +107,48 @@ cmp.setup({
   },
 
   window = {
+    col_offset = -3, -- align the abbr and word on cursor (due to fields order below)
+
     completion = cmp.config.window.bordered({
       border = "double",
       winhighlight = "Normal:Normal,FloatBorder:Normal,CursorLine:PmenuSel,Search:None",
     }),
-
-  documentation = cmp.config.window.bordered({
+    documentation = cmp.config.window.bordered({
       border = "single"
     }),
   },
 
   formatting = {
+    -- Credit to: 
+    fields = { "kind", "abbr", "menu" },
     format = lspkind.cmp_format({
-      mode = 'symbol_text', -- show only symbol annotations
+      mode = 'symbol_text', -- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
       maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-      ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
-
-      -- The function below will be called before any actual modifications from lspkind
-      -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
-      -- before = function (entry, vim_item)
-      --   ...
-      --   return vim_item
-      -- end
+      menu = ({ -- showing type in menu
+        nvim_lsp = "[LSP]",
+        path = "[Path]",
+        buffer = "[Buffer]",
+        luasnip = "[LuaSnip]",
+      }),
+      before = function(entry, vim_item) -- for tailwind css autocomplete
+        if vim_item.kind == 'Color' and entry.completion_item.documentation then
+          local _, _, r, g, b = string.find(entry.completion_item.documentation, '^rgb%((%d+), (%d+), (%d+)')
+          if r then
+            local color = string.format('%02x', r) .. string.format('%02x', g) ..string.format('%02x', b)
+            local group = 'Tw_' .. color
+            if vim.fn.hlID(group) < 1 then
+              vim.api.nvim_set_hl(0, group, {fg = '#' .. color})
+            end
+            vim_item.kind = "■" -- or "⬤" or anything
+            vim_item.kind_hl_group = group
+            return vim_item
+          end
+        end
+        -- vim_item.kind = icons[vim_item.kind] and (icons[vim_item.kind] .. vim_item.kind) or vim_item.kind
+        -- or just show the icon
+        vim_item.kind = lspkind.symbolic(vim_item.kind) and lspkind.symbolic(vim_item.kind) or vim_item.kind
+        return vim_item
+      end
     })
   },
 
