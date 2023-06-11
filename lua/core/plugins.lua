@@ -19,7 +19,6 @@ local plugins = {
   'nvim-tree/nvim-tree.lua',
   'nvim-tree/nvim-web-devicons',
   'nvim-lualine/lualine.nvim',
-  'mattn/emmet-vim',
   -- Color Schemes
   'Mofiqul/vscode.nvim',
   'sainnhe/edge',
@@ -42,6 +41,7 @@ local plugins = {
   { "neovim/nvim-lspconfig" },
   -- Formatting
   'jose-elias-alvarez/null-ls.nvim',
+  -- Snippets
   {
     "L3MON4D3/LuaSnip",
     -- follow latest release.
@@ -83,6 +83,7 @@ local plugins = {
       { "nvim-treesitter/nvim-treesitter" }
     }
   },
+  -- Colorizer
   {
     "NvChad/nvim-colorizer.lua",
     config = function()
