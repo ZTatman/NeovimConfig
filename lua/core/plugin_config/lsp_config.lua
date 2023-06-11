@@ -1,7 +1,7 @@
 -- Mason
 require("mason").setup()
 require("mason-lspconfig").setup({
-  ensure_installed = { "lua_ls", "eslint", "tsserver", "jdtls", "tailwindcss" }
+  ensure_installed = { "lua_ls", "emmet_ls", "eslint", "tsserver", "jdtls", "tailwindcss" }
 })
 require("lspsaga").setup({
   code_action = {
@@ -16,41 +16,62 @@ require("lspsaga").setup({
   },
 })
 
--- External Modules
+-- Required modules
 local navic = require("nvim-navic")
 local null_ls = require("null-ls")
+local lspconfig = require("lspconfig")
 
---  Eslint config path
+--  Eslint configs
+local eslint_node_path = os.getenv("ESLINT_PATH")
 local eslint_config_path = os.getenv("ESLINT_CHARTER_CONFIG")
 
 -- hover sources
 -- local hover = null_ls.builtins.hover
 
--- local function eslint_d_diagnostics()
---   if (eslint_config_path) then
---     return diagnostics.eslint_d.with({
---       extra_args =  {"--config", eslint_config_path}
---     })
---   else
---     return diagnostics.eslint_d
---   end
--- end
-
 -- Null-ls
 local code_actions = null_ls.builtins.code_actions
 local diagnostics = null_ls.builtins.diagnostics
 local formatting = null_ls.builtins.formatting
+local eslint_d_args = {
+  "--config", vim.fn.expand(eslint_config_path),
+  "--eslint-path", vim.fn.expand(eslint_node_path)
+}
+
+local custom_conditions = {
+  get_eslintd_args = function()
+    local filetypes = { "javascript", "javascriptreact", "javascript.jsx"}
+    local current_filetype = vim.bo.filetype
+    print(current_filetype)
+    for _, ft in ipairs(filetypes) do
+      if current_filetype == ft then
+        return eslint_d_args
+      end
+    end
+    return {}
+  end
+}
+
 null_ls.setup({
   debug = true,
   sources = {
+    -- Eslint_d
     diagnostics.eslint_d.with({
-      extra_args = { "--config", ".eslintrc.json" }
+      extra_args = custom_conditions.get_eslintd_args,
+      filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescript.tsx", "typescriptreact"},
     }),
     formatting.eslint_d.with({
-      extra_args = { "--config", ".eslintrc.json" }
+      extra_args = eslint_d_args,
+      filetypes = { "javascript", "javascriptreact", "javascript.jsx" },
     }),
-    formatting.prettier,
-    code_actions.eslint_d,
+    code_actions.eslint_d.with({
+      extra_args = eslint_d_args,
+      filetypes = { "javascript", "javascriptreact", "javascript.jsx" },
+    }),
+    --  tsserver
+    -- Prettier
+    formatting.prettier.with({
+      filetypes = { "typescript", "typescript.tsx", "typescriptreact" },
+    }),
   }
 })
 
@@ -68,11 +89,13 @@ local function quickfix()
     apply = true
   })
 end
-local opts = { noremap = true, silent = true }
 
 -- Keymaps (Lspsaga)
 local map = vim.keymap.set
+local opts = { noremap = true, silent = true }
+
 vim.keymap.set("n", "<leader>qf", quickfix, opts)
+
 local function lsp_keymaps()
   map('n', "<leader>ca", "<cmd>Lspsaga code_action<CR>", opts)
   map("n", "gd", "<cmd>Lspsaga goto_definition<CR>", opts)
@@ -109,41 +132,47 @@ local on_attach = function(client, bufnr)
 end
 
 -- Eslint
-require("lspconfig").eslint.setup {
-  on_attach = on_attach,
-  filetypes = { "javascript", "javascriptreact", "javascript.jsx" },
-  capabilities = capabilities,
-  root_dir = function() return vim.loop.cwd() end,
-  settings = {
-    nodePath = eslint_config_path,
-    options = {
-      overrideConfigFile = "/Users/P3062728/Projects/Charter/mui/charter-mui-platform/eslint/config.json"
-    },
-  }
-}
+-- lspconfig.eslint.setup {
+--   on_attach = on_attach,
+--   filetypes = { "javascript", "javascriptreact", "javascript.jsx" },
+--   capabilities = capabilities,
+--   -- root_dir = function() return vim.loop.cwd() end,
+--   -- settings = {
+--   --   nodePath = eslint_config_path,
+--   --   options = {
+--   --     overrideConfigFile = "/Users/P3062728/Projects/Charter/mui/charter-mui-platform/eslint/config.json"
+--   --   },
+--   -- }
+-- }
 
 -- Typescript
-require("lspconfig").tsserver.setup {
+lspconfig.tsserver.setup {
   on_attach = on_attach,
-  filetypes = { "typescript", "typescript.tsx", "typescriptreact" },
+  filetypes = {"javascript", "javascriptreact", "javascript.jsx", "typescript", "typescript.tsx", "typescriptreact" },
   capabilities = capabilities
 }
 
 -- Tailwindcss
-require("lspconfig").tailwindcss.setup {
+lspconfig.tailwindcss.setup {
   on_attach = on_attach,
   filetypes = { "typescript", "typescript.tsx", "typescriptreact" },
   capabilities = capabilities
 }
 
 -- Java
--- require("lspconfig").jdtls.setup {
+-- lspconfig.jdtls.setup {
 --   on_attach = on_attach,
 --   capabilities = capabilities
 -- }
 
+-- Emmet
+lspconfig.emmet_ls.setup {
+  on_attach = on_attach,
+  capabilities = capabilities
+}
+
 --  Lua
-require("lspconfig").lua_ls.setup {
+lspconfig.lua_ls.setup {
   on_attach = on_attach,
   capabilities = capabilities
 }
