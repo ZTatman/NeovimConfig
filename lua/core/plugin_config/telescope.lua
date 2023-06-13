@@ -19,7 +19,7 @@ vim.api.nvim_set_keymap('n', ';b', "<cmd>lua require('telescope.builtin').buffer
 vim.api.nvim_set_keymap('n', ';;', "<cmd>lua require('telescope.builtin').help_tags()<cr>", opts)
 
 -- Lua functions
-function telescope_buffer_dir()
+local telescope_buffer_dir = function()
   return vim.fn.expand('%:p:h')
 end
 

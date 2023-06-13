@@ -33,7 +33,7 @@ local code_actions = null_ls.builtins.code_actions
 local diagnostics = null_ls.builtins.diagnostics
 local formatting = null_ls.builtins.formatting
 local eslint_d_args = {
-  "--config", vim.fn.expand(eslint_config_path),
+  "--config", "./.eslintrc.json",
   "--eslint-path", vim.fn.expand(eslint_node_path)
 }
 
@@ -41,7 +41,6 @@ local custom_conditions = {
   get_eslintd_args = function()
     local filetypes = { "javascript", "javascriptreact", "javascript.jsx"}
     local current_filetype = vim.bo.filetype
-    print(current_filetype)
     for _, ft in ipairs(filetypes) do
       if current_filetype == ft then
         return eslint_d_args
