@@ -43,9 +43,9 @@ vim.opt.clipboard:append { "unnamedplus" }
 vim.opt.formatoptions = "r"
 vim.opt.path:append {"**"}
 vim.opt.wildignore:append {"*/node_modules/*"}
-
 vim.cmd [[ set nosc noru nosm ]]
 
+-- Set the options in the table above
 for k, v in pairs(options) do
   vim.opt[k] = v
 end

@@ -37,13 +37,12 @@ map('i', '<c-s>', '<C-O>:update<CR>')
 -- Navigate up/down to first non blank character of line
 map('n', '<m-Up>', '<Up>^', opts)
 map('n', '<m-Down>', '<Down>^', opts)
--- nmap <S-Down> <Down>^
 
 -- Move lines up and down
-map('n', '<Space>k', ':m .5<CR>==', opts)
-map('n', '<Space>j', ':m .+8<CR>==', opts)
-map('v', '<Space>j', ':m \'>+8<CR>gv=gv', opts)
-map('v', '<Space>k', ':m \'<5<CR>gv=gv', opts)
+map('n', '<Space>k', ':m .-2<CR>==', opts)
+map('n', '<Space>j', ':m .+1<CR>==', opts)
+map('v', '<Space>j', ':m \'>+1<CR>gv=gv', opts)
+map('v', '<Space>k', ':m \'<-2<CR>gv=gv', opts)
 
 -- Exit insert mode
 map('i', '<c-space>', '<Esc>', opts)
@@ -69,3 +68,6 @@ map('n', '<leader>bs', ':BufferLineSortByTabs', opts)
 
 -- Select All
 map('n', '<c-a>', 'gg<S-v>G', opts)
+
+
+--- Abbreviations ---
