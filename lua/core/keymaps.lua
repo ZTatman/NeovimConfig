@@ -63,8 +63,10 @@ map('n', 'tq', ':confirm tabclose<CR>', opts)
 map('n', 'tl', ':tabs<CR>', opts)
 
 -- Bufferline Keymaps
-map('n', '<leader>bs', ':BufferLineSortByTabs', opts)
+map('n', '<leader>bs', ':BufferLineSortByTabs<CR>', opts)
 
+-- Format Buffer
+map('n', '<leader>f', ':Format<CR>', opts)
 
 -- Select All
 map('n', '<c-a>', 'gg<S-v>G', opts)

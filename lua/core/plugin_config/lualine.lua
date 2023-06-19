@@ -1,7 +1,6 @@
 local lualine_status, lualine = pcall(require, "lualine")
-if (not lualine_status) then
-  return
-end
+if (not lualine_status) then return end
+
 local navic = require("nvim-navic")
 
 
@@ -20,7 +19,7 @@ end
 lualine.setup {
   options = {
     icons_enabled = true,
-    theme = 'vscode',
+    theme = 'edge',
     section_separators = { left = '', right = '' },
     component_separators = { left = '|', right = '|' },
     disabled_filetypes = {'alpha', 'dashboard', 'NvimTree', 'Outline'},
