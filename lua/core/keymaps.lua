@@ -1,5 +1,5 @@
-local opts = {noremap = true, silent = true}
-local term_opts = {silent = true}
+local opts = { noremap = true, silent = true }
+local term_opts = { silent = true }
 local map = vim.keymap.set
 
 vim.g.mapleader = '\\'

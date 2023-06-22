@@ -18,7 +18,7 @@ indent.setup({
     show_current_context = true,
     show_current_context_start = true,
     -- char_highlight_list = {
-        -- "IndentBlanklineIndent6",
+    -- "IndentBlanklineIndent6",
     --     "IndentBlanklineIndent2",
     --     "IndentBlanklineIndent3",
     --     "IndentBlanklineIndent4",
@@ -28,10 +28,10 @@ indent.setup({
     -- show_trailing_blankline_indent = true,
     show_first_indent_level = false,
     -- use_treesitter = true,
-    indent_blankline_context_patterns = {'class', 'function', 'method', '^table', 'arguments'},
+    indent_blankline_context_patterns = { 'class', 'function', 'method', '^table', 'arguments' },
     filetype_exclude = {
-      "help",
-      "lazy",
-      "NvimTree",
+        "help",
+        "lazy",
+        "NvimTree",
     },
-  })
+})

@@ -22,8 +22,8 @@ local null_ls = require("null-ls")
 local lspconfig = require("lspconfig")
 
 --  Eslint configs
-local eslint_node_path = os.getenv("ESLINT_PATH")
-local eslint_config_path = os.getenv("ESLINT_CHARTER_CONFIG")
+-- local eslint_node_path = os.getenv("ESLINT_PATH")
+-- local eslint_config_path = os.getenv("ESLINT_CHARTER_CONFIG")
 
 -- hover sources
 -- local hover = null_ls.builtins.hover
@@ -33,41 +33,39 @@ local code_actions = null_ls.builtins.code_actions
 local diagnostics = null_ls.builtins.diagnostics
 local formatting = null_ls.builtins.formatting
 local eslint_d_args = {
-  "--config", "./.eslintrc.json",
-  "--eslint-path", vim.fn.expand(eslint_node_path)
+  "--config", "/Users/P3062728/Projects/Charter/mui/charter-mui-platform/eslint/config.json",
+  "--eslint-path", "/Users/P3062728/Projects/Charter/mui/charter-mui-platform/node_modules"
 }
 
-local custom_conditions = {
-  get_eslintd_args = function()
-    local filetypes = { "javascript", "javascriptreact", "javascript.jsx"}
-    local current_filetype = vim.bo.filetype
-    for _, ft in ipairs(filetypes) do
-      if current_filetype == ft then
-        return eslint_d_args
-      end
+local get_eslintd_args = function()
+  local filetypes = { "javascript", "javascriptreact", "javascript.jsx" }
+  local current_filetype = vim.bo.filetype
+  for _, ft in ipairs(filetypes) do
+    if current_filetype == ft then
+      print(eslint_d_args)
+      return eslint_d_args
     end
-    return {}
   end
-}
+  return nil
+end
 
 null_ls.setup({
   debug = true,
   sources = {
     -- Eslint_d
-    diagnostics.eslint_d.with({
-      extra_args = custom_conditions.get_eslintd_args,
-      filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescript.tsx", "typescriptreact"},
-    }),
-    formatting.eslint_d.with({
-      extra_args = eslint_d_args,
-      filetypes = { "javascript", "javascriptreact", "javascript.jsx" },
-    }),
-    code_actions.eslint_d.with({
-      extra_args = eslint_d_args,
-      filetypes = { "javascript", "javascriptreact", "javascript.jsx" },
-    }),
-    --  tsserver
-    -- Prettier
+    -- diagnostics.eslint_d.with({
+    --   extra_args = get_eslintd_args,
+    --   filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescript.tsx", "typescriptreact"},
+    -- }),
+    -- formatting.eslint_d.with({
+    --   extra_args = get_eslintd_args,
+    --   filetypes = { "javascript", "javascriptreact", "javascript.jsx" },
+    -- }),
+    -- code_actions.eslint_d.with({
+    --   extra_args = eslint_d_args,
+    --   filetypes = { "javascript", "javascriptreact", "javascript.jsx" },
+    -- }),
+    -- -- Prettier
     formatting.prettier.with({
       filetypes = { "typescript", "typescript.tsx", "typescriptreact" },
     }),
@@ -82,7 +80,6 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities(client_capabil
 local function quickfix()
   vim.lsp.buf.code_action({
     filter = function(a)
-      print(a.isPreferred)
       return a.isPreferred
     end,
     apply = true
@@ -123,7 +120,7 @@ local on_attach = function(client, bufnr)
   if client.name == "tsserver" then
     client.server_capabilities.documentFormattingProvider = false
   end
-  -- client.server_capabilities.documentFormattingProvider = true
+  client.server_capabilities.documentFormattingProvider = true
   if client.server_capabilities.documentSymbolProvider then
     navic.attach(client, bufnr)
   end
@@ -131,23 +128,23 @@ local on_attach = function(client, bufnr)
 end
 
 -- Eslint
--- lspconfig.eslint.setup {
---   on_attach = on_attach,
---   filetypes = { "javascript", "javascriptreact", "javascript.jsx" },
---   capabilities = capabilities,
---   -- root_dir = function() return vim.loop.cwd() end,
---   -- settings = {
---   --   nodePath = eslint_config_path,
---   --   options = {
---   --     overrideConfigFile = "/Users/P3062728/Projects/Charter/mui/charter-mui-platform/eslint/config.json"
---   --   },
---   -- }
--- }
+lspconfig.eslint.setup {
+  on_attach = on_attach,
+  filetypes = { "javascript", "javascriptreact", "javascript.jsx" },
+  capabilities = capabilities,
+  -- root_dir = function() return vim.loop.cwd() end,
+  settings = {
+    nodePath = "/Users/P3062728/Projects/Charter/mui/charter-mui-platform/node_modules",
+    options = {
+      overrideConfigFile = "/Users/P3062728/Projects/Charter/mui/charter-mui-platform/eslint/config.json",
+    },
+  }
+}
 
 -- Typescript
 lspconfig.tsserver.setup {
   on_attach = on_attach,
-  filetypes = {"javascript", "javascriptreact", "javascript.jsx", "typescript", "typescript.tsx", "typescriptreact" },
+  filetypes = { "typescript", "typescript.tsx", "typescriptreact" },
   capabilities = capabilities
 }
 
