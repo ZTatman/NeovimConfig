@@ -71,5 +71,7 @@ map('n', '<leader>f', ':Format<CR>', opts)
 -- Select All
 map('n', '<c-a>', 'gg<S-v>G', opts)
 
+-- Sort Tailwind Classes
+map('n', '<leader>ts', ':TailwindSort<CR>')
 
 --- Abbreviations ---

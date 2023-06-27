@@ -56,6 +56,7 @@ local plugins = {
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-nvim-lsp-signature-help',
     'onsails/lspkind.nvim',
+    -- Tailwind Support
     {
         "roobert/tailwindcss-colorizer-cmp.nvim",
         -- optionally, override the default options:
@@ -64,6 +65,13 @@ local plugins = {
                 color_square_width = 2,
             })
         end
+    },
+    -- Tailwind Class Sorter
+    {
+        'laytan/tailwind-sorter.nvim',
+        dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-lua/plenary.nvim' },
+        build = 'cd formatter && npm i && npm run build',
+        config = {},
     },
     -- Cursor Highlight
     { 'tzachar/local-highlight.nvim' },
