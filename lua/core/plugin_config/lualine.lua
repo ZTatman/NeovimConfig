@@ -49,17 +49,5 @@ lualine.setup {
         lualine_y = {},
         lualine_z = {}
     },
-    winbar = {
-        lualine_c = {
-            {
-                function()
-                    return navic.get_location()
-                end,
-                cond = function()
-                    return navic.is_available()
-                end
-            },
-        }
-    },
     extensions = { 'fugitive' },
 }

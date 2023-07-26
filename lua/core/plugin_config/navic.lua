@@ -1,11 +1,12 @@
 local status, navic = pcall(require, "nvim-navic")
 if (not status) then return end
 
+local b = vim.b
 -- NOTE: You can set vim.b.navic_lazy_update_context = true for specific buffers,
 -- where you want the the updates to not occur on every CursorMoved event.
 -- It should help if you are facing performance issues in large files.
 -- Read the docs for example usage of this variable.
-vim.b.navic_lazy_update_context = true
+-- b.navic_lazy_update_context = true
 
 navic.setup {
     icons = {
@@ -38,7 +39,7 @@ navic.setup {
     },
     lsp = {
         auto_attach = false,
-        preference = { "eslint_d", "tsserver" },
+        -- preference = { "eslint_d", "eslint", "tsserver" },
     },
     highlight = true,
     separator = " -> ",

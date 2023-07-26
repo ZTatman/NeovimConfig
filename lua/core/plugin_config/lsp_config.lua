@@ -1,7 +1,7 @@
 -- Mason
 require("mason").setup()
 require("mason-lspconfig").setup({
-    ensure_installed = { "lua_ls", "emmet_ls", "eslint", "tsserver", "jdtls", "tailwindcss" }
+    ensure_installed = { "lua_ls", "emmet_ls", "eslint", "tsserver", "jdtls", "tailwindcss", "cssls" }
 })
 require("lspsaga").setup({
     code_action = {
@@ -25,19 +25,15 @@ local lspconfig = require("lspconfig")
 local eslint_node_path = os.getenv("ESLINT_PATH")
 local eslint_config_path = os.getenv("ESLINT_CHARTER_CONFIG")
 
--- hover sources
--- local hover = null_ls.builtins.hover
-
 -- Null-ls
--- local code_actions = null_ls.builtins.code_actions
--- local diagnostics = null_ls.builtins.diagnostics
+local code_actions = null_ls.builtins.code_actions
+local diagnostics = null_ls.builtins.diagnostics
 local formatting = null_ls.builtins.formatting
--- local hover = null_ls.builtins.hover
+local hover = null_ls.builtins.hover
 
--- local eslint_d_args = {
---     "--config", eslint_config_path,
---     "--eslint-path", eslint_node_path
--- }
+local eslint_d_args = {
+    "--config", eslint_config_path,
+}
 
 -- local get_eslintd_args = function()
 --     local filetypes = { "javascript", "javascriptreact", "javascript.jsx" }
@@ -51,28 +47,28 @@ local formatting = null_ls.builtins.formatting
 --     return {}
 -- end
 
-null_ls.setup({
-    debug = true,
-    sources = {
-        -- Eslint_d
-        -- diagnostics.eslint_d.with({
-        --   extra_args = get_eslintd_args,
-        --   filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescript.tsx", "typescriptreact"},
-        -- }),
-        -- formatting.eslint_d.with({
-        --   extra_args = get_eslintd_args,
-        --   filetypes = { "javascript", "javascriptreact", "javascript.jsx" },
-        -- }),
-        -- code_actions.eslint_d.with({
-        --   extra_args = eslint_d_args,
-        --   filetypes = { "javascript", "javascriptreact", "javascript.jsx" },
-        -- }),
-        -- Prettier
-        formatting.prettier.with({
-            filetypes = { "typescript", "typescript.tsx", "typescriptreact" },
-        }),
-    }
-})
+-- null_ls.setup({
+--     debug = true,
+--     sources = {
+--         -- Eslint_d
+--         diagnostics.eslint_d.with({
+--           extra_args = eslint_d_args,
+--           filetypes = { "javascript", "javascriptreact", "javascript.jsx"},
+--         }),
+--         formatting.eslint_d.with({
+--           extra_args = eslint_d_args,
+--           filetypes = { "javascript", "javascriptreact", "javascript.jsx" },
+--         }),
+--         code_actions.eslint_d.with({
+--           extra_args = eslint_d_args,
+--           filetypes = { "javascript", "javascriptreact", "javascript.jsx" },
+--         }),
+--         -- Prettier
+--         formatting.prettier.with({
+--             filetypes = { "typescript", "typescript.tsx", "typescriptreact", "css" },
+--         }),
+--     }
+-- })
 
 -- Quickfix code_action
 local function quickfix()
@@ -115,14 +111,15 @@ end
 
 -- On attach function
 local on_attach = function(client, bufnr)
-    if client.name == "tailwindcss" or client.name == "emmet_ls" then
+    if  client.name == "tsserver" or client.name == "tailwindcss" or client.name == "emmet_ls" then
         client.server_capabilities.documentFormattingProvider = false
     else
         client.server_capabilities.documentFormattingProvider = true
     end
-    if client.server_capabilities.documentSymbolProvider then
-        navic.attach(client, bufnr)
-    end
+    -- TODO: Navic is really buggy, replace this with something else in future if you find something resonable
+    -- if client.server_capabilities.documentSymbolProvider then
+    --     navic.attach(client, bufnr)
+    -- end
     lsp_keymaps(bufnr)
 end
 
@@ -147,14 +144,13 @@ lspconfig.eslint.setup {
 -- Typescript
 lspconfig.tsserver.setup {
     on_attach = on_attach,
-    filetypes = { "typescript", "typescript.tsx", "typescriptreact" },
+    filetypes = { "javascript", "typescript", "typescript.tsx", "typescriptreact" },
     capabilities = capabilities
 }
 
 -- Tailwindcss
 lspconfig.tailwindcss.setup {
     on_attach = on_attach,
-    filetypes = { "typescript", "typescript.tsx", "typescriptreact" },
     capabilities = capabilities
 }
 

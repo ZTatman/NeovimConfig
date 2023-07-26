@@ -74,4 +74,9 @@ map('n', '<c-a>', 'gg<S-v>G', opts)
 -- Sort Tailwind Classes
 map('n', '<leader>ts', ':TailwindSort<CR>')
 
+-- Resize Vertical Splits
+map('n', '<leader>=', '<C-w>=', opts)
+map('n', '<leader>>', '<C-w>50>', opts)
+map('n', '<leader><', '<C-w>50<', opts)
+
 --- Abbreviations ---

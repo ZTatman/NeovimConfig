@@ -22,44 +22,44 @@ local check_backspace = function()
     return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
 end
 
--- local kind_icons = {
---   Text = "",
---   Method = "m",
---   Function = "",
---   Constructor = "",
---   Field = "",
---   Variable = "",
---   Class = "",
---   Interface = "",
---   Module = "",
---   Property = "",
---   Unit = "",
---   Value = "",
---   Enum = "",
---   Keyword = "",
---   Snippet = "",
---   Color = "",
---   File = "",
---   Reference = "",
---   Folder = "",
---   EnumMember = "",
---   Constant = "",
---   Struct = "",
---   Event = "",
---   Operator = "",
---   TypeParameter = "",
--- }
+local kind_icons = {
+    File          = "󰈙 ",
+    Module        = " ",
+    Namespace     = "󰌗 ",
+    Package       = " ",
+    Class         = "󰌗 ",
+    Method        = "󰆧 ",
+    Property      = " ",
+    Field         = " ",
+    Constructor   = " ",
+    Enum          = "󰕘 ",
+    Interface     = "󰕘 ",
+    Function      = "󰊕 ",
+    Variable      = "󰆧 ",
+    Constant      = "󰏿 ",
+    String        = "󰀬  ",
+    Number        = "󰎠 ",
+    Boolean       = "◩ ",
+    Array         = "󰅪  ",
+    Object        = "󰅩  ",
+    Key           = "󰌋 ",
+    Null          = "󰟢 ",
+    EnumMember    = " ",
+    Struct        = "󰌗 ",
+    Event         = " ",
+    Operator      = "󰆕 ",
+    TypeParameter = "󰊄 ",
+}
 -- find more here: https://www.nerdfonts.com/cheat-sheet
 
 cmp.setup({
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },
         { name = 'nvim_lsp_signature_help' },
-        { name = 'luasnip' }, -- For luasnip users.
-    }, {
-        { name = 'buffer' },
+        { name = 'luasnip' },
+        { name = 'buffer' }, -- increase from default of 3
+        { name = 'path' }
     }),
-
     mapping = cmp.mapping.preset.insert({
         ['<C-c>'] = cmp.mapping.complete({}),
         ['<C-e>'] = cmp.mapping.close(),
@@ -101,14 +101,11 @@ cmp.setup({
             "s",
         }),
     }),
-
     snippet = {
         expand = function(args) luasnip.lsp_expand(args.body) end
     },
-
     window = {
         col_offset = -3, -- align the abbr and word on cursor (due to fields order below)
-
         completion = cmp.config.window.bordered({
             border = "double",
             winhighlight = "Normal:Normal,FloatBorder:Normal,CursorLine:PmenuSel,Search:None",
@@ -117,14 +114,13 @@ cmp.setup({
             border = "single"
         }),
     },
-
     formatting = {
         -- Credit to:
         fields = { "kind", "abbr", "menu" },
         format = lspkind.cmp_format({
             mode = 'symbol_text', -- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
-            maxwidth = 50,  -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-            menu = ({       -- showing type in menu
+            maxwidth = 50,        -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+            menu = ({             -- showing type in menu
                 nvim_lsp = "[LSP]",
                 path = "[Path]",
                 buffer = "[Buffer]",
@@ -151,7 +147,6 @@ cmp.setup({
             end
         })
     },
-
     experimental = {
         ghost_text = false,
         native_menu = false,

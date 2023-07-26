@@ -28,7 +28,11 @@ local plugins = {
     'akinsho/toggleterm.nvim',
     'tpope/vim-commentary',
     'tpope/vim-surround',
-    { 'nvim-treesitter/nvim-treesitter',  build = ":TSUpdate" },
+    {
+        'nvim-treesitter/nvim-treesitter',
+        dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
+        build = ":TSUpdate"
+    },
     {
         'nvim-telescope/telescope.nvim',
         tag = '0.1.1',
@@ -52,10 +56,16 @@ local plugins = {
     },
     { 'akinsho/bufferline.nvim',            version = "*", dependencies = 'nvim-tree/nvim-web-devicons' },
     -- Completion
-    'hrsh7th/nvim-cmp',
-    'hrsh7th/cmp-nvim-lsp',
-    'hrsh7th/cmp-nvim-lsp-signature-help',
-    'onsails/lspkind.nvim',
+    {
+        'hrsh7th/nvim-cmp',
+        dependencies = {
+            'hrsh7th/cmp-nvim-lsp',
+            'hrsh7th/cmp-nvim-lsp-signature-help',
+            'hrsh7th/cmp-path',
+            'hrsh7th/cmp-buffer',
+            'onsails/lspkind.nvim',
+        }
+    },
     -- Tailwind Support
     {
         "roobert/tailwindcss-colorizer-cmp.nvim",
