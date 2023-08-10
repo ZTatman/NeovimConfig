@@ -12,12 +12,18 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
+    -- Navic
     'SmiteshP/nvim-navic',
+    -- Fugitive
     'tpope/vim-fugitive',
     'tpope/vim-rhubarb',
+    -- Gitsigns
     'lewis6991/gitsigns.nvim',
+    -- NvimTree
     'nvim-tree/nvim-tree.lua',
+    -- Web Dev Icons
     'nvim-tree/nvim-web-devicons',
+    -- Lualine
     'nvim-lualine/lualine.nvim',
     -- Color Schemes
     'Mofiqul/vscode.nvim',
@@ -25,14 +31,19 @@ local plugins = {
     -- Tag / Bracket completion
     'windwp/nvim-autopairs',
     'windwp/nvim-ts-autotag',
+    -- Toggleterm
     'akinsho/toggleterm.nvim',
+    -- Comments
     'tpope/vim-commentary',
+    -- Auto Brackets
     'tpope/vim-surround',
+    -- Treesitter
     {
         'nvim-treesitter/nvim-treesitter',
         dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
         build = ":TSUpdate"
     },
+    -- Telescope
     {
         'nvim-telescope/telescope.nvim',
         tag = '0.1.1',
@@ -43,6 +54,17 @@ local plugins = {
     { "williamboman/mason.nvim" },
     { "williamboman/mason-lspconfig.nvim" },
     { "neovim/nvim-lspconfig" },
+    -- Lspsaga (glepnir)
+    {
+        "glepnir/lspsaga.nvim",
+        event = "LspAttach",
+        dependencies = {
+            { "nvim-tree/nvim-web-devicons" },
+            --Please make sure you install markdown and markdown_inline parser
+            { "nvim-treesitter/nvim-treesitter" }
+        }
+    },
+
     -- Formatting
     'jose-elias-alvarez/null-ls.nvim',
     -- Snippets
@@ -85,22 +107,12 @@ local plugins = {
     },
     -- Cursor Highlight
     { 'tzachar/local-highlight.nvim' },
-    --  Indent-blankine
+    -- Indentation guides
     { "lukas-reineke/indent-blankline.nvim" },
     -- Git Merge Conflicts
     { 'akinsho/git-conflict.nvim',          version = "*", config = true },
     --  Automatic highlight removal
     'jesseleite/vim-noh',
-    -- LSPSAGA (glepnir)
-    {
-        "glepnir/lspsaga.nvim",
-        event = "LspAttach",
-        dependencies = {
-            { "nvim-tree/nvim-web-devicons" },
-            --Please make sure you install markdown and markdown_inline parser
-            { "nvim-treesitter/nvim-treesitter" }
-        }
-    },
     -- Colorizer
     {
         "NvChad/nvim-colorizer.lua",
