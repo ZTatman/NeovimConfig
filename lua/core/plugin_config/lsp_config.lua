@@ -3,21 +3,23 @@ require("mason").setup()
 require("mason-lspconfig").setup({
     ensure_installed = { "lua_ls", "emmet_ls", "eslint", "tsserver", "jdtls", "tailwindcss", "cssls" }
 })
+
+-- Lspsaga
 require("lspsaga").setup({
-    code_action = {
-        num_shortcut = true,
-        show_server_name = true,
-        extend_gitsigns = true,
+    symbol_in_winbar = {
+        folder_level = 0,
+    },
+    diagnostic = {
+        max_height = 0.8,
+        extend_relatedInformation = true,
         keys = {
-            -- string | table type
-            quit = "q",
-            exec = "<CR>",
-        },
+            quit = { 'q', '<ESC>' }
+        }
     },
 })
 
 -- Required modules
-local navic = require("nvim-navic")
+-- local navic = require("nvim-navic")
 local null_ls = require("null-ls")
 local lspconfig = require("lspconfig")
 
@@ -30,7 +32,6 @@ local code_actions = null_ls.builtins.code_actions
 local diagnostics = null_ls.builtins.diagnostics
 local formatting = null_ls.builtins.formatting
 local hover = null_ls.builtins.hover
-
 local eslint_d_args = {
     "--config", eslint_config_path,
 }
@@ -90,11 +91,11 @@ local function lsp_keymaps()
     map('n', "<leader>ca", "<cmd>Lspsaga code_action<CR>", opts)
     map("n", "gd", "<cmd>Lspsaga goto_definition<CR>", opts)
     map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-    map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-    map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+    map("n", "gi", "<cmd>Lspsaga finder imp<CR>", opts)
+    map("n", "gr", "<cmd>Lspsaga finder ref<CR>", opts)
     map("n", "gp", "<cmd>Lspsaga peek_definition<CR>", opts)
     map("n", "gt", "<cmd>Lspsaga peek_type_definition<CR>", opts)
-    map("n", "<space>f", "<cmd>Lspsaga lsp_finder<CR>", opts)
+    map("n", "<space>f", "<cmd>Lspsaga finder<CR>", opts)
 
     map("n", "H", "<cmd>Lspsaga hover_doc<CR>", opts)
     map("n", "K", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
@@ -111,7 +112,7 @@ end
 
 -- On attach function
 local on_attach = function(client, bufnr)
-    if  client.name == "tsserver" or client.name == "tailwindcss" or client.name == "emmet_ls" then
+    if client.name == "tailwindcss" or client.name == "emmet_ls" then
         client.server_capabilities.documentFormattingProvider = false
     else
         client.server_capabilities.documentFormattingProvider = true
@@ -177,7 +178,7 @@ local signs = {
     { name = "DiagnosticSignError", text = "" },
     { name = "DiagnosticSignWarn",  text = "" },
     { name = "DiagnosticSignInfo",  text = "" },
-    { name = "DiagnosticSignHint",  text = "" },
+    { name = "DiagnosticSignHint",  text = "⚡️" },
 }
 
 for _, sign in ipairs(signs) do

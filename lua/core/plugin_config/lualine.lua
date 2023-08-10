@@ -1,9 +1,6 @@
 local lualine_status, lualine = pcall(require, "lualine")
 if (not lualine_status) then return end
 
-local navic = require("nvim-navic")
-
-
 function BRANCH_FORMATTER(branch_name)
     local prefix = string.match(branch_name, "^(.-)/AGTPORTL13")
     if not prefix then
@@ -33,7 +30,7 @@ lualine.setup {
             {
                 'diagnostics',
                 sources = { "nvim_diagnostic" },
-                symbols = { error = ' ', warn = ' ', info = '  ', hint = ' ' }
+                symbols = { error = ' ', warn = ' ', info = '  ', hint = '⚡️ ' }
             },
             'encoding',
             'filetype'

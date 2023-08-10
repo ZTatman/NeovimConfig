@@ -54,10 +54,9 @@ local plugins = {
     { "williamboman/mason.nvim" },
     { "williamboman/mason-lspconfig.nvim" },
     { "neovim/nvim-lspconfig" },
-    -- Lspsaga (glepnir)
+    -- Lspsaga (glepnir's but maintained by nvimdev)
     {
-        "glepnir/lspsaga.nvim",
-        event = "LspAttach",
+        'nvimdev/lspsaga.nvim',
         dependencies = {
             { "nvim-tree/nvim-web-devicons" },
             --Please make sure you install markdown and markdown_inline parser
