@@ -132,6 +132,6 @@ map('n', ']h', ':Gitsigns next_hunk<CR>')
 map('n', 'ph', ':Gitsigns preview_hunk<CR>')
 map('n', 'vh', ':Gitsigns select_hunk<CR>')
 map('n', 'sh', ':Gitsigns stage_hunk<CR>')
-map('n', 'uh', ':Gitsigns refresh_hunk<CR>')
+map('n', 'rh', ':Gitsigns reset_hunk<CR>')
 
 return P
