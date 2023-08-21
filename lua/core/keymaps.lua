@@ -1,11 +1,12 @@
+-- local diff = require "core.utils.diff"
 local P = {}
 keymaps = P
 
-local term_opts = { silent = true }
+-- local term_opts = { silent = true }
 local opts = { noremap = true, silent = true }
 
 local map = function(mode, key, result)
-    vim.keymap.set(mode, key, result)
+    vim.keymap.set(mode, key, result, opts)
 end
 
 -- LSP Keymaps --
@@ -133,5 +134,8 @@ map('n', 'ph', ':Gitsigns preview_hunk<CR>')
 map('n', 'vh', ':Gitsigns select_hunk<CR>')
 map('n', 'sh', ':Gitsigns stage_hunk<CR>')
 map('n', 'rh', ':Gitsigns reset_hunk<CR>')
+
+-- Git diff this file
+map('n', '<leader>df', '<cmd>lua require("core.utils.diff")()<CR>')
 
 return P
