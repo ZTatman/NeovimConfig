@@ -45,7 +45,9 @@ telescope.setup({
             },
             i = {
                 ["Q"] = actions.close,
-                ["<C-s>"] = actions.select_vertical
+                ["<C-s>"] = actions.select_vertical,
+                ['<C-j>'] = actions.cycle_history_next,
+                ['<C-k>'] = actions.cycle_history_prev
             },
         },
         layout_config = {

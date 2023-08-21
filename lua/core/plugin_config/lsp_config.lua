@@ -20,21 +20,21 @@ require("lspsaga").setup({
 
 -- Required modules
 -- local navic = require("nvim-navic")
-local null_ls = require("null-ls")
+-- local null_ls = require("null-ls")
 local lspconfig = require("lspconfig")
 
 --  Eslint configs
-local eslint_node_path = os.getenv("ESLINT_PATH")
-local eslint_config_path = os.getenv("ESLINT_CHARTER_CONFIG")
+-- local eslint_node_path = os.getenv("ESLINT_PATH")
+-- local eslint_config_path = os.getenv("ESLINT_CHARTER_CONFIG")
 
 -- Null-ls
-local code_actions = null_ls.builtins.code_actions
-local diagnostics = null_ls.builtins.diagnostics
-local formatting = null_ls.builtins.formatting
-local hover = null_ls.builtins.hover
-local eslint_d_args = {
-    "--config", eslint_config_path,
-}
+-- local code_actions = null_ls.builtins.code_actions
+-- local diagnostics = null_ls.builtins.diagnostics
+-- local formatting = null_ls.builtins.formatting
+-- local hover = null_ls.builtins.hover
+-- local eslint_d_args = {
+--     "--config", eslint_config_path,
+-- }
 
 -- local get_eslintd_args = function()
 --     local filetypes = { "javascript", "javascriptreact", "javascript.jsx" }
@@ -117,10 +117,6 @@ local on_attach = function(client, bufnr)
     else
         client.server_capabilities.documentFormattingProvider = true
     end
-    -- TODO: Navic is really buggy, replace this with something else in future if you find something resonable
-    -- if client.server_capabilities.documentSymbolProvider then
-    --     navic.attach(client, bufnr)
-    -- end
     lsp_keymaps(bufnr)
 end
 
@@ -133,7 +129,6 @@ lspconfig.eslint.setup {
     on_attach = on_attach,
     filetypes = { "javascript", "javascriptreact", "javascript.jsx" },
     capabilities = capabilities,
-    -- root_dir = function() return vim.loop.cwd() end,
     settings = {
         nodePath = "/Users/P3062728/Projects/Charter/mui/charter-mui-platform/node_modules",
         options = {
