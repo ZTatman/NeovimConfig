@@ -48,13 +48,18 @@ local function diffWith()
         else
             vim.ui.select(commits, {
                 prompt = "Select commit to compare with current file",
+                telescope = require("telescope.themes").get_ivy(),
                 format_item = function(item)
                     return item.hash_id .. " > " .. item.message
                 end,
             }, function(choice)
-                -- gitsigns.diffthis(choice.hash_id)
+                if choice == nil then
+                    vim.cmd("echo 'No choice was selected.'")
+                    return
+                end
+                gitsigns.diffthis(choice.hash_id)
                 -- With vim-fugitive
-                vim.cmd("Gvdiffsplit " .. choice.hash_id)
+                -- vim.cmd("Gvdiffsplit " .. choice.hash_id)
             end)
         end
     end

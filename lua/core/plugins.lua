@@ -46,10 +46,14 @@ local plugins = {
     -- Telescope
     {
         'nvim-telescope/telescope.nvim',
-        tag = '0.1.1',
-        dependencies = { 'nvim-lua/plenary.nvim',
-            'nvim-lua/popup.nvim' }
+        branch = '0.1.x',
+        dependencies = {
+            'nvim-lua/plenary.nvim',
+            'nvim-lua/popup.nvim'
+        }
     },
+    -- Fzf-native (speeds up telescope)
+    { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
     -- Language Server Protocol (LSP)
     { "williamboman/mason.nvim" },
     { "williamboman/mason-lspconfig.nvim" },

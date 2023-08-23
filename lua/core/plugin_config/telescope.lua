@@ -15,6 +15,9 @@ vim.api.nvim_set_keymap('n', ';f',
 vim.api.nvim_set_keymap('n', ';r',
     "<cmd>lua require('telescope.builtin').live_grep({layout_strategy='bottom_pane', layout_config={width=0.45}})<cr>",
     opts)
+vim.api.nvim_set_keymap('n', ';rc',
+    "<cmd>lua require('telescope.builtin').grep_string({layout_strategy='bottom_pane', layout_config={width=0.45}})<cr>",
+    opts)
 vim.api.nvim_set_keymap('n', ';pf',
     "<cmd>lua require('telescope.builtin').oldfiles({layout_strategy='bottom_pane', layout_config={height=0.45}})<cr>",
     opts)
@@ -53,5 +56,18 @@ telescope.setup({
         layout_config = {
             -- other layout configuration here
         },
+    },
+    extensions = {
+        fzf = {
+            fuzzy = true,                   -- false will only do exact matching
+            override_generic_sorter = true, -- override the generic sorter
+            override_file_sorter = true,    -- override the file sorter
+            case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
+            -- the default case_mode is "smart_case"
+        }
     }
 })
+
+-- To get fzf loaded and working with telescope, you need to call
+-- load_extension, somewhere after setup function:
+require('telescope').load_extension('fzf')
