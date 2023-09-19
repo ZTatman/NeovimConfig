@@ -94,7 +94,7 @@ local config = {
             format = {
                 enabled = true,
                 settings = {
-                    url = vim.fn.stdpath "config" .. "/formatters/charter-gateway-eclipse-formatter.xml",
+                    url = fn.stdpath "config" .. "/formatters/charter-gateway-eclipse-formatter.xml",
                     profile = "CharterStyle",
                 },
             },

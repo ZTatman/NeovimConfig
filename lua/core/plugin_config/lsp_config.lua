@@ -151,10 +151,10 @@ lspconfig.tailwindcss.setup {
 }
 
 -- Java
--- lspconfig.jdtls.setup {
---   on_attach = on_attach,
---   capabilities = capabilities
--- }
+lspconfig.jdtls.setup {
+  on_attach = on_attach,
+  capabilities = capabilities
+}
 
 -- Emmet
 lspconfig.emmet_ls.setup {
