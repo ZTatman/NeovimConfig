@@ -33,5 +33,8 @@ indent.setup({
         "help",
         "lazy",
         "NvimTree",
+        "dashboard",
+        "markdown",
+        "markdown-inline"
     },
 })

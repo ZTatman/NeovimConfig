@@ -3,7 +3,7 @@ local P = {}
 keymaps = P
 
 -- local term_opts = { silent = true }
-local opts = { noremap = true, silent = true }
+local opts = { noremap = false, silent = true }
 
 local map = function(mode, key, result)
     vim.keymap.set(mode, key, result, opts)
@@ -28,28 +28,37 @@ function map_lsp_keys()
     map("n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>")
     map("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
     map("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>")
-    map("n", "<space>d", "<cmd>Lspsaga show_buf_diagnostics<CR>")
-    map("n", "<space>D", "<cmd>Lspsaga show_workspace_diagnostics<CR>")
+    map("n", "<space>d", function() require("trouble").open("document_diagnostics") end)
+    map("n", "<space>D", function() require("trouble").open("workspace_diagnostics") end)
     vim.cmd [[ command! Format execute "lua vim.lsp.buf.format({ async = true })" ]]
+
+    -- Trouble.nvim Keymaps
+    map("n", "<leader>t", "<cmd>TroubleToggle<CR>")
+    map("n", "<leader>tq", function() require("trouble").open("quickfix") end)
+    map("n", "<leader>tl", function() require("trouble").open("loclist") end)
+    map("n", "gR", function() require("trouble").open("lsp_references") end)
 end
 
 -- Java Keymaps --
 function P.map_java_keys()
+    print("Mapping java keys...")
     map_lsp_keys()
 
-    local spring_boot_run = 'mvn spring-boot:run -Dspring-boot.run.profiles=local'
-    local spring_boot_run_command = ':lua require("toggleterm").exec("\' .. spring_boot_run .. \'")<CR>'
-    local mvn_clean_install = 'mvn clean install -U'
-    local mvn_clean_install_command = ':lua require("toggleterm").exec("\' .. mvn_clean_install .. \'")<CR>'
+    local spring_boot_run_command = ':lua require("toggleterm").exec("mvn spring-boot:run -Dspring-boot.run.profiles=local")<CR>'
+    local mvn_clean_install_command = ':lua require("toggleterm").exec("mvn clean install -U")<CR>'
+    local mcv_dependency_sources = 'lua:require("toggleterm).exec("mvn dependency:sources)<CR>'
 
     map('n', '<leader>sr', spring_boot_run_command)
     map('n', '<leader>ci', mvn_clean_install_command)
+    map('n', '<leader>sc', mcv_dependency_sources)
     map('n', 'oi', ':lua require("jdtls").organize_imports()<CR>')
-    map('n', '<leader>jc', ':lua require("jdtls).compile("incremental")')
+    map('n', '<leader>jc', ':lua require("jdtls").compile("incremental")<CR>')
 end
 
+---------------------
 -- General Keymaps --
---
+---------------------
+
 -- Leader
 vim.g.mapleader = '\\'
 
@@ -102,6 +111,13 @@ map('n', '<c-f>', ':NvimTreeFindFile<CR>')
 -- Clear highlight
 map('n', '<space><leader>', ':nohlsearch<CR>')
 
+-- Print highlight group under cursor
+map(
+    'n',
+    '<leader>hi',
+    function() local result = vim.treesitter.get_captures_at_cursor(0) print(vim.inspect(result)) end
+)
+
 -- Tab create, delete, navigation
 map('n', 'tn', ':tabnew<CR>')
 map('n', 'tnf', ':tabnew<space>')
@@ -126,6 +142,8 @@ map('n', '<leader>ts', ':TailwindSort<CR>')
 map('n', '<leader>=', '<C-w>=')
 map('n', '<leader>>', '<C-w>50>')
 map('n', '<leader><', '<C-w>50<')
+
+map('n', '<space>m', ':TSJToggle<CR>')
 
 -- Gitsigns hunks
 map('n', '[h', ':Gitsigns prev_hunk<CR>')

@@ -33,6 +33,7 @@ local options = {
     mouse = "a",
     encoding = "utf8",
     shell = "zsh",
+    sessionoptions = "buffers,curdir,folds,help,winsize,winpos,tabpages,terminal"
 }
 
 

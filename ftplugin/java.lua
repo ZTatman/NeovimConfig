@@ -1,32 +1,43 @@
 local fn = vim.fn
 
-local path_to_java = os.getenv("JAVA_HOME")
+local path_to_java = os.getenv("JAVA_HOME") .. '/bin/java'
 local jdtls_dir = fn.stdpath('data') .. '/mason/packages/jdtls'
+
 local config_dir = jdtls_dir .. '/config_mac'
 local plugins_dir = jdtls_dir .. '/plugins/'
-local path_to_jar = plugins_dir .. 'org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar'
-print(fn.stdpath('data'))
+
+local path_to_jar = plugins_dir .. 'org.eclipse.equinox.launcher_1.6.500.v20230717-2134.jar'
 local root_markers = { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" }
 local root_dir = require('jdtls.setup').find_root(root_markers)
 if root_dir == "" then
     return
 end
 
+local home = os.getenv("HOME")
 local project_name = fn.fnamemodify(fn.getcwd(), ':p:h:t')
-local workspace_dir = fn.stdpath('data') .. '/site/java/workspace_root/' .. project_name
+local workspace_dir = home .. '/.cache/jdtls/workspace/' .. project_name
 os.execute("mkdir " .. workspace_dir)
+
+
+-- On attach function
+package.path = package.path .. ";../?.lua"
+local keymaps = require("core.keymaps")
+-- print('keymaps not nil: ', keymaps.map_java_keys ~= nil)
+-- local keymaps = loadfile "../lua/core/keymaps.lua"
+local on_attach = function(client, bufnr)
+    keymaps.map_java_keys(bufnr)
+end
 
 -- Main Config
 -- See `:help vim.lsp.start_client` for an overview of the supported `config` options.
 local config = {
-    -- The command that starts the language server
+    on_attach = on_attach,
+    -- The command that starts ,the language server
     -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
     cmd = {
-
         -- 💀
         path_to_java, -- or '/path/to/java17_or_newer/bin/java'
         -- depends on if `java` is in your $PATH env variable and if it points to the right version.
-
         '-Declipse.application=org.eclipse.jdt.ls.core.id1',
         '-Dosgi.bundles.defaultStartLevel=4',
         '-Declipse.product=org.eclipse.jdt.ls.core.product',
@@ -36,24 +47,19 @@ local config = {
         '--add-modules=ALL-SYSTEM',
         '--add-opens', 'java.base/java.util=ALL-UNNAMED',
         '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
-
         -- 💀
         '-jar', path_to_jar,
         -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                       ^^^^^^^^^^^^^^
         -- Must point to the                                                     Change this to
         -- eclipse.jdt.ls installation                                           the actual version
-
-
         -- 💀
         '-configuration', config_dir,
         -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^        ^^^^^^
         -- Must point to the                      Change to one of `linux`, `win` or `mac`
         -- eclipse.jdt.ls installation            Depending on your system.
-
-
         -- 💀
         -- See `data directory configuration` section in the README
-        '-data', workspace_dir
+        '-data', workspace_dir,
     },
 
     root_dir = root_dir,
@@ -144,9 +150,9 @@ local config = {
     }
 }
 
--- Setup an attach function
-config['on_attach'] = function(client, bufnr)
-    require("keymaps").map_java_keys(bufnr)
-end
+-- -- Setup an attach function
+-- config['on_attach'] = function(client, bufnr)
+--     require("keymaps").map_java_keys(bufnr)
+-- end
 
 require('jdtls').start_or_attach(config)

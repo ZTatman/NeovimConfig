@@ -1,7 +1,17 @@
 -- Mason
+require("core.keymaps")
 require("mason").setup()
 require("mason-lspconfig").setup({
-    ensure_installed = { "lua_ls", "emmet_ls", "eslint", "tsserver", "jdtls", "tailwindcss", "cssls" }
+    ensure_installed = {
+        "lua_ls",
+        "emmet_ls",
+        "eslint",
+        "tsserver",
+        "jdtls",
+        "tailwindcss",
+        "cssls",
+        "marksman"
+    }
 })
 
 -- Lspsaga
@@ -11,6 +21,8 @@ require("lspsaga").setup({
     },
     diagnostic = {
         max_height = 0.8,
+        max_width = 0.6,
+        max_show_width = 0.6,
         extend_relatedInformation = true,
         keys = {
             quit = { 'q', '<ESC>' }
@@ -22,6 +34,9 @@ require("lspsaga").setup({
 -- local navic = require("nvim-navic")
 -- local null_ls = require("null-ls")
 local lspconfig = require("lspconfig")
+
+local map = vim.keymap.set
+local opts = { noremap = true, silent = true }
 
 --  Eslint configs
 -- local eslint_node_path = os.getenv("ESLINT_PATH")
@@ -80,35 +95,7 @@ local function quickfix()
         apply = true
     })
 end
-
--- Keymaps (Lspsaga)
-local map = vim.keymap.set
-local opts = { noremap = true, silent = true }
-
-vim.keymap.set("n", "<leader>qf", quickfix, opts)
-
-local function lsp_keymaps()
-    map('n', "<leader>ca", "<cmd>Lspsaga code_action<CR>", opts)
-    map("n", "gd", "<cmd>Lspsaga goto_definition<CR>", opts)
-    map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-    map("n", "gi", "<cmd>Lspsaga finder imp<CR>", opts)
-    map("n", "gr", "<cmd>Lspsaga finder ref<CR>", opts)
-    map("n", "gp", "<cmd>Lspsaga peek_definition<CR>", opts)
-    map("n", "gt", "<cmd>Lspsaga peek_type_definition<CR>", opts)
-    map("n", "<space>f", "<cmd>Lspsaga finder<CR>", opts)
-
-    map("n", "H", "<cmd>Lspsaga hover_doc<CR>", opts)
-    map("n", "K", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-    map("n", "rn", "<cmd>Lspsaga rename<CR>", opts)
-    map("n", "<leader>o", "<cmd>Lspsaga outline<CR>", opts)
-    -- map(bufnr, "n", "<leader>f", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
-    map("n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
-    map("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
-    map("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)
-    map("n", "<space>d", "<cmd>Lspsaga show_buf_diagnostics<CR>", opts)
-    map("n", "<space>D", "<cmd>Lspsaga show_workspace_diagnostics<CR>", opts)
-    vim.cmd [[ command! Format execute "lua vim.lsp.buf.format({ async = true })" ]]
-end
+map("n", "<leader>qf", quickfix, opts)
 
 -- On attach function
 local on_attach = function(client, bufnr)
@@ -117,7 +104,7 @@ local on_attach = function(client, bufnr)
     else
         client.server_capabilities.documentFormattingProvider = true
     end
-    lsp_keymaps(bufnr)
+    map_lsp_keys(bufnr)
 end
 
 -- Lspconfig capabilities
@@ -150,11 +137,16 @@ lspconfig.tailwindcss.setup {
     capabilities = capabilities
 }
 
--- Java
-lspconfig.jdtls.setup {
-  on_attach = on_attach,
-  capabilities = capabilities
+lspconfig.marksman.setup {
+    on_attach = on_attach,
+    capabilities = capabilities
 }
+
+-- -- Java
+-- lspconfig.jdtls.setup {
+--   on_attach = function() end,
+--   capabilities = capabilities
+-- }
 
 -- Emmet
 lspconfig.emmet_ls.setup {
@@ -165,15 +157,33 @@ lspconfig.emmet_ls.setup {
 --  Lua
 lspconfig.lua_ls.setup {
     on_attach = on_attach,
-    capabilities = capabilities
+    capabilities = capabilities,
+    settings = {
+        Lua = {
+            runtime = {
+                version = "LuaJIT",
+            },
+            diagnostics = {
+                globals = { "vim", "require" },
+            },
+            workspace = {
+                library = vim.api.nvim_get_runtime_file("", true),
+                checkThirdParty = false,
+            },
+            telemetry = { enable = false },
+            hint = {
+                enable = true,
+            },
+        },
+    },
 }
 
 -- Diagnostics
 local signs = {
     { name = "DiagnosticSignError", text = "" },
-    { name = "DiagnosticSignWarn",  text = "" },
-    { name = "DiagnosticSignInfo",  text = "" },
-    { name = "DiagnosticSignHint",  text = "⚡️" },
+    { name = "DiagnosticSignWarn", text = "" },
+    { name = "DiagnosticSignInfo", text = "󰋼" },
+    { name = "DiagnosticSignHint", text = "⚡️" },
 }
 
 for _, sign in ipairs(signs) do

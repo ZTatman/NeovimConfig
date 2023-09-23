@@ -32,7 +32,8 @@ require 'nvim-treesitter.configs'.setup {
         "javascript",
         "typescript",
         "markdown",
-        "markdown_inline"
+        "markdown_inline",
+        "norg"
     },
     autotag = {
         enable = true,

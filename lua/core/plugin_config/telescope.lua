@@ -64,10 +64,21 @@ telescope.setup({
             override_file_sorter = true,    -- override the file sorter
             case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
             -- the default case_mode is "smart_case"
+        },
+        workspaces = {
+            -- keep insert mode after selection in the picker, default is false
+            keep_insert = true,
         }
     }
 })
 
+local extensions = {
+    "fzf",
+    "workspaces",
+}
+
 -- To get fzf loaded and working with telescope, you need to call
 -- load_extension, somewhere after setup function:
-require('telescope').load_extension('fzf')
+for e in ipairs(extensions) do
+    telescope.load_extension(extensions[e])
+end
