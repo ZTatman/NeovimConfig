@@ -29,6 +29,7 @@ local plugins = {
     'Mofiqul/vscode.nvim',
     'sainnhe/edge',
     'glepnir/zephyr-nvim',
+    'rebelot/kanagawa.nvim',
     {
         "folke/tokyonight.nvim",
         lazy = false,
@@ -401,6 +402,39 @@ local plugins = {
         keys = {
             vim.keymap.set("n", "<leader>w", "<cmd>:Telescope workspaces<CR>"),
         },
+    },
+    -- Cursor placement session manager
+    {
+        "ethanholz/nvim-lastplace",
+        opts = {
+            lastplace_ignore_buftype = {
+                "quickfix",
+                "nofile",
+                "help",
+                "terminal",
+            },
+            lastplace_ignore_filetype = {
+                "gitcommit",
+                "gitrebase",
+                "svn",
+                "hgcommit",
+                "toggleterm",
+                "dashboard",
+            },
+            lastplace_open_folds = false,
+        },
+        event = "BufReadPre",
+    },
+    -- Easy line peeking
+    {
+        "nacro90/numb.nvim",
+        opts = {
+            show_numbers = true,
+            show_cursorline = true,
+            number_only = false,
+            centered_peeking = true,
+        },
+        event = "BufReadPre",
     }
 }
 
