@@ -64,8 +64,14 @@ vim.g.mapleader = '\\'
 
 -- Open Mason and LspInfo
 map('n', '<leader>m', '<cmd>:Mason<CR>')
-map('n', '<leader>l', '<cmd>:LspInfo<CR>')
+map('n', '<leader>l', '<cmd>:Lazy<CR>')
+map('n', '<leader>li', '<cmd>:LspInfo<CR>')
 map('n', '<leader>n', '<cmd>:NullLsInfo<CR>')
+
+-- Help
+map('n', '<leader>hh', '<cmd>:Help<CR>')
+map('n', '<leader>hw', '<cmd>:HelpWord<CR>')
+map('n', '<leader>hg', '<cmd>:HelpGrep<CR>')
 
 -- Remap exit insert
 map('i', '<c-space>', '<ESC>')
@@ -154,6 +160,6 @@ map('n', 'sh', ':Gitsigns stage_hunk<CR>')
 map('n', 'rh', ':Gitsigns reset_hunk<CR>')
 
 -- Git diff this file
-map('n', '<leader>df', '<cmd>lua require("core.utils.diff")()<CR>')
+map('n', '<leader>df', '<cmd>lua require("core.util.diff")()<CR>')
 
 return P
