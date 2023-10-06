@@ -117,6 +117,10 @@ local overrides = function(colors)
             bg = p.waveBlue1,
             bold = true,
         },
+        Constant = {
+            fg = p.waveRed,
+            bg = p.sumiInk3
+        }
     }
 end
 

@@ -100,13 +100,13 @@ local plugins = {
     {
         "L3MON4D3/LuaSnip",
         -- follow latest release.
-        version = "1.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+        version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
         -- install jsregexp (optional!).
         build = "make install_jsregexp",
         dependencies = { "rafamadriz/friendly-snippets" }
     },
     -- Bufferline
-    { 'akinsho/bufferline.nvim',            version = "*", dependencies = 'nvim-tree/nvim-web-devicons' },
+    { 'akinsho/bufferline.nvim',             version = "*", dependencies = 'nvim-tree/nvim-web-devicons' },
     -- Completion
     {
         'hrsh7th/nvim-cmp',
@@ -115,6 +115,7 @@ local plugins = {
             'hrsh7th/cmp-nvim-lsp-signature-help',
             'hrsh7th/cmp-path',
             'hrsh7th/cmp-buffer',
+            'saadparwaiz1/cmp_luasnip',
             'onsails/lspkind.nvim',
         }
     },
@@ -136,11 +137,11 @@ local plugins = {
         config = {},
     },
     -- Cursor Highlight
-    { 'tzachar/local-highlight.nvim' },
+    -- { 'tzachar/local-highlight.nvim' },
     -- Indentation guides
-    { "lukas-reineke/indent-blankline.nvim" },
+    { "lukas-reineke/indent-blankline.nvim", main = "ibl" },
     -- Git Merge Conflicts
-    { 'akinsho/git-conflict.nvim',          version = "*", config = true },
+    { 'akinsho/git-conflict.nvim',           version = "*", config = true },
     --  Automatic highlight removal
     'jesseleite/vim-noh',
     -- Colorizer
@@ -224,7 +225,13 @@ local plugins = {
                             action = "Telescope",
                         },
                         {
-                            icon = "",
+                            icon = "󰑑",
+                            desc = "   Grep files   ",
+                            key = "g",
+                            action = "Telescope grep_string",
+                        },
+                        {
+                            icon = "",
                             desc = "   Find files   ",
                             key = "f",
                             action = "Telescope find_files",
@@ -436,6 +443,25 @@ local plugins = {
             centered_peeking = true,
         },
         event = "BufReadPre",
+    },
+    -- AI debugging error messages
+    {
+        "piersolenski/wtf.nvim",
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+        },
+        event = "VeryLazy",
+        opts = {
+            popup_type = "popup",
+            openai_model_id = "gpt-3.5-turbo",
+            language = "english",
+            -- additional_instructions = "Start the reply with 'OH HAI THERE'",
+            search_engine = "google",
+        },
+        keys = {
+            vim.keymap.set("n", "gw", ":lua require('wtf').ai()<CR>"),
+            vim.keymap.set("n", "gW", ":lua require('wtf').search()<CR>"),
+        },
     }
 }
 

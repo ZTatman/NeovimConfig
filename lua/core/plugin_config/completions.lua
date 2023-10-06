@@ -10,8 +10,6 @@ if not status_luasnip then return end
 local status_lspkind, lspkind = pcall(require, "lspkind")
 if not status_lspkind then return end
 
-require("luasnip.loaders.from_vscode").lazy_load();
-
 -- Tailwindcss completion
 require("tailwindcss-colorizer-cmp").setup({
     color_square_width = 2,
@@ -22,44 +20,37 @@ local check_backspace = function()
     return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
 end
 
-local kind_icons = {
-    File          = "󰈙 ",
-    Module        = " ",
-    Namespace     = "󰌗 ",
-    Package       = " ",
-    Class         = "󰌗 ",
-    Method        = "󰆧 ",
-    Property      = " ",
-    Field         = " ",
-    Constructor   = " ",
-    Enum          = "󰕘 ",
-    Interface     = "󰕘 ",
-    Function      = "󰊕 ",
-    Variable      = "󰆧 ",
-    Constant      = "󰏿 ",
-    String        = "󰀬  ",
-    Number        = "󰎠 ",
-    Boolean       = "◩ ",
-    Array         = "󰅪  ",
-    Object        = "󰅩  ",
-    Key           = "󰌋 ",
-    Null          = "󰟢 ",
-    EnumMember    = " ",
-    Struct        = "󰌗 ",
-    Event         = " ",
-    Operator      = "󰆕 ",
-    TypeParameter = "󰊄 ",
-}
+-- local kind_icons = {
+--     File          = "󰈙 ",
+--     Module        = " ",
+--     Namespace     = "󰌗 ",
+--     Package       = " ",
+--     Class         = "󰌗 ",
+--     Method        = "󰆧 ",
+--     Property      = " ",
+--     Field         = " ",
+--     Constructor   = " ",
+--     Enum          = "󰕘 ",
+--     Interface     = "󰕘 ",
+--     Function      = "󰊕 ",
+--     Variable      = "󰆧 ",
+--     Constant      = "󰏿 ",
+--     String        = "󰀬  ",
+--     Number        = "󰎠 ",
+--     Boolean       = "◩ ",
+--     Array         = "󰅪  ",
+--     Object        = "󰅩  ",
+--     Key           = "󰌋 ",
+--     Null          = "󰟢 ",
+--     EnumMember    = " ",
+--     Struct        = "󰌗 ",
+--     Event         = " ",
+--     Operator      = "󰆕 ",
+--     TypeParameter = "󰊄 ",
+-- }
 -- find more here: https://www.nerdfonts.com/cheat-sheet
 
 cmp.setup({
-    sources = cmp.config.sources({
-        { name = 'nvim_lsp' },
-        { name = 'nvim_lsp_signature_help' },
-        { name = 'luasnip' },
-        { name = 'buffer' }, -- increase from default of 3
-        { name = 'path' }
-    }),
     mapping = cmp.mapping.preset.insert({
         ['<C-c>'] = cmp.mapping.complete({}),
         ['<C-e>'] = cmp.mapping.close(),
@@ -114,6 +105,42 @@ cmp.setup({
             border = "single"
         }),
     },
+    sources = cmp.config.sources({
+        {
+            name = 'luasnip',
+            group_index = 1,
+            option = { use_show_condition = true },
+            entry_filter = function()
+                local context = require("cmp.config.context")
+                return not context.in_treesitter_capture("string") and not context.in_syntax_group("String")
+            end,
+        },
+        {
+            name = 'nvim_lsp',
+            group_index = 2
+        },
+        {
+            name = 'nvim_lsp_signature_help',
+            group_index = 3
+        },
+        {
+            name = 'path',
+            group_index = 4,
+        },
+        {
+            name = 'buffer',
+            group_index = 5,
+            option = {
+                get_bufnrs = function()
+                    local bufs = {}
+                    for _, win in ipairs(vim.api.nvim_list_wins()) do
+                        bufs[vim.api.nvim_win_get_buf(win)] = true
+                    end
+                    return vim.tbl_keys(bufs)
+                end,
+            },
+        },
+    }),
     formatting = {
         -- Credit to:
         fields = { "kind", "abbr", "menu" },
@@ -124,7 +151,7 @@ cmp.setup({
                 nvim_lsp = "[LSP]",
                 path = "[Path]",
                 buffer = "[Buffer]",
-                luasnip = "[LuaSnip]",
+                luasnip = "[Snippet]",
             }),
             before = function(entry, vim_item) -- for tailwind css autocomplete
                 if vim_item.kind == 'Color' and entry.completion_item.documentation then
@@ -152,3 +179,5 @@ cmp.setup({
         native_menu = false,
     },
 })
+
+require("luasnip.loaders.from_vscode").lazy_load();

@@ -20,8 +20,8 @@ bufferline.setup {
         max_name_length = 12,
         max_prefix_length = 10,
         tab_size = 20,
-        padding = {left = 4, right = 4},
-        diagnostics = "none",
+        padding = { left = 4, right = 4 },
+        diagnostics = "nvim_lsp",
         diagnostics_indicator = function(count, level)
             local icon = level:match("error") and " " or " "
             return "  " .. icon .. "" .. count

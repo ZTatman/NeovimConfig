@@ -1,4 +1,5 @@
 -- local diff = require "core.utils.diff"
+local fn = require("core.util.functions")
 local P = {}
 keymaps = P
 
@@ -28,8 +29,8 @@ function map_lsp_keys()
     map("n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>")
     map("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
     map("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>")
-    map("n", "<space>d", function() require("trouble").open("document_diagnostics") end)
-    map("n", "<space>D", function() require("trouble").open("workspace_diagnostics") end)
+    map("n", "<leader>d", function() require("trouble").open("document_diagnostics") end)
+    map("n", "<leader>D", function() require("trouble").open("workspace_diagnostics") end)
     vim.cmd [[ command! Format execute "lua vim.lsp.buf.format({ async = true })" ]]
 
     -- Trouble.nvim Keymaps
@@ -97,9 +98,13 @@ map('n', '<leader>s', ':%s/')
 -- Remap write to buffer
 map('i', '<c-s>', '<C-O>:update<CR>')
 
+-- Remap half-page up/down
+map('n', '<c-u>', '<c-u>zz')
+map('n', '<c-d>', '<c-d>zz')
+
 -- Navigate up/down to first non blank character of line
-map('n', '<m-Up>', '<Up>^')
-map('n', '<m-Down>', '<Down>^')
+map('i', '<c-k>', '<ESC><Up><ESC>^i')
+map('i', '<c-j>', '<ESC><Down><ESC>^i')
 
 -- Move lines up and down
 map('n', '<Space>k', ':m .-2<CR>==')
@@ -118,11 +123,11 @@ map('n', '<c-f>', ':NvimTreeFindFile<CR>')
 map('n', '<space><leader>', ':nohlsearch<CR>')
 
 -- Print highlight group under cursor
-map(
-    'n',
+map('n',
     '<leader>hi',
     function() local result = vim.treesitter.get_captures_at_cursor(0) print(vim.inspect(result)) end
 )
+map('n', '<leader>hl', fn.print_hl_under_cursor)
 
 -- Tab create, delete, navigation
 map('n', 'tn', ':tabnew<CR>')

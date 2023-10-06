@@ -47,4 +47,17 @@ M.help_grep = function()
     end)
 end
 
+
+M.print_hl_under_cursor = function()
+    if not vim.fn.exists("*synstack") then
+        return
+    end
+    local syn_stack = vim.fn.synstack(vim.fn.line('.'), vim.fn.col('.'))
+    local names = {}
+    for _, id in ipairs(syn_stack) do
+        table.insert(names, vim.fn.synIDattr(id, "name"))
+    end
+    print(table.concat(names, " -> "))
+end
+
 return M
