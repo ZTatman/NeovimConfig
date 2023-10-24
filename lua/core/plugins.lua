@@ -87,11 +87,11 @@ local plugins = {
         }
     },
     -- Formatting
-    'jose-elias-alvarez/null-ls.nvim',
+    -- 'jose-elias-alvarez/null-ls.nvim',
+    {'nvimtools/none-ls.nvim', event = "BufReadPre",},
     -- Split/Join objects, arrays, lists, nested blocks of code
     {
         'Wansmer/treesj',
-        dependencies = { 'nvim-treesitter/nvim-treesitter' },
         config = function()
             require('treesj').setup({ use_default_keymaps = false, max_join_length = 240 })
         end,
@@ -228,7 +228,7 @@ local plugins = {
                             icon = "󰑑",
                             desc = "   Grep files   ",
                             key = "g",
-                            action = "Telescope grep_string",
+                            action = "Telescope live_grep",
                         },
                         {
                             icon = "",
@@ -236,12 +236,6 @@ local plugins = {
                             key = "f",
                             action = "Telescope find_files",
                         },
-                        -- {
-                        --     icon = "",
-                        --     desc = "Harpoon",
-                        --     key = "h",
-                        --     action = "require('harpoon.ui').toggle_quick_menu()",
-                        -- },
                         {
                             icon = "",
                             desc = "   Restore session   ",
