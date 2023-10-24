@@ -87,11 +87,11 @@ local overrides = function(colors)
             bold = false,
         },
         DashboardHeader = {
-            fg = p.peachRed,
+            fg = p.rainbowBlue,
             bg = p.sumiInk3,
         },
         DashboardIcon = {
-            fg = p.springBlue,
+            fg = p.oniViolet,
             bg = p.sumiInk3,
         },
         DashboardDesc = {
@@ -100,7 +100,7 @@ local overrides = function(colors)
             italic = true,
         },
         DashboardKey = {
-            fg = p.lightBlue,
+            fg = p.springViolet1,
             bg = p.sumiInk3,
             bold = true,
         },
@@ -136,7 +136,9 @@ require("kanagawa").setup({
     dimInactive = true,
     terminalColors = true,
     colors = {
-        palette = {},
+        palette = {
+            rainbowBlue = "#61AFEF"
+        },
         theme = {
             wave = {},
             lotus = {},
