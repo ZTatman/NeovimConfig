@@ -20,6 +20,7 @@ function map_lsp_keys()
     map("n", "gp", "<cmd>Lspsaga peek_definition<CR>")
     map("n", "gt", "<cmd>Lspsaga peek_type_definition<CR>")
     map("n", "<space>f", "<cmd>Lspsaga finder<CR>")
+    map("n", "<leader>es", "<cmd>EslintFixAll<CR>")
 
     map("n", "H", "<cmd>Lspsaga hover_doc<CR>")
     map("n", "K", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
@@ -93,7 +94,9 @@ map('n', '<c-z>', 'u')
 map('i', '<c-z>', '<c-o>u')
 
 -- Remap substitute
-map('n', '<leader>s', ':%s/')
+map('n', '<leader>s', fn.substitute_word_under_cursor)
+map('n', '<leader>si', fn.substitute_word_under_cursor_insensitive)
+
 
 -- Remap write to buffer
 map('i', '<c-s>', '<C-O>:update<CR>')

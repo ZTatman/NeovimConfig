@@ -24,7 +24,7 @@ local open_help_tab = function(help_cmd, topic)
 end
 
 M.help_select = function()
-    ui.input({ prompt = "Open help for> " }, function(input)
+    ui.input({ prompt = "Open help for: " }, function(input)
         if not input then
             return
         end
@@ -38,13 +38,16 @@ M.help_word = function()
 end
 
 M.help_grep = function()
-    ui.input({ prompt = "Grep help for: " }, function(input)
-        if input == "" or not input then
-            return
+    ui.input(
+        { prompt = "Grep help for: " },
+        function(input)
+            if input == "" or not input then
+                return
+            end
+            open_help_tab("helpgrep", input)
+            require("trouble").open("quickfix")
         end
-        open_help_tab("helpgrep", input)
-        require("trouble").open("quickfix")
-    end)
+    )
 end
 
 
@@ -58,6 +61,34 @@ M.print_hl_under_cursor = function()
         table.insert(names, vim.fn.synIDattr(id, "name"))
     end
     print(table.concat(names, " -> "))
+end
+
+M.substitute_word_under_cursor = function()
+    local current_word = u.current_word();
+    ui.input(
+        { prompt = "Substitute '" .. current_word .. "' with: " },
+        function(input)
+            if not input then
+                return
+            end
+            cmd("%s/\\<" .. current_word .. "\\>/" .. input .. "/gc");
+        end
+    )
+    cmd("nohlsearch")
+end
+
+M.substitute_word_under_cursor_insensitive = function()
+        local current_word = u.current_word();
+    ui.input(
+        { prompt = "Substitute '" .. current_word .. "' with: " },
+        function(input)
+            if not input then
+                return
+            end
+            cmd("%s/\\<" .. current_word .. "\\>/" .. input .. "/gci");
+        end
+    )
+    cmd("nohlsearch")
 end
 
 return M
