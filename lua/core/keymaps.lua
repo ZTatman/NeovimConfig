@@ -94,8 +94,9 @@ map('n', '<c-z>', 'u')
 map('i', '<c-z>', '<c-o>u')
 
 -- Remap substitute
-map('n', '<leader>s', fn.substitute_word_under_cursor)
-map('n', '<leader>si', fn.substitute_word_under_cursor_insensitive)
+map('n', '<leader>s', ':%s/');
+map('n', '<leader>r', fn.substitute_word_under_cursor)
+map('n', '<leader>ri', fn.substitute_word_under_cursor_insensitive)
 
 
 -- Remap write to buffer
@@ -169,5 +170,9 @@ map('n', 'rh', ':Gitsigns reset_hunk<CR>')
 
 -- Git diff this file
 map('n', '<leader>df', '<cmd>lua require("core.util.diff")()<CR>')
+
+-- Git conflicts
+map('n', '[c', ':GitConflictPrevConflict<CR>')
+map('n', ']c', ':GitConflictNextConflict<CR>')
 
 return P

@@ -78,7 +78,7 @@ M.substitute_word_under_cursor = function()
 end
 
 M.substitute_word_under_cursor_insensitive = function()
-        local current_word = u.current_word();
+    local current_word = u.current_word();
     ui.input(
         { prompt = "Substitute '" .. current_word .. "' with: " },
         function(input)
