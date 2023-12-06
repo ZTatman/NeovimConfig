@@ -4,12 +4,6 @@ local o = vim.o
 
 -- vim.cmd [[colorscheme zephyr]]
 
--- Edge
--- o.termguicolors = true
--- g.edge_style = 'default'
--- g.edge_transparent_background = 1
--- g.edge_better_performance = 1
--- vim.cmd [[ colorscheme edge ]]
 
 -- Vscode
 -- For dark theme (neovim's default)
@@ -51,7 +45,7 @@ local o = vim.o
 -- Kanagawa
 local overrides = function(colors)
     local p = colors.palette
-    -- local t = colors.theme
+    local theme = colors.theme
     return {
         CursorLine = {
             bold = true,
@@ -88,20 +82,16 @@ local overrides = function(colors)
         },
         DashboardHeader = {
             fg = p.rainbowBlue,
-            bg = p.sumiInk3,
         },
         DashboardIcon = {
             fg = p.oniViolet,
-            bg = p.sumiInk3,
         },
         DashboardDesc = {
             fg = p.fujiWhite,
-            bg = p.sumiInk3,
             italic = true,
         },
         DashboardKey = {
             fg = p.springViolet1,
-            bg = p.sumiInk3,
             bold = true,
         },
         Pmenu = {
@@ -110,8 +100,14 @@ local overrides = function(colors)
         },
         PmenuSel = {
             fg = p.waveBlue1,
-            bg = p.springViolet2,
+            bg = p.oniViolet,
             bold = true,
+        },
+        PmenuSbar = {
+            bg = theme.ui.bg_m1,
+        },
+        PmenuThumb = {
+            bg = theme.ui.bg_p2,
         },
         UfoFoldedBg = {
             bg = p.waveBlue1,
@@ -120,7 +116,66 @@ local overrides = function(colors)
         Constant = {
             fg = p.waveRed,
             bg = p.sumiInk3
-        }
+        },
+        -- Floating windows
+        NormalFloat = {
+            bg = "none",
+        },
+        FloatBorder = {
+            fg = p.oniViolet,
+            bg = "none",
+        },
+        FloatTitle = {
+            bg = "none",
+        },
+        -- Save an hlgroup with dark background and dimmed foreground
+        -- so that you can use it where your still want darker windows.
+        -- E.g.: autocmd TermOpen * setlocal winhighlight=Normal:NormalDark
+        NormalDark = {
+            fg = theme.ui.fg_dim,
+            bg = theme.ui.bg_m3,
+        },
+        -- Popular plugins that open floats will link to NormalFloat by default;
+        -- set their background accordingly if you wish to keep them dark and borderless
+        LazyNormal = {
+            bg = theme.ui.bg_m3,
+            fg = theme.ui.fg_dim,
+        },
+        MasonNormal = {
+            bg = theme.ui.bg_m3,
+            fg = theme.ui.fg_dim,
+        },
+        -- Telescope Prompts
+        TelescopeTitle = {
+            fg = theme.ui.special,
+            bold = true,
+        },
+        TelescopePromptNormal = {
+            bg = theme.ui.bg_p1,
+        },
+        TelescopePromptBorder = {
+            fg = theme.ui.bg_p1,
+            bg = theme.ui.bg_p1,
+        },
+        TelescopeResultsNormal = {
+            fg = theme.ui.fg_dim,
+            bg = theme.ui.bg_m1,
+        },
+        TelescopeResultsBorder = {
+            fg = theme.ui.bg_m1,
+            bg = theme.ui.bg_m1,
+        },
+        TelescopePreviewNormal = {
+            bg = theme.ui.bg_dim,
+        },
+        TelescopePreviewBorder = {
+            bg = theme.ui.bg_dim,
+            fg = theme.ui.bg_dim,
+        },
+        -- Function = {
+        --     fg = rainbowBlue,
+        --     bg = p.sumiInk3,
+        -- }
     }
 end
 
@@ -132,7 +187,7 @@ require("kanagawa").setup({
     keywordStyle = { italic = true },
     statementStyle = { bold = true },
     typeStyle = {},
-    transparent = false,
+    transparent = true,
     dimInactive = true,
     terminalColors = true,
     colors = {
@@ -151,5 +206,16 @@ require("kanagawa").setup({
         },
     },
     overrides = overrides,
+    -- background = {     -- map the value of 'background' option to a theme
+    --     dark = "dragon", -- try "dragon" !
+    --     light = "lotus"
+    -- },
 })
-vim.cmd.colorscheme("kanagawa-wave")
+vim.cmd.colorscheme("kanagawa-dragon")
+
+-- Midnight
+-- local colors = require('midnight.colors')
+-- require('midnight').setup({
+--
+-- })
+-- vim.cmd.colorscheme("midnight")
