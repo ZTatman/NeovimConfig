@@ -7,9 +7,18 @@ create_cmd("Help", fn.help_select)
 create_cmd("HelpWord", fn.help_word)
 create_cmd("HelpGrep", fn.help_grep)
 
-o.autoread = true
-api.nvim_create_autocmd(
-    { "BufEnter", "CursorHold", "CursorHoldI", "FocusGained" }, {
-        command = "if mode() != 'c' | checktime | endif",
-        pattern = { "*" },
-    })
+-- fix conceallevel for json files
+api.nvim_create_autocmd("Filetype", {
+    pattern = {"json", "jsonc"},
+    callback = function()
+        vim.wo.spell = false
+        vim.wo.conceallevel = 0
+    end,
+})
+
+-- o.autoread = true
+-- api.nvim_create_autocmd(
+--     { "BufEnter", "CursorHold", "CursorHoldI", "FocusGained" }, {
+--         command = "if mode() != 'c' | checktime | endif",
+--         pattern = { "*" },
+--     })

@@ -27,15 +27,18 @@ local plugins = {
     'nvim-lualine/lualine.nvim',
     -- Color Schemes
     'Mofiqul/vscode.nvim',
-    'sainnhe/edge',
-    'glepnir/zephyr-nvim',
     'rebelot/kanagawa.nvim',
     {
-        "folke/tokyonight.nvim",
+        'dasupradyumna/midnight.nvim',
         lazy = false,
         priority = 1000,
-        opts = {},
     },
+    -- {
+    --     "folke/tokyonight.nvim",
+    --     lazy = false,
+    --     priority = 1000,
+    --     opts = {},
+    -- },
     -- Treesitter
     {
         'nvim-treesitter/nvim-treesitter',
@@ -57,6 +60,16 @@ local plugins = {
             -- add any options here
         },
         lazy = false,
+    },
+    -- TODO comments
+    {
+        "folke/todo-comments.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        opts = {
+            -- your configuration comes here
+            -- or leave it empty to use the default settings
+            -- refer to the configuration section below
+        }
     },
     -- Auto Brackets
     'tpope/vim-surround',
@@ -88,7 +101,7 @@ local plugins = {
     },
     -- Formatting
     -- 'jose-elias-alvarez/null-ls.nvim',
-    {'nvimtools/none-ls.nvim', event = "BufReadPre",},
+    { 'nvimtools/none-ls.nvim',  event = "BufReadPre", },
     -- Split/Join objects, arrays, lists, nested blocks of code
     {
         'Wansmer/treesj',
@@ -106,7 +119,7 @@ local plugins = {
         dependencies = { "rafamadriz/friendly-snippets" }
     },
     -- Bufferline
-    { 'akinsho/bufferline.nvim',             version = "*", dependencies = 'nvim-tree/nvim-web-devicons' },
+    { 'akinsho/bufferline.nvim', version = "*",        dependencies = 'nvim-tree/nvim-web-devicons' },
     -- Completion
     {
         'hrsh7th/nvim-cmp',

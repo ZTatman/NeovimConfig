@@ -33,7 +33,8 @@ local options = {
     mouse = "a",
     encoding = "utf8",
     shell = "zsh",
-    sessionoptions = "buffers,curdir,folds,help,winsize,winpos,tabpages,terminal"
+    sessionoptions = "buffers,curdir,folds,help,winsize,winpos,tabpages,terminal",
+    pumblend = 15
 }
 
 
