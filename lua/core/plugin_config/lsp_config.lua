@@ -34,7 +34,6 @@ require("lspsaga").setup({
 -- local navic = require("nvim-navic")
 -- local null_ls = require("null-ls")
 local lspconfig = require("lspconfig")
-
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
