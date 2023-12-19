@@ -8,6 +8,11 @@ M.create_cmd = function(command, f, opts)
     api.nvim_create_user_command(command, f, opts)
 end
 
+M.create_map = function(mode, key, result, opts)
+    vim.keymap.set(mode, key, result, opts)
+end
+
+
 M.current_word = function()
     local current_word = fn.expand("<cword>")
     return current_word

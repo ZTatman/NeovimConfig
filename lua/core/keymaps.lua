@@ -1,44 +1,39 @@
 -- local diff = require "core.utils.diff"
 local fn = require("core.util.functions")
+local u = require("core.util.utils")
 local P = {}
 keymaps = P
 
 -- local term_opts = { silent = true }
 local opts = { noremap = false, silent = true }
-
-local map = function(mode, key, result)
-    vim.keymap.set(mode, key, result, opts)
-end
+-- local u.map = function(mode, key, result)
+--     vim.keymap.set(mode, key, result, opts)
+-- end
 
 -- LSP Keymaps --
 function map_lsp_keys()
-    map('n', "<leader>ca", "<cmd>Lspsaga code_action<CR>")
-    map("n", "gd", "<cmd>Lspsaga goto_definition<CR>")
-    map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
-    map("n", "gi", "<cmd>Lspsaga finder imp<CR>")
-    map("n", "gr", "<cmd>Lspsaga finder ref<CR>")
-    map("n", "gp", "<cmd>Lspsaga peek_definition<CR>")
-    map("n", "gt", "<cmd>Lspsaga peek_type_definition<CR>")
-    map("n", "<space>f", "<cmd>Lspsaga finder<CR>")
-    map("n", "<leader>es", "<cmd>EslintFixAll<CR>")
+    u.create_map('n', "<leader>ca", "<cmd>Lspsaga code_action<cr>", opts)
+    u.create_map("n", "gd", "<cmd>Lspsaga goto_definition<cr>", opts)
+    u.create_map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", opts)
+    u.create_map("n", "gp", "<cmd>Lspsaga peek_definition<cr>", opts)
+    u.create_map("n", "gt", "<cmd>Lspsaga peek_type_definition<cr>", opts)
+    u.create_map("n", "<space>f", "<cmd>Lspsaga finder<cr>", opts)
 
-    map("n", "H", "<cmd>Lspsaga hover_doc<CR>")
-    map("n", "K", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
-    map("n", "rn", "<cmd>Lspsaga rename<CR>")
-    map("n", "<leader>o", "<cmd>Lspsaga outline<CR>")
-    -- map(bufnr, "n", "<leader>f", "<cmd>lua vim.diagnostic.open_float()<CR>")
-    map("n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>")
-    map("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
-    map("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>")
-    map("n", "<leader>d", function() require("trouble").open("document_diagnostics") end)
-    map("n", "<leader>D", function() require("trouble").open("workspace_diagnostics") end)
+    u.create_map("n", "K", "<cmd>Lspsaga hover_doc<cr>", opts)
+    u.create_map("n", "rn", "<cmd>Lspsaga rename<cr>", opts)
+    u.create_map("n", "<leader>o", "<cmd>Lspsaga outline<cr>", opts)
+    u.create_map("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<cr>", opts)
+    u.create_map("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<cr>", opts)
+    u.create_map("n", "<leader>es", "<cmd>EslintFixAll<cr>", opts)
     vim.cmd [[ command! Format execute "lua vim.lsp.buf.format({ async = true })" ]]
 
     -- Trouble.nvim Keymaps
-    map("n", "<leader>t", "<cmd>TroubleToggle<CR>")
-    map("n", "<leader>tq", function() require("trouble").open("quickfix") end)
-    map("n", "<leader>tl", function() require("trouble").open("loclist") end)
-    map("n", "gR", function() require("trouble").open("lsp_references") end)
+    u.create_map("n", "<leader>t", "<cmd>TroubleToggle<cr>", opts)
+    u.create_map("n", "<leader>tq", "<cmd>TroubleToggle quickfix<cr>", opts)
+    u.create_map("n", "<leader>tl", "<cmd>TroubleToggle loclist<cr>", opts)
+    u.create_map("n", "gr", "<cmd>TroubleToggle lsp_references<cr>", opts)
+    u.create_map("n", "<leader>d", "<cmd>TroubleToggle document_diagnostics<cr>", opts)
+    u.create_map("n", "<leader>D", "<cmd>TroubleToggle workspace_diagnostics<cr>", opts)
 end
 
 -- Java Keymaps --
@@ -46,15 +41,16 @@ function P.map_java_keys()
     print("Mapping java keys...")
     map_lsp_keys()
 
-    local spring_boot_run_command = ':lua require("toggleterm").exec("mvn spring-boot:run -Dspring-boot.run.profiles=local")<CR>'
-    local mvn_clean_install_command = ':lua require("toggleterm").exec("mvn clean install -U")<CR>'
-    local mcv_dependency_sources = 'lua:require("toggleterm).exec("mvn dependency:sources)<CR>'
+    local spring_boot_run_command =
+    ':lua require("toggleterm").exec("mvn spring-boot:run -Dspring-boot.run.profiles=local")<cr>'
+    local mvn_clean_install_command = ':lua require("toggleterm").exec("mvn clean install -U")<cr>'
+    local mcv_dependency_sources = 'lua:require("toggleterm).exec("mvn dependency:sources)<cr>'
 
-    map('n', '<leader>sr', spring_boot_run_command)
-    map('n', '<leader>ci', mvn_clean_install_command)
-    map('n', '<leader>sc', mcv_dependency_sources)
-    map('n', 'oi', ':lua require("jdtls").organize_imports()<CR>')
-    map('n', '<leader>jc', ':lua require("jdtls").compile("incremental")<CR>')
+    u.create_map('n', '<leader>sr', spring_boot_run_command, opts)
+    u.create_map('n', '<leader>ci', mvn_clean_install_command, opts)
+    u.create_map('n', '<leader>sc', mcv_dependency_sources, opts)
+    u.create_map('n', '<leader>oi', ':lua require("jdtls").organize_imports()<cr>', opts)
+    u.create_map('n', '<leader>jc', ':lua require("jdtls").compile("incremental")<cr>', opts)
 end
 
 ---------------------
@@ -65,114 +61,116 @@ end
 vim.g.mapleader = '\\'
 
 -- Open Mason and LspInfo
-map('n', '<leader>m', '<cmd>:Mason<CR>')
-map('n', '<leader>l', '<cmd>:Lazy<CR>')
-map('n', '<leader>li', '<cmd>:LspInfo<CR>')
-map('n', '<leader>n', '<cmd>:NullLsInfo<CR>')
+u.create_map('n', '<leader>m', '<cmd>:Mason<cr>', opts)
+u.create_map('n', '<leader>l', '<cmd>:Lazy<cr>', opts)
+u.create_map('n', '<leader>li', '<cmd>:LspInfo<cr>', opts)
 
 -- Help
-map('n', '<leader>hh', '<cmd>:Help<CR>')
-map('n', '<leader>hw', '<cmd>:HelpWord<CR>')
-map('n', '<leader>hg', '<cmd>:HelpGrep<CR>')
+u.create_map('n', '<leader>hh', '<cmd>:Help<cr>', opts)
+u.create_map('n', '<leader>hw', '<cmd>:HelpWord<cr>', opts)
+u.create_map('n', '<leader>hg', '<cmd>:HelpGrep<cr>', opts)
 
 -- Remap exit insert
-map('i', '<c-space>', '<ESC>')
+u.create_map('i', '<c-space>', '<ESC>', opts)
 
 -- Move faster between windows
-map('n', '<C-h>', '<C-w>h')
-map('n', '<C-j>', '<C-w>j')
-map('n', '<C-k>', '<C-w>k')
-map('n', '<C-l>', '<C-w>l')
+u.create_map('n', '<C-h>', '<C-w>h', opts)
+u.create_map('n', '<C-j>', '<C-w>j', opts)
+u.create_map('n', '<C-k>', '<C-w>k', opts)
+u.create_map('n', '<C-l>', '<C-w>l', opts)
 
 -- Source files and init vim
-map('n', '<leader>ev', ':vsplit $MYVIMRC<cr>')
-map('n', '<leader>sv', ':source $MYVIMRC<cr>')
-map('n', '<leader>so', ':source %<cr>')
+u.create_map('n', '<leader>ev', ':vsplit $MYVIMRC<cr>', opts)
+u.create_map('n', '<leader>sv', ':source $MYVIMRC<cr>', opts)
+u.create_map('n', '<leader>so', ':source %<cr>', opts)
 
 -- Remap undo
-map('n', '<c-z>', 'u')
-map('i', '<c-z>', '<c-o>u')
+u.create_map('n', '<c-z>', 'u', opts)
+u.create_map('i', '<c-z>', '<c-o>u', opts)
 
 -- Remap substitute
-map('n', '<leader>s', ':%s/');
-map('n', '<leader>r', fn.substitute_word_under_cursor)
-map('n', '<leader>ri', fn.substitute_word_under_cursor_insensitive)
-
+u.create_map('n', '<leader>s', ':%s/', opts);
+u.create_map('n', '<leader>r', fn.substitute_word_under_cursor, opts)
+u.create_map('n', '<leader>ri', fn.substitute_word_under_cursor_insensitive, opts)
 
 -- Remap write to buffer
-map('i', '<c-s>', '<C-O>:update<CR>')
+u.create_map('i', '<c-s>', '<C-O>:update<cr>', opts)
 
 -- Remap half-page up/down
-map('n', '<c-u>', '<c-u>zz')
-map('n', '<c-d>', '<c-d>zz')
+u.create_map('n', '<c-u>', '<c-u>zz', opts)
+u.create_map('n', '<c-d>', '<c-d>zz', opts)
 
 -- Navigate up/down to first non blank character of line
-map('i', '<c-k>', '<ESC><Up><ESC>^i')
-map('i', '<c-j>', '<ESC><Down><ESC>^i')
+u.create_map('i', '<c-k>', '<ESC><Up><ESC>^i', opts)
+u.create_map('i', '<c-j>', '<ESC><Down><ESC>^i', opts)
 
 -- Move lines up and down
-map('n', '<Space>k', ':m .-2<CR>==')
-map('n', '<Space>j', ':m .+1<CR>==')
-map('v', '<Space>j', ':m \'>+1<CR>gv=gv')
-map('v', '<Space>k', ':m \'<-2<CR>gv=gv')
+u.create_map('n', '<Space>k', ':m .-2<cr>==', opts)
+u.create_map('n', '<Space>j', ':m .+1<cr>==', opts)
+u.create_map('v', '<Space>j', ':m \'>+1<cr>gv=gv', opts)
+u.create_map('v', '<Space>k', ':m \'<-2<cr>gv=gv', opts)
 
 -- Exit insert mode
-map('i', '<c-space>', '<Esc>')
+u.create_map('i', '<c-space>', '<Esc>', opts)
 
 -- Toggle nvim-tree
-map('n', '<c-b>', ':NvimTreeToggle<CR>')
-map('n', '<c-f>', ':NvimTreeFindFile<CR>')
+u.create_map('n', '<c-b>', ':NvimTreeToggle<cr>', opts)
+u.create_map('n', '<c-f>', ':NvimTreeFindFile<cr>', opts)
 
 -- Clear highlight
-map('n', '<space><leader>', ':nohlsearch<CR>')
+u.create_map('n', '<space><leader>', ':nohlsearch<cr>', opts)
 
 -- Print highlight group under cursor
-map('n',
+u.create_map('n',
     '<leader>hi',
-    function() local result = vim.treesitter.get_captures_at_cursor(0) print(vim.inspect(result)) end
+    function()
+        local result = vim.treesitter.get_captures_at_cursor(0)
+        print(vim.inspect(result))
+    end, opts
 )
-map('n', '<leader>hl', fn.print_hl_under_cursor)
+u.create_map('n', '<leader>hl', fn.print_hl_under_cursor, opts)
 
 -- Tab create, delete, navigation
-map('n', 'tn', ':tabnew<CR>')
-map('n', 'tnf', ':tabnew<space>')
-map('n', '[t', ':tabprevious<CR>')
-map('n', ']t', ':tabnext<CR>')
-map('n', 'tq', ':confirm tabclose<CR>')
-map('n', 'tl', ':tabs<CR>')
+u.create_map('n', 'tn', ':tabnew<cr>', opts)
+u.create_map('n', 'tnf', ':tabnew<space>', opts)
+u.create_map('n', '[t', ':tabprevious<cr>', opts)
+u.create_map('n', ']t', ':tabnext<cr>', opts)
+u.create_map('n', 'tq', ':confirm tabclose<cr>', opts)
+u.create_map('n', 'tl', ':tabs<cr>', opts)
 
 -- Bufferline Keymaps
-map('n', '<leader>bs', ':BufferLineSortByTabs<CR>')
+u.create_map('n', '<leader>bs', ':BufferLineSortByTabs<cr>', opts)
 
 -- Format Buffer
-map('n', '<leader>f', ':Format<CR>')
+u.create_map('n', '<leader>f', ':Format<cr>', opts)
 
 -- Select All
-map('n', '<c-a>', 'gg<S-v>G')
+u.create_map('n', '<c-a>', 'gg<S-v>G', opts)
 
 -- Sort Tailwind Classes
-map('n', '<leader>ts', ':TailwindSort<CR>')
+u.create_map('n', '<leader>ts', ':TailwindSort<cr>', opts)
 
 -- Resize Vertical Splits
-map('n', '<leader>=', '<C-w>=')
-map('n', '<leader>>', '<C-w>50>')
-map('n', '<leader><', '<C-w>50<')
+u.create_map('n', '<leader>=', '<C-w>=', opts)
+u.create_map('n', '<leader>>', '<C-w>50>', opts)
+u.create_map('n', '<leader><', '<C-w>50<', opts)
 
-map('n', '<space>m', ':TSJToggle<CR>')
+-- Toggle expand/collapse blocks
+u.create_map('n', '<space>m', ':TSJToggle<cr>', opts)
 
 -- Gitsigns hunks
-map('n', '[h', ':Gitsigns prev_hunk<CR>')
-map('n', ']h', ':Gitsigns next_hunk<CR>')
-map('n', 'ph', ':Gitsigns preview_hunk<CR>')
-map('n', 'vh', ':Gitsigns select_hunk<CR>')
-map('n', 'sh', ':Gitsigns stage_hunk<CR>')
-map('n', 'rh', ':Gitsigns reset_hunk<CR>')
+u.create_map('n', '[h', ':Gitsigns prev_hunk<cr>', opts)
+u.create_map('n', ']h', ':Gitsigns next_hunk<cr>', opts)
+u.create_map('n', 'ph', ':Gitsigns preview_hunk<cr>', opts)
+u.create_map('n', 'vh', ':Gitsigns select_hunk<cr>', opts)
+u.create_map('n', 'sh', ':Gitsigns stage_hunk<cr>', opts)
+u.create_map('n', 'rh', ':Gitsigns reset_hunk<cr>', opts)
 
 -- Git diff this file
-map('n', '<leader>df', '<cmd>lua require("core.util.diff")()<CR>')
+u.create_map('n', '<leader>df', '<cmd>lua require("core.util.diff")()<cr>', opts)
 
 -- Git conflicts
-map('n', '[c', ':GitConflictPrevConflict<CR>')
-map('n', ']c', ':GitConflictNextConflict<CR>')
+u.create_map('n', '[c', ':GitConflictPrevConflict<cr>', opts)
+u.create_map('n', ']c', ':GitConflictNextConflict<cr>', opts)
 
 return P
