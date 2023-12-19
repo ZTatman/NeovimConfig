@@ -1,5 +1,5 @@
--- Mason
-require("core.keymaps")
+local u = require("core.util.utils")
+local k = require("core.keymaps")
 require("mason").setup()
 require("mason-lspconfig").setup({
     ensure_installed = {
@@ -13,9 +13,11 @@ require("mason-lspconfig").setup({
         "marksman"
     }
 })
+local lspconfig = require("lspconfig")
+local lspsaga = require("lspsaga")
 
 -- Lspsaga
-require("lspsaga").setup({
+lspsaga.setup({
     symbol_in_winbar = {
         folder_level = 0,
     },
@@ -31,59 +33,9 @@ require("lspsaga").setup({
 })
 
 -- Required modules
--- local navic = require("nvim-navic")
--- local null_ls = require("null-ls")
-local lspconfig = require("lspconfig")
-local map = vim.keymap.set
-local opts = { noremap = true, silent = true }
-
 --  Eslint configs
 -- local eslint_node_path = os.getenv("ESLINT_PATH")
 -- local eslint_config_path = os.getenv("ESLINT_CHARTER_CONFIG")
-
--- Null-ls
--- local code_actions = null_ls.builtins.code_actions
--- local diagnostics = null_ls.builtins.diagnostics
--- local formatting = null_ls.builtins.formatting
--- local hover = null_ls.builtins.hover
--- local eslint_d_args = {
---     "--config", eslint_config_path,
--- }
-
--- local get_eslintd_args = function()
---     local filetypes = { "javascript", "javascriptreact", "javascript.jsx" }
---     local current_filetype = vim.bo.filetype
---     for _, ft in ipairs(filetypes) do
---         if current_filetype == ft then
---             print(eslint_d_args)
---             return eslint_d_args
---         end
---     end
---     return {}
--- end
-
--- null_ls.setup({
---     debug = true,
---     sources = {
---         -- Eslint_d
---         diagnostics.eslint_d.with({
---           extra_args = eslint_d_args,
---           filetypes = { "javascript", "javascriptreact", "javascript.jsx"},
---         }),
---         formatting.eslint_d.with({
---           extra_args = eslint_d_args,
---           filetypes = { "javascript", "javascriptreact", "javascript.jsx" },
---         }),
---         code_actions.eslint_d.with({
---           extra_args = eslint_d_args,
---           filetypes = { "javascript", "javascriptreact", "javascript.jsx" },
---         }),
---         -- Prettier
---         formatting.prettier.with({
---             filetypes = { "typescript", "typescript.tsx", "typescriptreact", "css" },
---         }),
---     }
--- })
 
 -- Quickfix code_action
 local function quickfix()
@@ -94,7 +46,8 @@ local function quickfix()
         apply = true
     })
 end
-map("n", "<leader>qf", quickfix, opts)
+local opts = { noremap = true, silent = true }
+u.create_map("n", "<leader>qf", quickfix, opts)
 
 -- On attach function
 local on_attach = function(client, bufnr)
@@ -103,7 +56,7 @@ local on_attach = function(client, bufnr)
     else
         client.server_capabilities.documentFormattingProvider = true
     end
-    map_lsp_keys(bufnr)
+    k.map_lsp_keys(bufnr)
 end
 
 -- Lspconfig capabilities

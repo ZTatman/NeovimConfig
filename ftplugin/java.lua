@@ -1,4 +1,5 @@
 local fn = vim.fn
+local k = require("core.keymaps")
 
 local path_to_java = os.getenv("JAVA_HOME") .. '/bin/java'
 local jdtls_dir = fn.stdpath('data') .. '/mason/packages/jdtls'
@@ -21,11 +22,10 @@ os.execute("mkdir " .. workspace_dir)
 
 -- On attach function
 package.path = package.path .. ";../?.lua"
-local keymaps = require("core.keymaps")
 -- print('keymaps not nil: ', keymaps.map_java_keys ~= nil)
 -- local keymaps = loadfile "../lua/core/keymaps.lua"
 local on_attach = function(client, bufnr)
-    keymaps.map_java_keys(bufnr)
+    k.map_java_keys(bufnr)
 end
 
 -- Main Config
