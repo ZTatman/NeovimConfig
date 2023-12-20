@@ -12,8 +12,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
-    -- Navic
-    'SmiteshP/nvim-navic',
     -- Fugitive
     'tpope/vim-fugitive',
     'tpope/vim-rhubarb',
@@ -33,12 +31,6 @@ local plugins = {
         lazy = false,
         priority = 1000,
     },
-    -- {
-    --     "folke/tokyonight.nvim",
-    --     lazy = false,
-    --     priority = 1000,
-    --     opts = {},
-    -- },
     -- Treesitter
     {
         'nvim-treesitter/nvim-treesitter',
@@ -100,7 +92,6 @@ local plugins = {
         }
     },
     -- Formatting
-    -- 'jose-elias-alvarez/null-ls.nvim',
     { 'nvimtools/none-ls.nvim',  event = "BufReadPre", },
     -- Split/Join objects, arrays, lists, nested blocks of code
     {
@@ -149,8 +140,6 @@ local plugins = {
         build = 'cd formatter && npm i && npm run build',
         config = {},
     },
-    -- Cursor Highlight
-    -- { 'tzachar/local-highlight.nvim' },
     -- Indentation guides
     { "lukas-reineke/indent-blankline.nvim", main = "ibl" },
     -- Git Merge Conflicts
