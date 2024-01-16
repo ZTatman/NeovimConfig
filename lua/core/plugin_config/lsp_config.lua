@@ -1,6 +1,7 @@
 local u = require("core.util.utils")
-local k = require("core.keymaps")
+require("core.keymaps")
 require("mason").setup()
+
 require("mason-lspconfig").setup({
     ensure_installed = {
         "lua_ls",
@@ -13,6 +14,28 @@ require("mason-lspconfig").setup({
         "marksman"
     }
 })
+
+-- Mason nvim dap setup
+-- --
+-- local listeners = function()
+--     local dap, dapui = require("dap"), require("dapui")
+--     dap.listeners.after.event_initialized["dapui_config"] = function()
+--         dapui.open()
+--     end
+--     dap.listeners.before.event_terminated["dapui_config"] = function()
+--         dapui.close()
+--     end
+--     dap.listeners.before.event_exited["dapui_config"] = function()
+--         dapui.close()
+--     end
+-- end
+--
+-- require("mason-nvim-dap").setup({
+--     ensure_installed = { "stylua" },
+--     automatic_installation = true,
+--     automatic_setup = true
+-- })
+
 local lspconfig = require("lspconfig")
 local lspsaga = require("lspsaga")
 
@@ -56,7 +79,7 @@ local on_attach = function(client, bufnr)
     else
         client.server_capabilities.documentFormattingProvider = true
     end
-    k.map_lsp_keys(bufnr)
+    map_lsp_keys(bufnr)
 end
 
 -- Lspconfig capabilities

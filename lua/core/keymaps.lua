@@ -7,9 +7,7 @@ keymaps = P
 local opts = { noremap = false, silent = true }
 
 -- General Keymaps --
-function P.map_base_keys()
-    print("Mapping base configuration keys...")
-
+function map_base_keys()
     vim.g.mapleader = '\\'
 
     -- Open Mason and LspInfo
@@ -127,9 +125,7 @@ function P.map_base_keys()
 end
 
 -- LSP Keymaps --
-function P.map_lsp_keys()
-    P.map_base_keys()
-    print("Mapping lsp keys...")
+function map_lsp_keys()
     u.create_map('n', "<leader>ca", "<cmd>Lspsaga code_action<cr>", opts)
     u.create_map("n", "gd", "<cmd>Lspsaga goto_definition<cr>", opts)
     u.create_map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", opts)
@@ -156,8 +152,7 @@ end
 
 -- Java Keymaps --
 function P.map_java_keys()
-    P.map_lsp_keys()
-    print("Mapping java keys...")
+    map_lsp_keys()
 
     local spring_boot_run_command =
     ':lua require("toggleterm").exec("mvn spring-boot:run -Dspring-boot.run.profiles=local")<cr>'
@@ -170,5 +165,7 @@ function P.map_java_keys()
     u.create_map('n', '<leader>oi', ':lua require("jdtls").organize_imports()<cr>', opts)
     u.create_map('n', '<leader>jc', ':lua require("jdtls").compile("incremental")<cr>', opts)
 end
+
+map_base_keys()
 
 return P

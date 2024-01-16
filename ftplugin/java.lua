@@ -22,8 +22,6 @@ os.execute("mkdir " .. workspace_dir)
 
 -- On attach function
 package.path = package.path .. ";../?.lua"
--- print('keymaps not nil: ', keymaps.map_java_keys ~= nil)
--- local keymaps = loadfile "../lua/core/keymaps.lua"
 local on_attach = function(client, bufnr)
     k.map_java_keys(bufnr)
 end

@@ -146,7 +146,7 @@ cmp.setup({
         fields = { "kind", "abbr", "menu" },
         format = lspkind.cmp_format({
             mode = 'symbol_text', -- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
-            maxwidth = 50,        -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+            maxwidth = 75,        -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
             menu = ({             -- showing type in menu
                 nvim_lsp = "[LSP]",
                 path = "[Path]",
