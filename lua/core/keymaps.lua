@@ -122,6 +122,13 @@ function map_base_keys()
     -- Git conflicts
     u.create_map('n', '[c', ':GitConflictPrevConflict<cr>', opts)
     u.create_map('n', ']c', ':GitConflictNextConflict<cr>', opts)
+
+    -- Copy buffer file name
+    u.create_map('n', '<leader>cf', '<cmd>let @+ = expand("%:t")<cr>', opts)
+    -- Copy buffer relative path 
+    u.create_map('n', '<leader>cr', '<cmd>let @+ = expand("%")<cr>', opts)
+    -- Copy buffer absolute path
+    u.create_map('n', '<leader>ca', '<cmd>let @+ = expand("%:p")<cr>', opts)
 end
 
 -- LSP Keymaps --
