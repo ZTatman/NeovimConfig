@@ -1,7 +1,8 @@
 local u = require("core.util.utils")
 require("core.keymaps")
-require("mason").setup()
 
+
+require("mason").setup()
 require("mason-lspconfig").setup({
     ensure_installed = {
         "lua_ls",
