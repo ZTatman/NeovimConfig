@@ -81,6 +81,7 @@ local plugins = {
     { "williamboman/mason.nvim" },
     { "williamboman/mason-lspconfig.nvim" },
     { "neovim/nvim-lspconfig" },
+    -- Java language server
     { 'mfussenegger/nvim-jdtls' },
     -- Lspsaga (glepnir's but maintained by nvimdev)
     {
@@ -91,7 +92,11 @@ local plugins = {
             { "nvim-treesitter/nvim-treesitter" }
         }
     },
-    -- Formatting
+    -- Formatting (conform.nvim)
+    {
+        "stevearc/conform.nvim",
+        event = { "BufReadPre", "BufNewFile" },
+    },
     { 'nvimtools/none-ls.nvim',  event = "BufReadPre", },
     -- Split/Join objects, arrays, lists, nested blocks of code
     {
@@ -458,7 +463,28 @@ local plugins = {
             vim.keymap.set("n", "gw", ":lua require('wtf').ai()<CR>"),
             vim.keymap.set("n", "gW", ":lua require('wtf').search()<CR>"),
         },
-    }
+    },
+    -- Debug Adapter Protocol (dap)
+    {
+        "mfussenegger/nvim-dap",
+        event = "BufReadPre"
+    },
+    -- DAP UI
+    {
+        "rcarriga/nvim-dap-ui",
+        config = true,
+        keys = {
+            vim.keymap.set("n", "<leader>n", [[lua require("dapui").toggle()]]),
+        },
+        dependencies = {
+            "mfussenegger/nvim-dap",
+        }
+    },
+    -- Bridges some gaps between mason and dap setup
+    {
+        "jay-babu/mason-nvim-dap.nvim",
+        event = "BufReadPre"
+    },
 }
 
 local opts = {}
