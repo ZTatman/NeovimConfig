@@ -31,6 +31,7 @@ u.create_map('n', ';s',
 opts)
 u.create_map('n', ';b', "<cmd>lua require('telescope.builtin').buffers()<cr>", opts)
 u.create_map('n', ';;', "<cmd>lua require('telescope.builtin').help_tags()<cr>", opts)
+u.create_map('n', ';g', "<cmd>lua require('telescope.builtin').git_status({layout_strategy='bottom_pane', layout_config={width=0.45}})<cr>")
 
 -- Lua functions
 local telescope_buffer_dir = function()

@@ -40,6 +40,7 @@ local options = {
 
 -- Make this dynamic clipboard paste in the future
 vim.opt.clipboard:append { "unnamedplus" }
+vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 
 --  More options
 vim.opt.formatoptions = "r"

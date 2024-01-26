@@ -125,7 +125,7 @@ function map_base_keys()
 
     -- Copy buffer file name
     u.create_map('n', '<leader>cf', '<cmd>let @+ = expand("%:t")<cr>', opts)
-    -- Copy buffer relative path 
+    -- Copy buffer relative path
     u.create_map('n', '<leader>cr', '<cmd>let @+ = expand("%")<cr>', opts)
     -- Copy buffer absolute path
     u.create_map('n', '<leader>ca', '<cmd>let @+ = expand("%:p")<cr>', opts)
@@ -146,7 +146,7 @@ function map_lsp_keys()
     u.create_map("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<cr>", opts)
     u.create_map("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<cr>", opts)
     u.create_map("n", "<leader>es", "<cmd>EslintFixAll<cr>", opts)
-    vim.cmd [[ command! Format execute "lua vim.lsp.buf.format({ async = true })" ]]
+    -- vim.cmd [[ command! Format execute "lua require'conform'.formatexpr()" ]]
 
     -- Trouble.nvim Keymaps
     u.create_map("n", "<leader>t", "<cmd>TroubleToggle<cr>", opts)
