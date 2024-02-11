@@ -2,18 +2,13 @@ local u = require("core.util.utils")
 require("core.keymaps")
 local lspconfig = require("lspconfig")
 
--- Required modules
---  Eslint configs
--- local eslint_node_path = os.getenv("ESLINT_PATH")
--- local eslint_config_path = os.getenv("ESLINT_CHARTER_CONFIG")
-
 -- Quickfix code_action
 local function quickfix()
     vim.lsp.buf.code_action({
         filter = function(a)
             return a.isPreferred
         end,
-        apply = true
+        apply = true,
     })
 end
 local opts = { noremap = true, silent = true }
@@ -21,7 +16,7 @@ u.create_map("n", "<leader>qf", quickfix, opts)
 
 -- On attach function
 local on_attach = function(client, bufnr)
-    if client.name == "tailwindcss" or client.name == "emmet_ls" then
+    if client.name == "tailwindcss" then
         client.server_capabilities.documentFormattingProvider = false
     else
         client.server_capabilities.documentFormattingProvider = true
@@ -31,38 +26,38 @@ end
 
 -- Lspconfig capabilities
 local client_capabilities = vim.lsp.protocol.make_client_capabilities()
-local capabilities = require('cmp_nvim_lsp').default_capabilities(client_capabilities)
+local capabilities = require("cmp_nvim_lsp").default_capabilities(client_capabilities)
 
 -- Eslint
-lspconfig.eslint.setup {
+lspconfig.eslint.setup({
     on_attach = on_attach,
     filetypes = { "javascript", "javascriptreact", "javascript.jsx" },
     capabilities = capabilities,
     settings = {
-        nodePath = "/Users/P3062728/Projects/Charter/mui/charter-mui-platform/node_modules",
+        nodePath = os.getenv("ESLINT_PATH"),
         options = {
-            overrideConfigFile = "/Users/P3062728/Projects/Charter/mui/charter-mui-platform/eslint/config.json",
+            overrideConfigFile = os.getenv("ESLINT_CHARTER_CONFIG"),
         },
-    }
-}
+    },
+})
 
 -- Typescript
-lspconfig.tsserver.setup {
+lspconfig.tsserver.setup({
     on_attach = on_attach,
     filetypes = { "javascript", "typescript", "typescript.tsx", "typescriptreact" },
-    capabilities = capabilities
-}
+    capabilities = capabilities,
+})
 
 -- Tailwindcss
-lspconfig.tailwindcss.setup {
+lspconfig.tailwindcss.setup({
     on_attach = on_attach,
-    capabilities = capabilities
-}
+    capabilities = capabilities,
+})
 
-lspconfig.marksman.setup {
+lspconfig.marksman.setup({
     on_attach = on_attach,
-    capabilities = capabilities
-}
+    capabilities = capabilities,
+})
 
 -- -- Java
 -- lspconfig.jdtls.setup {
@@ -71,13 +66,13 @@ lspconfig.marksman.setup {
 -- }
 
 -- Emmet
-lspconfig.emmet_ls.setup {
+lspconfig.emmet_ls.setup({
     on_attach = on_attach,
-    capabilities = capabilities
-}
+    capabilities = capabilities,
+})
 
 --  Lua
-lspconfig.lua_ls.setup {
+lspconfig.lua_ls.setup({
     on_attach = on_attach,
     capabilities = capabilities,
     settings = {
@@ -98,7 +93,7 @@ lspconfig.lua_ls.setup {
             },
         },
     },
-}
+})
 
 -- Diagnostics
 local signs = {
