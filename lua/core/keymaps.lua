@@ -146,6 +146,7 @@ function map_lsp_keys()
     u.create_map("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<cr>", opts)
     u.create_map("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<cr>", opts)
     u.create_map("n", "<leader>es", "<cmd>EslintFixAll<cr>", opts)
+    vim.cmd [[ command! Format execute "lua vim.lsp.buf.format({ async = true })" ]]
     -- vim.cmd [[ command! Format execute "lua require'conform'.formatexpr()" ]]
 
     -- Trouble.nvim Keymaps
