@@ -13,6 +13,12 @@ function BRANCH_FORMATTER(branch_name)
     return prefix .. "/AGTPORTL13-" .. suffix
 end
 
+local function get_project_name()
+    local cwd = vim.fn.getcwd()
+    local project_name = cwd:match("([^/]+)$")
+    return project_name
+end
+
 lualine.setup {
     options = {
         icons_enabled = true,
@@ -24,7 +30,7 @@ lualine.setup {
     },
     sections = {
         lualine_a = { 'mode' },
-        lualine_b = { { 'branch', fmt = BRANCH_FORMATTER } },
+        lualine_b = { { get_project_name, separator = '' }, { 'branch', fmt = BRANCH_FORMATTER } },
         lualine_c = {},
         lualine_x = {
             {
