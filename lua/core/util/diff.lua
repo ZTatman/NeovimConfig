@@ -57,9 +57,9 @@ local function diffWith()
                     vim.cmd("echo 'No choice was selected.'")
                     return
                 end
-                gitsigns.diffthis(choice.hash_id)
+                -- gitsigns.diffthis(choice.hash_id)
                 -- With vim-fugitive
-                -- vim.cmd("Gvdiffsplit " .. choice.hash_id)
+                vim.cmd("Gvdiffsplit " .. choice.hash_id)
             end)
         end
     end
