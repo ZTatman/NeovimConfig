@@ -31,6 +31,7 @@ require 'nvim-treesitter.configs'.setup {
         "scss",
         "javascript",
         "typescript",
+        "vue",
         "markdown",
         "markdown_inline",
         "norg"

@@ -31,7 +31,7 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities(client_capabil
 -- Eslint
 lspconfig.eslint.setup({
     on_attach = on_attach,
-    filetypes = { "javascript", "javascriptreact", "javascript.jsx" },
+    filetypes = { "javascript", "javascriptreact", "javascript.jsx", "vue" },
     capabilities = capabilities,
     settings = {
         nodePath = os.getenv("ESLINT_PATH"),
@@ -54,6 +54,14 @@ lspconfig.tailwindcss.setup({
     capabilities = capabilities,
 })
 
+-- Vue
+lspconfig.volar.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    filetypes = { "typescript", "javascript", "vue" }
+})
+
+-- Markdown
 lspconfig.marksman.setup({
     on_attach = on_attach,
     capabilities = capabilities,
@@ -64,6 +72,27 @@ lspconfig.marksman.setup({
 --   on_attach = function() end,
 --   capabilities = capabilities
 -- }
+
+-- HTML
+lspconfig.html.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    filetypes = { "html", "vue" }
+})
+
+-- CSS
+lspconfig.cssls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    filetypes = { "css", "scss", "less", "sass" }
+})
+
+-- CSS Modules
+lspconfig.cssmodules_ls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    filetypes = { "css", "scss", "less", "sass", "vue" }
+})
 
 -- Emmet
 lspconfig.emmet_ls.setup({
