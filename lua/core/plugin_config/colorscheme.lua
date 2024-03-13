@@ -2,9 +2,6 @@ local hl = vim.api.nvim_set_hl
 local g = vim.g
 local o = vim.o
 
--- vim.cmd [[colorscheme zephyr]]
-
-
 -- Vscode
 -- For dark theme (neovim's default)
 -- o.background = 'dark'
@@ -12,35 +9,35 @@ local o = vim.o
 -- o.background = 'light'
 -- local c = require('vscode.colors').get_colors()
 -- local vsc_status, vscode = pcall(require, "vscode");
--- vscode.setup({
---     -- Alternatively set style in setup
---     -- style = 'light'
-
---     -- Enable transparent background
---     transparent = true,
-
---     -- Enable italic comment
---     italic_comments = true,
-
---     -- Disable nvim-tree background color
---     disable_nvimtree_bg = false,
-
---     -- Override colors (see ./lua/vscode/colors.lua)
---     color_overrides = {
---         -- vscLineNumber = '#FFFFFF',
---     },
-
---     -- Override highlight groups (see ./lua/vscode/theme.lua)
---     group_overrides = {
---         -- this supports the same val table as vim.api.nvim_set_hl
---         -- use colors from this colorscheme by requiring vscode.colors!
---         Cursor = { fg = c.vscDarkBlue, bg = c.vscLightGreen, bold = true },
---         Function = { fg = c.vscYellow, bg = 'NONE', bold = true },
---         -- jsVariableDef = { fg = c.vscpink, bg = 'none' },
---         -- typescriptVariableDeclaration = { fg = c.vscBlueGreen, bg = 'none' }
---     }
--- })
--- vscode.load()
+--  vscode.setup({
+--      -- Alternatively set style in setup
+--      -- style = 'light'
+--
+--      -- Enable transparent background
+--      transparent = true,
+--
+--      -- Enable italic comment
+--      italic_comments = true,
+--
+--      -- Disable nvim-tree background color
+--      disable_nvimtree_bg = false,
+--
+--      -- Override colors (see ./lua/vscode/colors.lua)
+--      color_overrides = {
+--          -- vscLineNumber = '#FFFFFF',
+--      },
+--
+--      -- Override highlight groups (see ./lua/vscode/theme.lua)
+--      group_overrides = {
+--          -- this supports the same val table as vim.api.nvim_set_hl
+--          -- use colors from this colorscheme by requiring vscode.colors!
+--          Cursor = { fg = c.vscDarkBlue, bg = c.vscLightGreen, bold = true },
+--          Function = { fg = c.vscYellow, bg = 'NONE', bold = true },
+--          -- jsVariableDef = { fg = c.vscpink, bg = 'none' },
+--          -- typescriptVariableDeclaration = { fg = c.vscBlueGreen, bg = 'none' }
+--      }
+--  })
+--  vscode.load()
 
 -- Kanagawa
 local overrides = function(colors)
@@ -172,10 +169,17 @@ local overrides = function(colors)
             bg = theme.ui.bg_dim,
             fg = theme.ui.bg_dim,
         },
+        String = {
+            fg = p.vueGreen3,
+        },
+        Constant = {
+            fg = p.vueRed3
+        }
         -- Function = {
-        --     fg = rainbowBlue,
+        --     fg = p.rainbowBlue,
         --     bg = p.sumiInk3,
         -- }
+
     }
 end
 
@@ -192,7 +196,13 @@ require("kanagawa").setup({
     terminalColors = true,
     colors = {
         palette = {
-            rainbowBlue = "#61AFEF"
+            rainbowBlue = "#61AFEF",
+            vueGreen1 = "#41B883",
+            vueGreen2 = "#3ba576",
+            vueGreen3 = "#338e64",
+            vueRed1 = "#EB717D",
+            vueRed2 = "#d66872",
+            vueRed3 = "#cc636c"
         },
         theme = {
             wave = {},
@@ -212,10 +222,3 @@ require("kanagawa").setup({
     -- },
 })
 vim.cmd.colorscheme("kanagawa-dragon")
-
--- Midnight
--- local colors = require('midnight.colors')
--- require('midnight').setup({
---
--- })
--- vim.cmd.colorscheme("midnight")
