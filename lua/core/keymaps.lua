@@ -1,4 +1,3 @@
--- local diff = require "core.utils.diff"
 local fn = require("core.util.functions")
 local u = require("core.util.utils")
 local P = {}
@@ -115,9 +114,6 @@ function map_base_keys()
     u.create_map('n', 'vh', ':Gitsigns select_hunk<cr>', opts)
     u.create_map('n', 'sh', ':Gitsigns stage_hunk<cr>', opts)
     u.create_map('n', 'rh', ':Gitsigns reset_hunk<cr>', opts)
-
-    -- Git diff this file
-    u.create_map('n', '<leader>df', '<cmd>lua require("core.util.diff")()<cr>', opts)
 
     -- Git conflicts
     u.create_map('n', '[c', ':GitConflictPrevConflict<cr>', opts)
