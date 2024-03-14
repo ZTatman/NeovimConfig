@@ -495,7 +495,7 @@ local plugins = {
         config = true,
         cmd = { "DiffviewOpen" },
         keys = {
-            u.create_map("n", "<leader>do", "<cmd>DiffviewOpen<CR>"),
+            u.create_map("n", "<leader>df", "<cmd>DiffviewOpen<CR>"),
             u.create_map("n", "<leader>dq", "<cmd>DiffviewClose<CR>"),
             u.create_map("n", "<leader>dm", "<cmd>DiffviewOpen origin/main...HEAD<CR>"),
         },
