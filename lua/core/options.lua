@@ -46,6 +46,7 @@ vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 vim.opt.formatoptions = "r"
 vim.opt.path:append { "**" }
 vim.opt.wildignore:append { "*/node_modules/*" }
+vim.opt.fillchars:append { diff = "╱" }
 vim.cmd [[ set nosc noru nosm ]]
 
 -- Set the options in the table above

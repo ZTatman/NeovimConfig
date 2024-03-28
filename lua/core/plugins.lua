@@ -93,7 +93,7 @@ local plugins = {
             { "nvim-treesitter/nvim-treesitter" },
         },
     },
-    -- Formatting (conform.nvim)
+    -- Formatting
     {
         "stevearc/conform.nvim",
         event = { "BufReadPre", "BufNewFile" },
@@ -152,8 +152,6 @@ local plugins = {
     },
     -- Indentation guides
     { "lukas-reineke/indent-blankline.nvim", main = "ibl" },
-    -- Git Merge Conflicts
-    { "akinsho/git-conflict.nvim",           version = "*", config = true },
     --  Automatic highlight removal
     "jesseleite/vim-noh",
     -- Colorizer
@@ -450,25 +448,25 @@ local plugins = {
         },
         event = "BufReadPre",
     },
-    -- AI debugging error messages
-    {
-        "piersolenski/wtf.nvim",
-        dependencies = {
-            "MunifTanjim/nui.nvim",
-        },
-        event = "VeryLazy",
-        opts = {
-            popup_type = "popup",
-            openai_model_id = "gpt-3.5-turbo",
-            language = "english",
-            -- additional_instructions = "Start the reply with 'OH HAI THERE'",
-            search_engine = "google",
-        },
-        keys = {
-            u.create_map("n", "gw", ":lua require('wtf').ai()<CR>"),
-            u.create_map("n", "gW", ":lua require('wtf').search()<CR>"),
-        },
-    },
+    -- AI debugging error messages (Unused, for now)
+    -- {
+    --     "piersolenski/wtf.nvim",
+    --     dependencies = {
+    --         "MunifTanjim/nui.nvim",
+    --     },
+    --     event = "VeryLazy",
+    --     opts = {
+    --         popup_type = "popup",
+    --         openai_model_id = "gpt-3.5-turbo",
+    --         language = "english",
+    --         -- additional_instructions = "Start the reply with 'OH HAI THERE'",
+    --         search_engine = "google",
+    --     },
+    --     keys = {
+    --         u.create_map("n", "gw", ":lua require('wtf').ai()<CR>"),
+    --         u.create_map("n", "gW", ":lua require('wtf').search()<CR>"),
+    --     },
+    -- },
     -- Debug Adapter Protocol (dap)
     {
         "mfussenegger/nvim-dap",
@@ -490,13 +488,14 @@ local plugins = {
         "jay-babu/mason-nvim-dap.nvim",
         event = "BufReadPre",
     },
+    -- Better diff view between files, nice merge conflict handling 
     {
         "sindrets/diffview.nvim",
         config = true,
         cmd = { "DiffviewOpen" },
         keys = {
-            u.create_map("n", "<leader>df", "<cmd>DiffviewOpen<CR>"),
-            u.create_map("n", "<leader>dq", "<cmd>DiffviewClose<CR>"),
+            u.create_map("n", "<leader>do", "<cmd>DiffviewOpen<CR>"),
+            u.create_map("n", "<leader>dc", "<cmd>DiffviewClose<CR>"),
             u.create_map("n", "<leader>dm", "<cmd>DiffviewOpen origin/main...HEAD<CR>"),
         },
     },

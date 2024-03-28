@@ -59,9 +59,6 @@ function map_base_keys()
     u.create_map('v', '<Space>j', ':m \'>+1<cr>gv=gv', opts)
     u.create_map('v', '<Space>k', ':m \'<-2<cr>gv=gv', opts)
 
-    -- Exit insert mode
-    u.create_map('i', '<c-space>', '<Esc>', opts)
-
     -- Toggle nvim-tree
     u.create_map('n', '<c-b>', ':NvimTreeToggle<cr>', opts)
     u.create_map('n', '<c-f>', ':NvimTreeFindFile<cr>', opts)
