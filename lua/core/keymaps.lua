@@ -84,6 +84,12 @@ function map_base_keys()
     u.create_map('n', 'tq', ':confirm tabclose<cr>', opts)
     u.create_map('n', 'tl', ':tabs<cr>', opts)
 
+    -- Move between buffers
+    u.create_map('n', '[b', ':bp<cr>', opts)
+    u.create_map('n', ']b', ':bn<cr>', opts)
+    u.create_map('n', 'bf', ':bfirst<cr>', opts)
+    u.create_map('n', 'bl', ':blast<cr>', opts)
+
     -- Bufferline Keymaps
     u.create_map('n', '<leader>bs', ':BufferLineSortByTabs<cr>', opts)
 

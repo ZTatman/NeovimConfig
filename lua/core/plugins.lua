@@ -121,6 +121,48 @@ local plugins = {
     },
     -- Bufferline
     { "akinsho/bufferline.nvim",             version = "*", dependencies = "nvim-tree/nvim-web-devicons" },
+    -- {
+    --     'b0o/incline.nvim',
+    --     dependencies = { "nvim-tree/nvim-web-devicons" },
+    --     opts = {
+    --         window = {
+    --             padding = 0,
+    --             margin = {
+    --                 horizontal = 0,
+    --                 vertical = 0,
+    --             },
+    --             placement = {
+    --                 horizontal = 'right',
+    --                 vertical = 'top',
+    --             },
+    --         },
+    --         render = function(props)
+    --             local float_hl = u.get_hl_hex({ name = "NormalFloat" })
+    --             local norm_hl = u.get_hl_hex({ name = "Normal" })
+    --             local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ':t')
+    --             if filename == '' then
+    --                 filename = '[No Name]'
+    --             end
+    --             local ft_icon, ft_color = require("nvim-web-devicons").get_icon_color(filename)
+    --             local modified = vim.bo[props.buf].modified
+    --             return {
+    --                 ft_icon and { ' ', ft_icon, ' ', guifg = ft_color } or '',
+    --                 { ' ' },
+    --                 { filename, gui = modified and 'bold,italic' or 'bold' },
+    --                 { ' ' },
+    --                 guibg = 'none',
+    --             }
+    --             -- return {
+    --             -- { '', guibg = norm_hl.bg, guifg = float_hl.bg },
+    --             --     ft_icon and { ft_icon, guifg = ft_color } or '',
+    --             --     ft_icon and ' ',
+    --             --     filename,
+    --             --     -- { '', guibg = norm_hl.bg, guifg = float_hl.bg },
+    --             -- }
+    --         end
+    --     },
+    --     event = 'VeryLazy'
+    -- },
     -- Completion
     {
         "hrsh7th/nvim-cmp",
@@ -471,6 +513,9 @@ local plugins = {
     {
         "mfussenegger/nvim-dap",
         event = "BufReadPre",
+        dependencies = {
+            "nvim-neotest/nvim-nio"
+        }
     },
     -- DAP UI
     {
@@ -488,7 +533,7 @@ local plugins = {
         "jay-babu/mason-nvim-dap.nvim",
         event = "BufReadPre",
     },
-    -- Better diff view between files, nice merge conflict handling 
+    -- Better diff view between files, nice merge conflict handling
     {
         "sindrets/diffview.nvim",
         config = true,

@@ -2,15 +2,15 @@ local lualine_status, lualine = pcall(require, "lualine")
 if (not lualine_status) then return end
 
 function BRANCH_FORMATTER(branch_name)
-    local prefix = string.match(branch_name, "^(.-)/AGTPORTL13")
+    local prefix = string.match(branch_name, "^(.-)/AOSDEV")
     if not prefix then
         return branch_name
     end
-    local suffix = string.match(branch_name, "^.-/AGTPORTL13%-(%d%d%d%d)")
+    local suffix = string.match(branch_name, "^.-/AOSDEV%-(%d%d%d%d)")
     if not suffix then
         return prefix
     end
-    return prefix .. "/AGTPORTL13-" .. suffix
+    return prefix .. "/AOSDEV-" .. suffix
 end
 
 local function get_project_name()
@@ -37,18 +37,16 @@ lualine.setup {
                 'diagnostics',
                 sources = { "nvim_diagnostic" },
                 symbols = { error = ' ', warn = ' ', info = '  ', hint = '⚡️ ' }
-            },
-            'encoding',
-            'filetype'
+            }
         },
-        lualine_y = { 'progress' },
+        lualine_y = {},
         lualine_z = { 'location' }
     },
     inactive_sections = {
         lualine_a = {},
         lualine_b = {},
         lualine_c = {},
-        lualine_x = { 'location' },
+        lualine_x = {},
         lualine_y = {},
         lualine_z = {}
     },

@@ -43,6 +43,7 @@ vim.opt.clipboard:append { "unnamedplus" }
 vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 
 --  More options
+vim.opt.shortmess:append("F")
 vim.opt.formatoptions = "r"
 vim.opt.path:append { "**" }
 vim.opt.wildignore:append { "*/node_modules/*" }
