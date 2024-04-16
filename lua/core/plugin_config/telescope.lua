@@ -45,14 +45,14 @@ telescope.setup({
             n = {
                 ["q"] = actions.close,
                 ["<C-s>"] = actions.select_vertical,
-                ["<C-x>"] = trouble.open_with_trouble
+                ["<C-t>"] = trouble.open_with_trouble
             },
             i = {
                 ["Q"] = actions.close,
                 ["<C-s>"] = actions.select_vertical,
                 ['<C-j>'] = actions.cycle_history_next,
                 ['<C-k>'] = actions.cycle_history_prev,
-                ["<C-x>"] = trouble.open_with_trouble
+                ["<C-t>"] = trouble.open_with_trouble
             },
         },
         layout_config = {

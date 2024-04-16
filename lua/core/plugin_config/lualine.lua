@@ -6,7 +6,7 @@ function BRANCH_FORMATTER(branch_name)
     if not prefix then
         return branch_name
     end
-    local suffix = string.match(branch_name, "^.-/AOSDEV%-(%d%d%d%d)")
+    local suffix = string.match(branch_name, "^.-/AOSDEV%-(%d*)")
     if not suffix then
         return prefix
     end
@@ -24,19 +24,26 @@ lualine.setup {
         icons_enabled = true,
         theme = 'kanagawa',
         section_separators = { left = '', right = '' },
-        component_separators = { left = '|', right = '|' },
+        component_separators = { left = '', right = '' },
         disabled_filetypes = { 'alpha', 'NvimTree', 'Outline' },
         always_divide_middle = true,
     },
     sections = {
         lualine_a = { 'mode' },
-        lualine_b = { { get_project_name, separator = '' }, { 'branch', fmt = BRANCH_FORMATTER } },
+        lualine_b = { { get_project_name, icon = { '', align = 'left' } }, { 'branch', fmt = BRANCH_FORMATTER } },
         lualine_c = {},
         lualine_x = {
             {
+                'searchcount',
+                maxcount = 999,
+                timeout = 500,
+                icon = { ' ', align = 'right' }
+            },
+            {
                 'diagnostics',
                 sources = { "nvim_diagnostic" },
-                symbols = { error = ' ', warn = ' ', info = '  ', hint = '⚡️ ' }
+                symbols = { error = ' ', warn = ' ', info = ' ', hint = '󱗞 ' },
+                padding = { right = 2, left = 2 }
             }
         },
         lualine_y = {},

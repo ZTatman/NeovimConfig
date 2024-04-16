@@ -49,6 +49,9 @@ local overrides = function(colors)
             italic = true,
             bg = p.sumiInk5,
         },
+        CursorLineNr = {
+            fg = p.peachRed
+        },
         Visual = {
             bold = true,
         },
@@ -96,8 +99,8 @@ local overrides = function(colors)
             bg = p.waveBlue1,
         },
         PmenuSel = {
-            fg = p.waveBlue1,
-            bg = p.oniViolet,
+            fg = p.crystalBlue,
+            bg = p.waveBlue1,
             bold = true,
         },
         PmenuSbar = {
@@ -111,7 +114,7 @@ local overrides = function(colors)
             bold = true,
         },
         Constant = {
-            fg = p.waveRed,
+            fg = p.vueRed3,
             bg = p.sumiInk3
         },
         -- Floating windows
@@ -119,10 +122,12 @@ local overrides = function(colors)
             bg = "none",
         },
         FloatBorder = {
-            fg = p.oniViolet,
+            fg = theme.ui.float.fg_border,
             bg = "none",
         },
         FloatTitle = {
+            fg = p.crystalBlue,
+            bold = true,
             bg = "none",
         },
         -- Save an hlgroup with dark background and dimmed foreground
@@ -144,36 +149,36 @@ local overrides = function(colors)
         },
         -- Telescope Prompts
         TelescopeTitle = {
-            fg = theme.ui.special,
+            fg = p.crystalBlue,
             bold = true,
         },
         TelescopePromptNormal = {
             bg = theme.ui.bg_p1,
         },
         TelescopePromptBorder = {
-            fg = theme.ui.bg_p1,
-            bg = theme.ui.bg_p1,
+            fg = theme.ui.float.fg_border,
+            bg = 'none'
         },
         TelescopeResultsNormal = {
-            fg = theme.ui.fg_dim,
             bg = theme.ui.bg_m1,
         },
         TelescopeResultsBorder = {
-            fg = theme.ui.bg_m1,
-            bg = theme.ui.bg_m1,
+            fg = theme.ui.float.fg_border,
+            bg = "none"
         },
         TelescopePreviewNormal = {
-            bg = theme.ui.bg_dim,
+            bg = theme.ui.bg_m1,
         },
         TelescopePreviewBorder = {
-            bg = theme.ui.bg_dim,
-            fg = theme.ui.bg_dim,
+            fg = theme.ui.float.fg_border,
+            bg = theme.ui.bg_m1
         },
         String = {
-            fg = p.vueGreen3,
+            fg = p.vueGreen2,
+            bg = p.sumiInk3
         },
-        Constant = {
-            fg = p.vueRed3
+        WinSeparator = {
+            fg = theme.ui.float.fg_border
         }
         -- Function = {
         --     fg = p.rainbowBlue,
@@ -192,7 +197,7 @@ require("kanagawa").setup({
     statementStyle = { bold = true },
     typeStyle = {},
     transparent = true,
-    dimInactive = true,
+    dimInactive = false,
     terminalColors = true,
     colors = {
         palette = {
@@ -216,9 +221,9 @@ require("kanagawa").setup({
         },
     },
     overrides = overrides,
-    -- background = {     -- map the value of 'background' option to a theme
-    --     dark = "dragon", -- try "dragon" !
-    --     light = "lotus"
-    -- },
+    background = {     -- map the value of 'background' option to a theme
+        dark = "wave", -- try "dragon" !
+        light = "lotus"
+    },
 })
 vim.cmd.colorscheme("kanagawa-dragon")
