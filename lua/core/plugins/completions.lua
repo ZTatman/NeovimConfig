@@ -98,8 +98,8 @@ cmp.setup({
     window = {
         col_offset = -3, -- align the abbr and word on cursor (due to fields order below)
         completion = cmp.config.window.bordered({
-            border = "double",
-            winhighlight = "Normal:Normal,FloatBorder:Normal,CursorLine:PmenuSel,Search:None",
+            border = "rounded",
+            -- winhighlight = "Normal:Normal,FloatBorder:Normal,CursorLine:PmenuSel,Search:None",
         }),
         documentation = cmp.config.window.bordered({
             border = "single"

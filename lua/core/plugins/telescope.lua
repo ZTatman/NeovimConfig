@@ -9,29 +9,30 @@ if (not a_status) then return end
 -- Keymaps
 local opts = { noremap = true, silent = true }
 u.create_map('n', ';f',
-"<cmd>lua require('telescope.builtin').find_files({layout_strategy='bottom_pane', layout_config={width=0.45}})<cr>",
-opts)
+    "<cmd>lua require('telescope.builtin').find_files({layout_strategy='bottom_pane', layout_config={width=0.45}})<cr>",
+    opts)
 u.create_map('n', ';r',
-"<cmd>lua require('telescope.builtin').live_grep({layout_strategy='bottom_pane', layout_config={width=0.45}})<cr>",
-opts)
+    "<cmd>lua require('telescope.builtin').live_grep({layout_strategy='bottom_pane', layout_config={width=0.45}})<cr>",
+    opts)
 u.create_map('n', ';rc',
-"<cmd>lua require('telescope.builtin').grep_string({layout_strategy='bottom_pane', layout_config={width=0.45}})<cr>",
-opts)
+    "<cmd>lua require('telescope.builtin').grep_string({layout_strategy='bottom_pane', layout_config={width=0.45}})<cr>",
+    opts)
 u.create_map('n', ';pf',
-"<cmd>lua require('telescope.builtin').oldfiles({layout_strategy='bottom_pane', layout_config={height=0.45}})<cr>",
-opts)
+    "<cmd>lua require('telescope.builtin').oldfiles({layout_strategy='bottom_pane', layout_config={height=0.45}})<cr>",
+    opts)
 u.create_map('n', ';ps',
-"<cmd>lua require('telescope.builtin').search_history({layout_strategy='bottom_pane', layout_config={height=0.25}})<cr>",
-opts)
+    "<cmd>lua require('telescope.builtin').search_history({layout_strategy='bottom_pane', layout_config={height=0.25}})<cr>",
+    opts)
 u.create_map('n', ';k',
-"<cmd>lua require('telescope.builtin').keymaps({layout_strategy='bottom_pane', layout_config={height=0.25}})<cr>",
-opts)
+    "<cmd>lua require('telescope.builtin').keymaps({layout_strategy='bottom_pane', layout_config={height=0.25}})<cr>",
+    opts)
 u.create_map('n', ';s',
-"<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find({layout_strategy='bottom_pane', layout_config={height=0.25}})<cr>",
-opts)
+    "<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find({layout_strategy='bottom_pane', layout_config={height=0.25}})<cr>",
+    opts)
 u.create_map('n', ';b', "<cmd>lua require('telescope.builtin').buffers()<cr>", opts)
 u.create_map('n', ';;', "<cmd>lua require('telescope.builtin').help_tags()<cr>", opts)
-u.create_map('n', ';g', "<cmd>lua require('telescope.builtin').git_status({layout_strategy='bottom_pane', layout_config={width=0.45}})<cr>")
+u.create_map('n', ';g',
+    "<cmd>lua require('telescope.builtin').git_status({layout_strategy='bottom_pane', layout_config={width=0.45}})<cr>")
 
 -- Lua functions
 local telescope_buffer_dir = function()
@@ -41,18 +42,19 @@ end
 -- Telescope setup
 telescope.setup({
     defaults = {
+        path_to_display = { "smart" },
         mappings = {
             n = {
                 ["q"] = actions.close,
                 ["<C-s>"] = actions.select_vertical,
-                ["<C-t>"] = trouble.open_with_trouble
+                ["<C-x>"] = trouble.open_with_trouble
             },
             i = {
                 ["Q"] = actions.close,
                 ["<C-s>"] = actions.select_vertical,
-                ['<C-j>'] = actions.cycle_history_next,
-                ['<C-k>'] = actions.cycle_history_prev,
-                ["<C-t>"] = trouble.open_with_trouble
+                ['<C-l>'] = actions.cycle_history_next,
+                ['<C-h>'] = actions.cycle_history_prev,
+                ["<C-x>"] = trouble.open_with_trouble
             },
         },
         layout_config = {

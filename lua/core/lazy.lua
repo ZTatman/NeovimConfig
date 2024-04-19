@@ -544,6 +544,22 @@ local plugins = {
             u.create_map("n", "<leader>dm", "<cmd>DiffviewOpen origin/main...HEAD<CR>"),
         },
     },
+    -- Better support for file operations using built-in LSP support
+    {
+        "antosha417/nvim-lsp-file-operations",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-tree.lua",
+        },
+        config = function()
+            require("lsp-file-operations").setup()
+        end,
+    },
+    -- Better prompt, select, & input ui
+    {
+        'stevearc/dressing.nvim',
+        opts = {},
+    }
 }
 
 local opts = {}
