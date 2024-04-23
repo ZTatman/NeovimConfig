@@ -39,15 +39,15 @@ require 'nvim-treesitter.configs'.setup {
     autotag = {
         enable = true,
     },
-    incremental_selection = {
-        enable = true,
-        keymaps = {
-            init_selection = "<C-space>",
-            node_incremental = "<S-space>",
-            scope_incremental = false,
-            node_decrimental = "<BS>"
-        }
-    }
+    -- incremental_selection = {
+    --     enable = true,
+    --     keymaps = {
+    --         init_selection = "<C-space>",
+    --         node_incremental = "<S-space>",
+    --         scope_incremental = false,
+    --         node_decrimental = "<BS>"
+    --     }
+    -- }
 }
 
 local parser_config = require "nvim-treesitter.parsers".get_parser_configs()

@@ -1,5 +1,5 @@
 local u = require("core.util.utils")
-require("core.keymaps")
+local k = require("core.keymaps")
 local lspconfig = require("lspconfig")
 
 -- Quickfix code_action
@@ -21,7 +21,7 @@ local on_attach = function(client, bufnr)
     else
         client.server_capabilities.documentFormattingProvider = true
     end
-    map_lsp_keys(bufnr)
+    k.map_lsp_keys(bufnr)
 end
 
 -- Lspconfig capabilities
@@ -36,7 +36,7 @@ lspconfig.eslint.setup({
     settings = {
         nodePath = os.getenv("ESLINT_PATH"),
         options = {
-            overrideConfigFile = os.getenv("ESLINT_CHARTER_CONFIG"),
+            overrideConfigFile = vim.fn.getcwd():match("Charter") and os.getenv("ESLINT_PATH"),
         },
     },
 })
@@ -68,10 +68,10 @@ lspconfig.marksman.setup({
 })
 
 -- -- Java
--- lspconfig.jdtls.setup {
---   on_attach = function() end,
---   capabilities = capabilities
--- }
+lspconfig.jdtls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities
+}
 
 -- HTML
 lspconfig.html.setup({

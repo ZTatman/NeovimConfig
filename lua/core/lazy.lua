@@ -81,7 +81,6 @@ local plugins = {
     { "williamboman/mason.nvim" },
     { "williamboman/mason-lspconfig.nvim" },
     { "neovim/nvim-lspconfig" },
-    { "deathbeam/lspecho.nvim" },
     -- Java language server
     { "mfussenegger/nvim-jdtls",
 

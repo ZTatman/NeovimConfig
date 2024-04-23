@@ -19,6 +19,12 @@ local function get_project_name()
     return project_name
 end
 
+local lazy_status = require("lazy.status")
+
+function get_lazy_updates()
+    return lazy_status.updates() .. " updates available..."
+end
+
 lualine.setup {
     options = {
         icons_enabled = true,
@@ -30,14 +36,28 @@ lualine.setup {
     },
     sections = {
         lualine_a = { 'mode' },
-        lualine_b = { { get_project_name, icon = { '', align = 'left' } }, { 'branch', fmt = BRANCH_FORMATTER } },
+        lualine_b = {
+            {
+                get_project_name,
+                icon = { '', align = 'left' },
+            },
+            {
+                'branch',
+                fmt = BRANCH_FORMATTER,
+            },
+        },
         lualine_c = {},
         lualine_x = {
             {
+                get_lazy_updates,
+                cond = lazy_status.has_updates,
+                color = { fg = "#E6C384"}
+            },
+            {
                 'searchcount',
-                maxcount = 999,
+                maxcount = 1999,
                 timeout = 500,
-                icon = { ' ', align = 'right' }
+                icon = { ' ', align = 'right' }
             },
             {
                 'diagnostics',
