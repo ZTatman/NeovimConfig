@@ -1,11 +1,11 @@
 local o, api = vim.o, vim.api
 local fn = require("core.util.functions")
-local create_cmd = require("core.util.utils").create_cmd
+local u = require("core.util.utils")
 
-create_cmd("UpdateAndSyncAll", fn.update_all)
-create_cmd("Help", fn.help_select)
-create_cmd("HelpWord", fn.help_word)
-create_cmd("HelpGrep", fn.help_grep)
+u.create_cmd("UpdateAndSyncAll", fn.update_all)
+u.create_cmd("Help", fn.help_select)
+u.create_cmd("HelpWord", fn.help_word)
+u.create_cmd("HelpGrep", fn.help_grep)
 
 -- fix conceallevel for json files
 api.nvim_create_autocmd("Filetype", {
@@ -42,4 +42,15 @@ api.nvim_create_autocmd('BufWritePost', {
     desc = 'Get rid of message after writing a file',
     pattern = { '*' },
     command = 'redrawstatus',
+})
+
+api.nvim_create_autocmd({"BufEnter", "Filetype" }, {
+    pattern = { "java", "class" },
+    callback = function()
+        local jdtls_config = require("core.plugins.lsp.java")
+        -- vim.cmd.echom(jdtls_config and 'jdtls_config has been loaded!' or 'jdtls_config NOT loaded... ')
+        jdtls_config.setup()
+        print("jdtls has setup called!")
+    end,
+    group = vim.api.nvim_create_augroup('jdtls_lsp', { clear = true })
 })

@@ -26,9 +26,8 @@ local plugins = {
     "nvim-lualine/lualine.nvim",
     -- Color Schemes
     "Mofiqul/vscode.nvim",
-    "rebelot/kanagawa.nvim",
     {
-        "dasupradyumna/midnight.nvim",
+        "rebelot/kanagawa.nvim",
         lazy = false,
         priority = 1000,
     },
@@ -82,8 +81,11 @@ local plugins = {
     { "williamboman/mason.nvim" },
     { "williamboman/mason-lspconfig.nvim" },
     { "neovim/nvim-lspconfig" },
+    { "deathbeam/lspecho.nvim" },
     -- Java language server
-    { "mfussenegger/nvim-jdtls" },
+    { "mfussenegger/nvim-jdtls",
+
+    },
     -- Lspsaga (glepnir's but maintained by nvimdev)
     {
         "nvimdev/lspsaga.nvim",
@@ -223,6 +225,8 @@ local plugins = {
         "glepnir/dashboard-nvim",
         event = "VimEnter",
         config = function()
+            -- local lazy_status = require("lazy.status")
+            local package_manager_stats = require('dashboard.utils').get_package_manager_stats()
             require("dashboard").setup({
                 theme = "doom",
                 hide = {
@@ -562,5 +566,9 @@ local plugins = {
     }
 }
 
-local opts = {}
-require("lazy").setup(plugins, opts)
+require("lazy").setup(plugins, {
+    checker = {
+        enabled = true,
+        notify = false
+    }
+})
