@@ -13,6 +13,8 @@ function map_base_keys()
     u.create_map('n', '<leader>m', '<cmd>:Mason<cr>', opts)
     u.create_map('n', '<leader>l', '<cmd>:Lazy<cr>', opts)
     u.create_map('n', '<leader>li', '<cmd>:LspInfo<cr>', opts)
+    -- Update and sync Lazy and Mason plugins
+    u.create_map('n', '<leader>u', '<cmd>:UpdateAndSyncAll<cr><cr>', opts)
 
     -- Help
     u.create_map('n', '<leader>hh', '<cmd>:Help<cr>', opts)
@@ -165,7 +167,7 @@ function P.map_java_keys()
     local spring_boot_run_command =
     ':lua require("toggleterm").exec("mvn spring-boot:run -Dspring-boot.run.profiles=local")<cr>'
     local mvn_clean_install_command = ':lua require("toggleterm").exec("mvn clean install -U")<cr>'
-    local mcv_dependency_sources = 'lua:require("toggleterm).exec("mvn dependency:sources)<cr>'
+    local mcv_dependency_sources = ':lua require("toggleterm").exec("mvn dependency:sources")<cr>'
 
     u.create_map('n', '<leader>sr', spring_boot_run_command, opts)
     u.create_map('n', '<leader>ci', mvn_clean_install_command, opts)

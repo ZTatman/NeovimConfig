@@ -224,8 +224,6 @@ local plugins = {
         "glepnir/dashboard-nvim",
         event = "VimEnter",
         config = function()
-            -- local lazy_status = require("lazy.status")
-            local package_manager_stats = require('dashboard.utils').get_package_manager_stats()
             require("dashboard").setup({
                 theme = "doom",
                 hide = {
