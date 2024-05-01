@@ -1,6 +1,9 @@
 {
     "diagnostics.globals": [
-        "vim"
+        "vim",
+        "on_attach",
+        "quickfix",
+        "get_eslint_override_config_file"
     ],
     "diagnostics.disable": [
         "redundant-parameter",

@@ -116,9 +116,11 @@ function map_base_keys()
     u.create_map('n', '[h', ':Gitsigns prev_hunk<cr><cr>', opts)
     u.create_map('n', ']h', ':Gitsigns next_hunk<cr><cr>', opts)
     u.create_map('n', 'ph', ':Gitsigns preview_hunk<cr>', opts)
+    u.create_map('n', 'pH', ':Gitsigns preview_hunk_inline<cr>', opts)
     u.create_map('n', 'vh', ':Gitsigns select_hunk<cr>', opts)
     u.create_map('n', 'sh', ':Gitsigns stage_hunk<cr>', opts)
     u.create_map('n', 'rh', ':Gitsigns reset_hunk<cr>', opts)
+    u.create_map('n', '<leader>hD', function() require("gitsigns").diffthis('~') end, opts)
 
     -- Git conflicts
     u.create_map('n', '[c', ':GitConflictPrevConflict<cr>', opts)
@@ -130,6 +132,9 @@ function map_base_keys()
     u.create_map('n', '<leader>cr', '<cmd>let @+ = expand("%")<cr>', opts)
     -- Copy buffer absolute path
     u.create_map('n', '<leader>ca', '<cmd>let @+ = expand("%:p")<cr>', opts)
+
+    -- Diffview
+    u.create_map('n', '<leader>dh', '<cmd>:DiffviewFileHistory<cr>')
 end
 
 -- LSP Keymaps --

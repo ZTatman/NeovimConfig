@@ -1,21 +1,28 @@
+local fn = vim.fn
 local u = require("core.util.utils")
 local k = require("core.keymaps")
 local lspconfig = require("lspconfig")
 
 -- Quickfix code_action
-local function quickfix()
+function quickfix()
     vim.lsp.buf.code_action({
         filter = function(a)
             return a.isPreferred
         end,
         apply = true,
     })
-end
-local opts = { noremap = true, silent = true }
-u.create_map("n", "<leader>qf", quickfix, opts)
 
--- On attach function
-local on_attach = function(client, bufnr)
+end
+
+function get_eslint_override_config_file()
+    if fn.getcwd():match("Charter") and os.getenv("ESLINT_CHARTER_CONFIG") then
+        return os.getenv("ESLINT_CHARTER_CONFIG")
+    else
+        return nil
+    end
+end
+
+function on_attach(client, bufnr)
     if client.name == "tailwindcss" then
         client.server_capabilities.documentFormattingProvider = false
     else
@@ -23,6 +30,9 @@ local on_attach = function(client, bufnr)
     end
     k.map_lsp_keys(bufnr)
 end
+
+local opts = { noremap = true, silent = true }
+u.create_map("n", "<leader>qf", quickfix, opts)
 
 -- Lspconfig capabilities
 local client_capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -36,7 +46,7 @@ lspconfig.eslint.setup({
     settings = {
         nodePath = os.getenv("ESLINT_PATH"),
         options = {
-            overrideConfigFile = vim.fn.getcwd():match("Charter") and os.getenv("ESLINT_PATH"),
+            overrideConfigFile = get_eslint_override_config_file(),
         },
     },
 })
@@ -133,7 +143,7 @@ local signs = {
 }
 
 for _, sign in ipairs(signs) do
-    vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
+    fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
 end
 
 vim.diagnostic.config({
