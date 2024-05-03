@@ -1,5 +1,5 @@
 -- Credit for inspiration: Catgoose @ https://github.com/catgoose/nvim/blob/main/lua/util/functions.lua
-local cmd, api, ui = vim.cmd, vim.api, vim.ui
+local cmd, api, ui, fn = vim.cmd, vim.api, vim.ui, vim.fn
 local u = require("core.util.utils")
 
 local M = {}
@@ -93,13 +93,13 @@ M.dump_to_file = function(o, filename, indent)
 end
 
 M.print_hl_under_cursor = function()
-    if not vim.fn.exists("*synstack") then
+    if not fn.exists("*synstack") then
         return
     end
-    local syn_stack = vim.fn.synstack(vim.fn.line('.'), vim.fn.col('.'))
+    local syn_stack = fn.synstack(fn.line('.'), fn.col('.'))
     local names = {}
     for _, id in ipairs(syn_stack) do
-        table.insert(names, vim.fn.synIDattr(id, "name"))
+        table.insert(names, fn.synIDattr(id, "name"))
     end
     print(table.concat(names, " -> "))
 end
