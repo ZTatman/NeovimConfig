@@ -1,5 +1,5 @@
 -- Credit: Catgoose @ https://github.com/catgoose/nvim/blob/main/lua/util/functions.lua
-local fn, cmd, api, o, g, ui = vim.fn, vim.cmd, vim.api, vim.o, vim.g, vim.ui
+local cmd, api, ui = vim.fn, vim.cmd, vim.api
 local u = require("core.util.utils")
 
 local M = {}
@@ -50,6 +50,18 @@ M.help_grep = function()
     )
 end
 
+M.dump = function(o)
+    if type(o) == 'table' then
+        local s = '{ '
+        for k, v in pairs(o) do
+            if type(k) ~= 'number' then k = '"' .. k .. '"' end
+            s = s .. '[' .. k .. '] = ' .. M.dump(v) .. ','
+        end
+        return s .. '} '
+    else
+        return tostring(o)
+    end
+end
 
 M.print_hl_under_cursor = function()
     if not vim.fn.exists("*synstack") then
