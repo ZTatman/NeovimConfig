@@ -1,5 +1,5 @@
--- Credit: Catgoose @ https://github.com/catgoose/nvim/blob/main/lua/util/functions.lua
-local cmd, api, ui = vim.fn, vim.cmd, vim.api
+-- Credit for inspiration: Catgoose @ https://github.com/catgoose/nvim/blob/main/lua/util/functions.lua
+local cmd, api, ui = vim.cmd, vim.api, vim.ui
 local u = require("core.util.utils")
 
 local M = {}
@@ -50,6 +50,7 @@ M.help_grep = function()
     )
 end
 
+-- Function to dump a table to output
 M.dump = function(o)
     if type(o) == 'table' then
         local s = '{ '
@@ -60,6 +61,34 @@ M.dump = function(o)
         return s .. '} '
     else
         return tostring(o)
+    end
+end
+
+-- Function to format a table for output
+M.dump_formatted = function(o, indent)
+    if type(o) == 'table' then
+        local s = "{\n"
+        for k, v in pairs(o) do
+            if type(k) ~= 'number' then k = '"' .. k .. '"' end
+            s = s .. indent .. "[" .. k .. "] = " .. M.dumpFormatted(v, indent .. "  ") .. ",\n"
+        end
+        return s .. indent .. "}"
+    else
+        return tostring(o)
+    end
+end
+
+-- Function to dump a table to a file with formatted output
+M.dump_to_file = function(o, filename, indent)
+    indent = indent or "  "
+    local file = io.open(filename, "w")
+    if file then
+        local output = M.dump_formatted(o, indent)
+        file:write(output)
+        file:close()
+        print("Table dumped to file: " .. filename)
+    else
+        print("Error: Unable to open file " .. filename)
     end
 end
 
