@@ -16,6 +16,7 @@ end
 
 function get_eslint_override_config_file()
     if fn.getcwd():match("Charter") and os.getenv("ESLINT_CHARTER_CONFIG") then
+        print("Eslint: using charter gateway eslint rules....")
         return os.getenv("ESLINT_CHARTER_CONFIG")
     else
         return nil
