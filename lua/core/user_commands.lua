@@ -7,7 +7,7 @@ u.create_cmd("Help", fn.help_select)
 u.create_cmd("HelpWord", fn.help_word)
 u.create_cmd("HelpGrep", fn.help_grep)
 
--- fix conceallevel for json files
+-- Fix conceallevel for json files
 api.nvim_create_autocmd("Filetype", {
     pattern = { "json", "jsonc" },
     callback = function()
@@ -16,6 +16,7 @@ api.nvim_create_autocmd("Filetype", {
     end,
 })
 
+-- Set cmdheight to 0 when not using it
 api.nvim_create_autocmd('CmdlineEnter', {
     group = vim.api.nvim_create_augroup(
         'cmdheight_1_on_cmdlineenter',
@@ -44,7 +45,8 @@ api.nvim_create_autocmd('BufWritePost', {
     command = 'redrawstatus',
 })
 
-api.nvim_create_autocmd({"BufEnter", "Filetype" }, {
+-- Initialize jdtls setup when opening java file
+api.nvim_create_autocmd({ "BufEnter", "Filetype" }, {
     pattern = { "java", "class" },
     callback = function()
         local jdtls_config = require("core.plugins.lsp.java")
@@ -53,4 +55,10 @@ api.nvim_create_autocmd({"BufEnter", "Filetype" }, {
         print("jdtls has setup called!")
     end,
     group = vim.api.nvim_create_augroup('jdtls_lsp', { clear = true })
+})
+
+-- Enter insert mode automatically when navigating to a terminal
+api.nvim_create_autocmd({ "TermOpen", "WinEnter", "TermEnter" }, {
+    pattern = "term://*",
+    command = "startinsert",
 })
