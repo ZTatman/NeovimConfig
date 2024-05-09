@@ -95,9 +95,6 @@ function map_base_keys()
     -- Bufferline Keymaps
     u.create_map('n', '<leader>bs', ':BufferLineSortByTabs<cr>', opts)
 
-    -- Format Buffer
-    u.create_map('n', '<leader>f', ':Format<cr>', opts)
-
     -- Select All
     u.create_map('n', '<c-a>', 'gg<S-v>G', opts)
 
@@ -152,8 +149,6 @@ function P.map_lsp_keys()
     u.create_map("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<cr>", opts)
     u.create_map("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<cr>", opts)
     u.create_map("n", "<leader>es", "<cmd>EslintFixAll<cr>", opts)
-    vim.cmd [[ command! Format execute "lua vim.lsp.buf.format({ async = true })" ]]
-    -- vim.cmd [[ command! Format execute "lua require'conform'.formatexpr()" ]]
 
     -- Trouble.nvim Keymaps
     u.create_map("n", "<leader>t", "<cmd>TroubleToggle<cr>", opts)
