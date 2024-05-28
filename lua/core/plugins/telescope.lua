@@ -50,7 +50,7 @@ telescope.setup({
                 ["<C-x>"] = trouble.open_with_trouble
             },
             i = {
-                ["Q"] = actions.close,
+                ["esc"] = actions.close,
                 ["<C-s>"] = actions.select_vertical,
                 ['<C-l>'] = actions.cycle_history_next,
                 ['<C-h>'] = actions.cycle_history_prev,
