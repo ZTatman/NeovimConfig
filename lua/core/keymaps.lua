@@ -151,13 +151,12 @@ function P.map_lsp_keys()
     u.create_map("n", "<leader>es", "<cmd>EslintFixAll<cr>", opts)
 
     -- Trouble.nvim Keymaps
-    u.create_map("n", "<leader>t", "<cmd>TroubleToggle<cr>", opts)
-    u.create_map("n", "<leader>tq", "<cmd>TroubleToggle quickfix<cr>", opts)
-    u.create_map("n", "<leader>tl", "<cmd>TroubleToggle loclist<cr>", opts)
-    u.create_map("n", "<leader>tr", "<cmd>TroubleRefresh<cr>", opts)
-    u.create_map("n", "gr", "<cmd>TroubleToggle lsp_references<cr>", opts)
-    u.create_map("n", "<leader>d", "<cmd>TroubleToggle document_diagnostics<cr>", opts)
-    u.create_map("n", "<leader>D", "<cmd>TroubleToggle workspace_diagnostics<cr>", opts)
+    u.create_map("n", "<leader>tq", "<cmd>Trouble quickfix toggle focus=true<cr>", opts)
+    u.create_map("n", "<leader>tl", "<cmd>Trouble loclist toggle focus=true<cr>", opts)
+    u.create_map("n", "gr", "<cmd>Trouble lsp_references toggle focus=true<cr>", opts)
+    u.create_map("n", "gi", "<cmd>Trouble lsp_implementations toggle focus=true<cr>", opts)
+    u.create_map("n", "<leader>d", "<cmd>Trouble diagnostics toggle focus=true filter.buf=0<cr>", opts)
+    u.create_map("n", "<leader>D", "<cmd>Trouble diagnostics toggle focus=true<cr>", opts)
 end
 
 -- Java Keymaps --

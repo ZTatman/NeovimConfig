@@ -1,6 +1,11 @@
 local tel_status, telescope = pcall(require, "telescope")
 local a_status, actions = pcall(require, "telescope.actions")
-local trouble = require("trouble.providers.telescope")
+
+local open_with_trouble = require("trouble.sources.telescope").open
+
+-- Use this to add more results without clearing the trouble list
+local add_to_trouble = require("trouble.sources.telescope").add
+
 local u = require("core.util.utils")
 
 if (not tel_status) then return end
@@ -47,14 +52,14 @@ telescope.setup({
             n = {
                 ["q"] = actions.close,
                 ["<C-s>"] = actions.select_vertical,
-                ["<C-x>"] = trouble.open_with_trouble
+                ["<C-x>"] = open_with_trouble
             },
             i = {
                 ["esc"] = actions.close,
                 ["<C-s>"] = actions.select_vertical,
                 ['<C-l>'] = actions.cycle_history_next,
                 ['<C-h>'] = actions.cycle_history_prev,
-                ["<C-x>"] = trouble.open_with_trouble
+                ["<C-x>"] = open_with_trouble
             },
         },
         layout_config = {
