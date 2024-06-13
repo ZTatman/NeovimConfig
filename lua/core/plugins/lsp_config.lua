@@ -13,15 +13,6 @@ function quickfix()
 	})
 end
 
-function get_eslint_override_config_file()
-	if fn.getcwd():match("Charter") and os.getenv("ESLINT_CHARTER_CONFIG") then
-		print("Eslint: using charter gateway eslint rules....")
-		return os.getenv("ESLINT_CHARTER_CONFIG")
-	else
-		return nil
-	end
-end
-
 function on_attach(client, bufnr)
 	if client.name == "tailwindcss" then
 		client.server_capabilities.documentFormattingProvider = false
@@ -41,7 +32,7 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities(client_capabil
 -- Eslint
 lspconfig.eslint.setup({
 	on_attach = on_attach,
-	filetypes = { "javascript", "javascriptreact", "javascript.jsx", "vue" },
+	filetypes = { "javascript", "javascriptreact", "javascript.jsx" },
 	capabilities = capabilities,
 	settings = {
 		experimental = {
@@ -49,7 +40,7 @@ lspconfig.eslint.setup({
 		},
 		nodePath = os.getenv("ESLINT_PATH"),
 		options = {
-			overrideConfigFile = get_eslint_override_config_file(),
+			overrideConfigFile = os.getenv("ESLINT_CHARTER_CONFIG"),
 		},
 	},
 })
@@ -57,7 +48,7 @@ lspconfig.eslint.setup({
 -- Typescript
 lspconfig.tsserver.setup({
 	on_attach = on_attach,
-	filetypes = { "javascript", "typescript", "typescript.tsx", "typescriptreact" },
+	filetypes = { "typescript", "typescriptreact" },
 	capabilities = capabilities,
 })
 
@@ -97,7 +88,7 @@ lspconfig.html.setup({
 lspconfig.cssls.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
-	filetypes = { "css", "scss", "less", "sass" },
+	filetypes = { "javascript", "css", "scss", "less", "sass" },
 })
 
 -- CSS Modules
@@ -163,7 +154,7 @@ vim.diagnostic.config({
 		focusable = false,
 		style = "minimal",
 		border = "rounded",
-		source = "always",
+		source = true,
 		header = "",
 		prefix = "",
 	},
