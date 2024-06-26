@@ -11,16 +11,6 @@ function quickfix()
         end,
         apply = true,
     })
-
-end
-
-function get_eslint_override_config_file()
-    if fn.getcwd():match("Charter") and os.getenv("ESLINT_CHARTER_CONFIG") then
-        print("Eslint: using charter gateway eslint rules....")
-        return os.getenv("ESLINT_CHARTER_CONFIG")
-    else
-        return nil
-    end
 end
 
 function on_attach(client, bufnr)
@@ -45,10 +35,7 @@ lspconfig.eslint.setup({
     filetypes = { "javascript", "javascriptreact", "javascript.jsx", "vue" },
     capabilities = capabilities,
     settings = {
-        nodePath = os.getenv("ESLINT_PATH"),
-        options = {
-            overrideConfigFile = get_eslint_override_config_file(),
-        },
+        nodePath = os.getenv("ESLINT_PATH")
     },
 })
 
