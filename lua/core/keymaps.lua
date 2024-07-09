@@ -137,6 +137,7 @@ end
 -- LSP Keymaps --
 function P.map_lsp_keys()
     u.create_map('n', "<leader>ca", "<cmd>Lspsaga code_action<cr>", opts)
+    u.create_map("n", "gF", "<C-w>gf", opts)
     u.create_map("n", "gd", "<cmd>Lspsaga goto_definition<cr>", opts)
     u.create_map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", opts)
     u.create_map("n", "gp", "<cmd>Lspsaga peek_definition<cr>", opts)
