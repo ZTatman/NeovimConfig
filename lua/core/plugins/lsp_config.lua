@@ -1,11 +1,12 @@
-local fn = vim.fn
+local fn, lsp = vim.fn, vim.lsp
 local u = require("core.util.utils")
 local k = require("core.keymaps")
+
 local lspconfig = require("lspconfig")
 
 -- Quickfix code_action
 function quickfix()
-	vim.lsp.buf.code_action({
+	lsp.buf.code_action({
 		filter = function(a)
 			return a.isPreferred
 		end,
@@ -14,19 +15,27 @@ function quickfix()
 end
 
 function on_attach(client, bufnr)
+    -- Map keys
+	k.map_lsp_keys(bufnr)
+
+    -- Disable formatting for tailwincss
 	if client.name == "tailwindcss" then
 		client.server_capabilities.documentFormattingProvider = false
 	else
 		client.server_capabilities.documentFormattingProvider = true
 	end
-	k.map_lsp_keys(bufnr)
+
+    -- Enable inlay hint provider depending on client capabilities
+	if client.server_capabilities.inlayHintProvider then
+		lsp.inlay_hint.enable(true)
+	end
 end
 
 local opts = { noremap = true, silent = true }
 u.create_map("n", "<leader>qf", quickfix, opts)
 
 -- Lspconfig capabilities
-local client_capabilities = vim.lsp.protocol.make_client_capabilities()
+local client_capabilities = lsp.protocol.make_client_capabilities()
 local capabilities = require("cmp_nvim_lsp").default_capabilities(client_capabilities)
 
 -- Eslint
@@ -50,6 +59,18 @@ lspconfig.tsserver.setup({
 	on_attach = on_attach,
 	filetypes = { "typescript", "typescriptreact" },
 	capabilities = capabilities,
+	init_options = {
+		preferences = {
+			includeInlayParameterNameHints = "all",
+			includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+			includeInlayFunctionParameterTypeHints = true,
+			includeInlayVariableTypeHints = true,
+			includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+			includeInlayPropertyDeclarationTypeHints = true,
+			includeInlayFunctionLikeReturnTypeHints = true,
+			includeInlayEnumMemberValueHints = true,
+		},
+	},
 })
 
 -- Tailwindcss
@@ -58,21 +79,8 @@ lspconfig.tailwindcss.setup({
 	capabilities = capabilities,
 })
 
--- Vue
-lspconfig.volar.setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
-	filetypes = { "typescript", "javascript", "vue" },
-})
-
 -- Markdown
 lspconfig.marksman.setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
-})
-
--- -- Java
-lspconfig.jdtls.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
 })

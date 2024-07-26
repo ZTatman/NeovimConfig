@@ -13,9 +13,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
-	-- Fugitive
-	"tpope/vim-fugitive",
-	"tpope/vim-rhubarb",
 	-- Gitsigns
 	"lewis6991/gitsigns.nvim",
 	-- NvimTree
@@ -30,12 +27,6 @@ local plugins = {
 		"rebelot/kanagawa.nvim",
 		lazy = false,
 		priority = 1000,
-	},
-	{
-		"sho-87/kanagawa-paper.nvim",
-		lazy = false,
-		priority = 1000,
-		opts = {},
 	},
 	"NTBBloodbath/sweetie.nvim",
 	-- Treesitter

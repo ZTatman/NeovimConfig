@@ -45,18 +45,6 @@ api.nvim_create_autocmd('BufWritePost', {
     command = 'redrawstatus',
 })
 
--- Initialize jdtls setup when opening java file
-api.nvim_create_autocmd({ "BufEnter", "Filetype" }, {
-    pattern = { "java", "class" },
-    callback = function()
-        local jdtls_config = require("core.plugins.lsp.java")
-        -- vim.cmd.echom(jdtls_config and 'jdtls_config has been loaded!' or 'jdtls_config NOT loaded... ')
-        jdtls_config.setup()
-        print("jdtls has setup called!")
-    end,
-    group = vim.api.nvim_create_augroup('jdtls_lsp', { clear = true })
-})
-
 -- Enter insert mode automatically when navigating to a terminal
 api.nvim_create_autocmd({ "TermOpen", "WinEnter", "TermEnter" }, {
     pattern = "term://*",

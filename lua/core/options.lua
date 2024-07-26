@@ -1,3 +1,5 @@
+local opt = vim.opt
+
 local options = {
     tabstop = 4,
     backspace = { "start", "eol", "indent" },
@@ -20,8 +22,6 @@ local options = {
     splitright = true,
     autoindent = true,
     smartindent = true,
-    -- noru = true,
-    -- nosm = true,
     undofile = true,
     undodir = "/tmp/.vim-undo-diret",
     background = "dark",
@@ -39,18 +39,18 @@ local options = {
 
 
 -- Make this dynamic clipboard paste in the future
-vim.opt.clipboard:append { "unnamedplus" }
+opt.clipboard:append { "unnamedplus" }
 vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 
 --  More options
-vim.opt.shortmess:append("F")
-vim.opt.formatoptions = "r"
-vim.opt.path:append { "**" }
-vim.opt.wildignore:append { "*/node_modules/*" }
-vim.opt.fillchars:append { diff = "╱" }
+opt.shortmess:append("F")
+opt.formatoptions = "r"
+opt.path:append { "**" }
+opt.wildignore:append { "*/node_modules/*" }
+opt.fillchars:append { diff = "╱" }
 vim.cmd [[ set nosc noru nosm ]]
 
 -- Set the options in the table above
 for k, v in pairs(options) do
-    vim.opt[k] = v
+    opt[k] = v
 end
