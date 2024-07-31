@@ -57,7 +57,7 @@ lspconfig.eslint.setup({
 -- Typescript
 lspconfig.tsserver.setup({
 	on_attach = on_attach,
-	filetypes = { "typescript", "typescriptreact" },
+	filetypes = { "javascript", "typescript", "typescriptreact" },
 	capabilities = capabilities,
 	init_options = {
 		preferences = {
@@ -69,9 +69,33 @@ lspconfig.tsserver.setup({
 			includeInlayPropertyDeclarationTypeHints = true,
 			includeInlayFunctionLikeReturnTypeHints = true,
 			includeInlayEnumMemberValueHints = true,
+            disableSuggestions = true
 		},
 	},
 })
+
+-- Function to ignore "expression expected" tsserver diagnostic error code 1109 when "|>" operator encountered
+-- source: https://github.com/LunarVim/LunarVim/discussions/4239#discussioncomment-6223638
+local function filter_tsserver_diagnostics(_, result, ctx, config)
+  if result.diagnostics == nil then
+    return
+  end
+  -- ignore some tsserver diagnostics
+  local idx = 1
+  while idx <= #result.diagnostics do
+    local entry = result.diagnostics[idx]
+    -- codes: https://github.com/microsoft/TypeScript/blob/main/src/compiler/diagnosticMessages.json
+    if entry.code == 1109 then
+      -- { message = "File is a CommonJS module; it may be converted to an ES module.", }
+      table.remove(result.diagnostics, idx)
+    else
+      idx = idx + 1
+    end
+  end
+  vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
+end
+
+vim.lsp.handlers["textDocument/publishDiagnostics"] = filter_tsserver_diagnostics
 
 -- Tailwindcss
 lspconfig.tailwindcss.setup({
