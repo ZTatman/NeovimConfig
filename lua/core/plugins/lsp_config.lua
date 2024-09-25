@@ -15,17 +15,17 @@ function quickfix()
 end
 
 function on_attach(client, bufnr)
-    -- Map keys
+	-- Map keys
 	k.map_lsp_keys(bufnr)
 
-    -- Disable formatting for tailwincss
+	-- Disable formatting for tailwincss
 	if client.name == "tailwindcss" then
 		client.server_capabilities.documentFormattingProvider = false
 	else
 		client.server_capabilities.documentFormattingProvider = true
 	end
 
-    -- Enable inlay hint provider depending on client capabilities
+	-- Enable inlay hint provider depending on client capabilities
 	if client.server_capabilities.inlayHintProvider then
 		lsp.inlay_hint.enable(true)
 	end
@@ -55,7 +55,7 @@ lspconfig.eslint.setup({
 })
 
 -- Typescript
-lspconfig.tsserver.setup({
+lspconfig.ts_ls.setup({
 	on_attach = on_attach,
 	filetypes = { "javascript", "typescript", "typescriptreact" },
 	capabilities = capabilities,
@@ -69,7 +69,7 @@ lspconfig.tsserver.setup({
 			includeInlayPropertyDeclarationTypeHints = true,
 			includeInlayFunctionLikeReturnTypeHints = true,
 			includeInlayEnumMemberValueHints = true,
-            disableSuggestions = true
+			disableSuggestions = true,
 		},
 	},
 })
@@ -77,22 +77,22 @@ lspconfig.tsserver.setup({
 -- Function to ignore "expression expected" tsserver diagnostic error code 1109 when "|>" operator encountered
 -- source: https://github.com/LunarVim/LunarVim/discussions/4239#discussioncomment-6223638
 local function filter_tsserver_diagnostics(_, result, ctx, config)
-  if result.diagnostics == nil then
-    return
-  end
-  -- ignore some tsserver diagnostics
-  local idx = 1
-  while idx <= #result.diagnostics do
-    local entry = result.diagnostics[idx]
-    -- codes: https://github.com/microsoft/TypeScript/blob/main/src/compiler/diagnosticMessages.json
-    if entry.code == 1109 then
-      -- { message = "File is a CommonJS module; it may be converted to an ES module.", }
-      table.remove(result.diagnostics, idx)
-    else
-      idx = idx + 1
-    end
-  end
-  vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
+	if result.diagnostics == nil then
+		return
+	end
+	-- ignore some tsserver diagnostics
+	local idx = 1
+	while idx <= #result.diagnostics do
+		local entry = result.diagnostics[idx]
+		-- codes: https://github.com/microsoft/TypeScript/blob/main/src/compiler/diagnosticMessages.json
+		if entry.code == 1109 or entry.code == 1219 then
+			-- { message = "File is a CommonJS module; it may be converted to an ES module.", }
+			table.remove(result.diagnostics, idx)
+		else
+			idx = idx + 1
+		end
+	end
+	vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
 end
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = filter_tsserver_diagnostics
