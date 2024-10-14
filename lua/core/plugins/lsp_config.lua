@@ -136,6 +136,12 @@ lspconfig.emmet_ls.setup({
 	capabilities = capabilities,
 })
 
+lspconfig.typos_lsp.setup({
+	on_attach = on_attach,
+	capabilities = capabilities,
+    diagnosticSeverity = "Error"
+})
+
 --  Lua
 lspconfig.lua_ls.setup({
 	on_attach = on_attach,

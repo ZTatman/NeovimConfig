@@ -45,8 +45,8 @@ api.nvim_create_autocmd('BufWritePost', {
     command = 'redrawstatus',
 })
 
--- Enter insert mode automatically when navigating to a terminal
-api.nvim_create_autocmd({ "TermOpen", "WinEnter", "TermEnter" }, {
-    pattern = "term://*",
-    command = "startinsert",
-})
+-- -- Enter insert mode automatically when navigating to a terminal
+-- api.nvim_create_autocmd({ "TermOpen", "WinEnter", "TermEnter" }, {
+--     pattern = "term://*",
+--     command = "startinsert",
+-- })

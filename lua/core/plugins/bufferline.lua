@@ -45,9 +45,11 @@ bufferline.setup {
         },
     },
     highlights = {
-        -- tab_selected = {
-        --     fg = "#c8c093",
-        -- },
+        tab_selected = {
+            fg = "#c8c093",
+            bold = true,
+            italic = true,
+        },
         buffer_selected = {
             fg = "#c8c093",
             bold = true,

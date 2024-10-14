@@ -14,11 +14,12 @@ require("mason-lspconfig").setup({
         "emmet_ls",
         "html",
         "eslint",
-        "tsserver",
+        "ts_ls",
         "jdtls",
         "tailwindcss",
         "cssls",
         "cssmodules_ls",
         "marksman",
+        "typos-lsp"
     },
 })
