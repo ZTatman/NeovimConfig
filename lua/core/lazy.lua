@@ -28,7 +28,12 @@ local plugins = {
 		lazy = false,
 		priority = 1000,
 	},
-	"NTBBloodbath/sweetie.nvim",
+	{
+		"killitar/obscure.nvim",
+		lazy = false,
+		priority = 1000,
+		opts = {},
+	},
 	-- Treesitter
 	{
 		"nvim-treesitter/nvim-treesitter",
@@ -471,11 +476,6 @@ local plugins = {
 	{
 		"stevearc/dressing.nvim",
 		opts = {},
-	},
-	{
-		"chrisgrieser/nvim-lsp-endhints",
-		event = "LspAttach",
-		opts = {}, -- required, even if empty
 	},
 }
 

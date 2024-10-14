@@ -1,12 +1,4 @@
-local hl = vim.api.nvim_set_hl
-local g = vim.g
-local o = vim.o
-
 -- Vscode
--- For dark theme (neovim's default)
--- o.background = 'dark'
--- For light theme
--- o.background = 'light'
 -- local c = require('vscode.colors').get_colors()
 -- local vsc_status, vscode = pcall(require, "vscode");
 --  vscode.setup({
@@ -227,3 +219,4 @@ require("kanagawa").setup({
     },
 })
 vim.cmd.colorscheme("kanagawa-dragon")
+-- vim.cmd.colorscheme("obscure")
