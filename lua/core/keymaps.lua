@@ -116,6 +116,7 @@ function map_base_keys()
 	u.create_map("n", "<leader>hD", function()
 		require("gitsigns").diffthis("~")
 	end, opts)
+    u.create_map('n', '<leader>hb', ":Gitsigns blame<cr>", opts)
 
 	-- Git conflicts
 	u.create_map("n", "[c", ":GitConflictPrevConflict<cr>", opts)
