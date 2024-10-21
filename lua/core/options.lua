@@ -1,40 +1,41 @@
 local opt = vim.opt
 
 local options = {
-    tabstop = 4,
+    autoindent = true,
+    background = "dark",
     backspace = { "start", "eol", "indent" },
-    fileencodings = { "utf-8", "sjis", "euc-jp", "latin" },
     backupskip = { "/tmp/*", "/private/tmp/*" },
-    shiftwidth = 4,
     cmdheight = 0,
-    laststatus = 2,
-    numberwidth = 4,
-    scrolloff = 10,
-    sidescrolloff = 10,
-    hlsearch = true,
-    lazyredraw = true,
-    ignorecase = true,
-    number = true,
     cursorline = true,
+    encoding = "utf8",
     expandtab = true,
+    fileencodings = { "utf-8", "sjis", "euc-jp", "latin" },
+    hlsearch = true,
+    ignorecase = true,
+    laststatus = 2,
+    lazyredraw = true,
+    mouse = "a",
+    number = true,
+    numberwidth = 4,
+    pumblend = 15,
+    relativenumber = true,
+    scrolloff = 10,
+    sessionoptions = "buffers,curdir,folds,help,winsize,winpos,tabpages,terminal",
+    shell = "zsh",
     shiftround = true,
+    shiftwidth = 4,
+    showcmd = true,
+    sidescrolloff = 10,
+    signcolumn = "yes",
+    smartindent = true,
     splitbelow = true,
     splitright = true,
-    autoindent = true,
-    smartindent = true,
-    undofile = true,
-    undodir = "/tmp/.vim-undo-diret",
-    background = "dark",
-    wrap = false,
+    tabstop = 4,
     title = true,
-    showcmd = true,
+    undodir = "/tmp/.vim-undo-diret",
+    undofile = true,
     updatetime = 300,
-    signcolumn = "yes",
-    mouse = "a",
-    encoding = "utf8",
-    shell = "zsh",
-    sessionoptions = "buffers,curdir,folds,help,winsize,winpos,tabpages,terminal",
-    pumblend = 15
+    wrap = false,
 }
 
 
@@ -43,11 +44,11 @@ opt.clipboard:append { "unnamedplus" }
 vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 
 --  More options
-opt.shortmess:append("F")
+opt.fillchars:append { diff = "╱" }
 opt.formatoptions = "r"
 opt.path:append { "**" }
+opt.shortmess:append("F")
 opt.wildignore:append { "*/node_modules/*" }
-opt.fillchars:append { diff = "╱" }
 vim.cmd [[ set nosc noru nosm ]]
 
 -- Set the options in the table above
