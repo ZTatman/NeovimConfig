@@ -34,9 +34,9 @@ lspconfig.eslint.setup({
     on_attach = on_attach,
     filetypes = { "javascript", "javascriptreact", "javascript.jsx", "vue" },
     capabilities = capabilities,
-    settings = {
-        nodePath = os.getenv("ESLINT_PATH")
-    },
+    -- settings = {
+    --     nodePath = os.getenv("ESLINT_PATH")
+    -- },
 })
 
 -- Typescript
@@ -74,8 +74,7 @@ lspconfig.jdtls.setup {
 -- HTML
 lspconfig.html.setup({
     on_attach = on_attach,
-    capabilities = capabilities,
-    filetypes = { "html", "vue" }
+    capabilities = capabilities
 })
 
 -- CSS
@@ -83,19 +82,6 @@ lspconfig.cssls.setup({
     on_attach = on_attach,
     capabilities = capabilities,
     filetypes = { "css", "scss", "less", "sass" }
-})
-
--- CSS Modules
-lspconfig.cssmodules_ls.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-    filetypes = { "css", "scss", "less", "sass", "vue" }
-})
-
--- Emmet
-lspconfig.emmet_ls.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
 })
 
 --  Lua

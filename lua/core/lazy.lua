@@ -14,8 +14,6 @@ vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
     -- Fugitive
-    "tpope/vim-fugitive",
-    "tpope/vim-rhubarb",
     -- Gitsigns
     "lewis6991/gitsigns.nvim",
     -- NvimTree

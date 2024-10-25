@@ -142,6 +142,8 @@ function P.map_lsp_keys()
     u.create_map("n", "gp", "<cmd>Lspsaga peek_definition<cr>", opts)
     u.create_map("n", "gt", "<cmd>Lspsaga peek_type_definition<cr>", opts)
     u.create_map("n", "<space>f", "<cmd>Lspsaga finder<cr>", opts)
+    u.create_map("n", "gF", "<C-w>gf", opts)
+
 
     u.create_map("n", "K", "<cmd>Lspsaga hover_doc<cr>", opts)
     u.create_map("n", "rn", "<cmd>Lspsaga rename<cr>", opts)
