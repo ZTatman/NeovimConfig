@@ -10,16 +10,17 @@ require("mason").setup({
 
 require("mason-lspconfig").setup({
     ensure_installed = {
-        "lua_ls",
-        "emmet_ls",
-        "html",
-        "eslint",
-        "ts_ls",
-        "jdtls",
-        "tailwindcss",
         "cssls",
         "cssmodules_ls",
+        "emmet_ls",
+        "eslint",
+        "gopls"
+        "html",
+        "jdtls",
+        "lua_ls",
         "marksman",
+        "tailwindcss",
+        "ts_ls",
         "typos-lsp"
     },
 })

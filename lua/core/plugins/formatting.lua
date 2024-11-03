@@ -2,13 +2,14 @@ local conform = require("conform")
 
 conform.setup({
 	formatters_by_ft = {
-		javascript = { { "eslint_d" } },
-		typescript = {},
-		svelte = { "prettier" },
 		css = { "prettier" },
-		yaml = { "prettier" },
 		graphql = { "prettier" },
+		javascript = { { "eslint_d" } },
 		lua = { "stylua" },
+		svelte = { "prettier" },
+		typescript = {},
+		yaml = { "prettier" },
+        go = { "gofmt" }
 	},
 	formatters = {
 		eslint_d = {

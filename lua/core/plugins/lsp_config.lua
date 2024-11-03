@@ -109,11 +109,16 @@ lspconfig.marksman.setup({
 	capabilities = capabilities,
 })
 
+-- Go
+lspconfig.gopls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities
+})
+
 -- HTML
 lspconfig.html.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
-	filetypes = { "html", "vue" },
 })
 
 -- CSS
