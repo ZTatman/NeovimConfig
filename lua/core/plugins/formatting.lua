@@ -2,19 +2,20 @@ local conform = require("conform")
 
 conform.setup({
     formatters_by_ft = {
-        javascript = { "prettier" },
-        typescript = { "prettier" },
-        javascriptreact = { "prettier" },
-        typescriptreact = { "prettier" },
-        svelte = { "prettier" },
         css = { "prettier" },
-        html = { "prettier" },
-        json = { "prettier" },
-        yaml = { "prettier" },
-        markdown = { "prettier" },
+        go = { "gofmt" },
         graphql = { "prettier" },
+        html = { "prettier" },
+        javascript = { "prettier" },
+        javascriptreact = { "prettier" },
+        json = { "prettier" },
         lua = { "stylua" },
-        python = { "isort", "black" },
+        markdown = { "prettier" },
+        python = { "isort", "black", stop_after_first = true },
+        svelte = { "prettier" },
+        typescript = { "prettier" },
+        typescriptreact = { "prettier" },
+        yaml = { "prettier" },
     },
 })
 

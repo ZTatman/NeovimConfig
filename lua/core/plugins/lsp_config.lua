@@ -40,7 +40,7 @@ lspconfig.eslint.setup({
 })
 
 -- Typescript
-lspconfig.tsserver.setup({
+lspconfig.ts_ls.setup({
     on_attach = on_attach,
     filetypes = { "javascript", "typescript", "typescript.tsx", "typescriptreact" },
     capabilities = capabilities,
@@ -65,7 +65,13 @@ lspconfig.marksman.setup({
     capabilities = capabilities,
 })
 
--- -- Java
+-- Go
+lspconfig.gopls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities
+})
+
+-- Java
 lspconfig.jdtls.setup {
     on_attach = on_attach,
     capabilities = capabilities

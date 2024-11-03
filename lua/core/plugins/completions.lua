@@ -1,5 +1,5 @@
 -- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
+vim.o.completeopt = 'menu,menuone,preview,noselect'
 
 local status_cmp, cmp = pcall(require, 'cmp')
 if not status_cmp then return end
@@ -109,7 +109,9 @@ cmp.setup({
         {
             name = 'luasnip',
             group_index = 1,
+            priority = 1000,
             option = { use_show_condition = true },
+            -- Prevents snippets from being triggered when typing inside a string
             entry_filter = function()
                 local context = require("cmp.config.context")
                 return not context.in_treesitter_capture("string") and not context.in_syntax_group("String")
@@ -117,7 +119,8 @@ cmp.setup({
         },
         {
             name = 'nvim_lsp',
-            group_index = 2
+            group_index = 2,
+            priority = 500
         },
         {
             name = 'nvim_lsp_signature_help',
