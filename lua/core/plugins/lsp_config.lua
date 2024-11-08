@@ -111,8 +111,8 @@ lspconfig.marksman.setup({
 
 -- Go
 lspconfig.gopls.setup({
-    on_attach = on_attach,
-    capabilities = capabilities
+	on_attach = on_attach,
+	capabilities = capabilities,
 })
 
 -- HTML
@@ -144,7 +144,7 @@ lspconfig.emmet_ls.setup({
 lspconfig.typos_lsp.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
-    diagnosticSeverity = "Error"
+	diagnosticSeverity = "Error",
 })
 
 --  Lua

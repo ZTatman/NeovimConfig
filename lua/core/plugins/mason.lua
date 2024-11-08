@@ -14,7 +14,7 @@ require("mason-lspconfig").setup({
         "cssmodules_ls",
         "emmet_ls",
         "eslint",
-        "gopls"
+        "gopls",
         "html",
         "jdtls",
         "lua_ls",
@@ -22,5 +22,5 @@ require("mason-lspconfig").setup({
         "tailwindcss",
         "ts_ls",
         "typos-lsp"
-    },
+    }
 })

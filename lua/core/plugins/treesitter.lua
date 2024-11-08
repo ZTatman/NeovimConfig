@@ -21,7 +21,7 @@ require("nvim-treesitter.configs").setup({
 	},
 	auto_install = true,
 	ensure_installed = {
-        "go",
+		"go",
 		"html",
 		"java",
 		"javascript",
@@ -35,7 +35,7 @@ require("nvim-treesitter.configs").setup({
 		"typescript",
 		"vimdoc",
 		"vue",
-		"yaml"
+		"yaml",
 	},
 	-- autotag = {
 	-- 	enable = true,

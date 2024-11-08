@@ -4,12 +4,12 @@ conform.setup({
 	formatters_by_ft = {
 		css = { "prettier" },
 		graphql = { "prettier" },
-		javascript = { { "eslint_d" } },
+		javascript = { "eslint_d" },
 		lua = { "stylua" },
 		svelte = { "prettier" },
 		typescript = {},
 		yaml = { "prettier" },
-        go = { "gofmt" }
+		go = { "gofmt" },
 	},
 	formatters = {
 		eslint_d = {
