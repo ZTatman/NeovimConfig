@@ -157,16 +157,16 @@ local plugins = {
 	--  Automatic highlight removal
 	"jesseleite/vim-noh",
 	-- Colorizer
-	{
-		"NvChad/nvim-colorizer.lua",
-		config = function()
-			require("colorizer").setup({
-				user_default_options = {
-					tailwind = true,
-				},
-			})
-		end,
-	},
+	-- {
+	-- 	"NvChad/nvim-colorizer.lua",
+	-- 	config = function()
+	-- 		require("colorizer").setup({
+	-- 			user_default_options = {
+	-- 				tailwind = true,
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- },
 	--- Pretter List (Diagnostics, references, implementations, quickfixes, etc...)
 	{
 		"folke/trouble.nvim",
@@ -476,6 +476,15 @@ local plugins = {
 	{
 		"stevearc/dressing.nvim",
 		opts = {},
+	},
+	-- Refactoring help
+	{
+		"ThePrimeagen/refactoring.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-treesitter/nvim-treesitter",
+		},
+		lazy = false,
 	},
 }
 

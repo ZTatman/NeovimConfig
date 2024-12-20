@@ -116,7 +116,7 @@ function map_base_keys()
 	u.create_map("n", "<leader>hD", function()
 		require("gitsigns").diffthis("~")
 	end, opts)
-    u.create_map('n', '<leader>hb', ":Gitsigns blame<cr>", opts)
+	u.create_map("n", "<leader>hb", ":Gitsigns blame<cr>", opts)
 
 	-- Git conflicts
 	u.create_map("n", "[c", ":GitConflictPrevConflict<cr>", opts)
@@ -134,6 +134,29 @@ function map_base_keys()
 
 	-- Toggle inlay hints
 	u.create_map("n", "<leader>H", "<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<cr>", {})
+
+	-- Refactoring
+	u.create_map("x", "<leader>re", ":Refactor extract ")
+	u.create_map("x", "<leader>rf", ":Refactor extract_to_file ")
+	u.create_map("x", "<leader>rv", ":Refactor extract_var ")
+	u.create_map({ "n", "x" }, "<leader>ri", ":Refactor inline_var")
+	u.create_map("n", "<leader>rI", ":Refactor inline_func")
+	u.create_map("n", "<leader>rb", ":Refactor extract_block")
+	u.create_map("n", "<leader>rbf", ":Refactor extract_block_to_file")
+	-- You can also use below = true here to to change the position of the printf
+	-- statement (or set two remaps for either one). This remap must be made in normal mode.
+	u.create_map("n", "<leader>rp", function()
+		require("refactoring").debug.printf({ below = false })
+	end)
+	-- Print var
+	u.create_map({ "x", "n" }, "<leader>rv", function()
+		require("refactoring").debug.print_var({ below = true })
+	end)
+	-- Supports both visual and normal mode
+	u.create_map("n", "<leader>rc", function()
+		require("refactoring").debug.cleanup({})
+	end)
+	-- Supports only normal mode
 end
 
 -- LSP Keymaps --

@@ -115,9 +115,14 @@ cmp.setup({
 	},
 	sources = cmp.config.sources({
 		{
-			name = "luasnip",
+			name = "nvim_lsp",
 			group_index = 1,
 			priority = 1000,
+		},
+		{
+			name = "luasnip",
+			group_index = 2,
+			priority = 500,
 			option = { use_show_condition = true },
 			-- Prevents snippets from being triggered when typing inside a string
 			entry_filter = function()
@@ -126,16 +131,11 @@ cmp.setup({
 			end,
 		},
 		{
-			name = "nvim_lsp",
-			group_index = 2,
-			priority = 500,
-		},
-		{
-			name = "nvim_lsp_signature_help",
+			name = "path",
 			group_index = 3,
 		},
 		{
-			name = "path",
+			name = "nvim_lsp_signature_help",
 			group_index = 4,
 		},
 		{
@@ -190,5 +190,6 @@ cmp.setup({
 		native_menu = false,
 	},
 })
-
+require("luasnip").filetype_extend("typescript", { "javascript" })
+require("luasnip").filetype_extend("javascript", { "javascriptreact" })
 require("luasnip.loaders.from_vscode").lazy_load()
