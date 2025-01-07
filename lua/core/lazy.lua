@@ -28,12 +28,6 @@ local plugins = {
 		lazy = false,
 		priority = 1000,
 	},
-	{
-		"killitar/obscure.nvim",
-		lazy = false,
-		priority = 1000,
-		opts = {},
-	},
 	-- Treesitter
 	{
 		"nvim-treesitter/nvim-treesitter",
@@ -42,6 +36,25 @@ local plugins = {
 			"JoosepAlviste/nvim-ts-context-commentstring",
 		},
 		build = ":TSUpdate",
+	},
+	-- Treewalker, move through code using treesitter AST
+	{
+		"aaronik/treewalker.nvim",
+
+		-- The following options are the defaults.
+		-- Treewalker aims for sane defaults, so these are each individually optional,
+		-- and setup() does not need to be called, so the whole opts block is optional as well.
+		opts = {
+			-- Whether to briefly highlight the node after jumping to it
+			highlight = true,
+
+			-- How long should above highlight last (in ms)
+			highlight_duration = 250,
+
+			-- The color of the above highlight. Must be a valid vim highlight group.
+			-- (see :h highlight-group for options)
+			highlight_group = "CursorLine",
+		},
 	},
 	-- Tag / Bracket completion
 	"windwp/nvim-autopairs",
@@ -264,7 +277,7 @@ local plugins = {
 							icon = "",
 							desc = "   Empty buffer   ",
 							key = "e",
-							action = "enew",
+							action = "new",
 						},
 						{
 							icon = "",
@@ -389,7 +402,7 @@ local plugins = {
 			})
 		end,
 	},
-	-- Simple automatic session managment
+	-- Simple automatic session management
 	{
 		"rmagatti/auto-session",
 		lazy = false,
