@@ -21,7 +21,7 @@ function map_base_keys()
 	u.create_map("n", "<leader>hg", "<cmd>:HelpGrep<cr>", opts)
 
 	-- Remap exit insert
-	u.create_map("i", "<c-space>", "<ESC>", opts)
+	u.create_map("i", "<c-Space>", "<ESC>", opts)
 
 	-- Move faster between windows
 	u.create_map("n", "<C-h>", "<C-w>h", opts)
@@ -46,13 +46,17 @@ function map_base_keys()
 	-- Remap write to buffer
 	u.create_map("i", "<c-s>", "<C-O>:update<cr>", opts)
 
-	-- Remap half-page up/down
+	-- Remap half-page up/down, horizontally center screen after half-page up/down
 	u.create_map("n", "<c-u>", "<c-u>zz", opts)
 	u.create_map("n", "<c-d>", "<c-d>zz", opts)
 
 	-- Navigate up/down to first non blank character of line
 	u.create_map("i", "<c-k>", "<ESC><Up><ESC>^i", opts)
 	u.create_map("i", "<c-j>", "<ESC><Down><ESC>^i", opts)
+
+    -- Navigate up/down left/right through blocks of code using Treesitter AST
+	-- u.create_map("n", "<c-k>", "<ESC><Up><ESC>^i", opts)
+	-- u.create_map("n", "<c-j>", "<ESC><Down><ESC>^i", opts)
 
 	-- Move lines up and down
 	u.create_map("n", "<Space>k", ":m .-2<cr>==", opts)
@@ -65,7 +69,7 @@ function map_base_keys()
 	u.create_map("n", "<c-f>", ":NvimTreeFindFile<cr>", opts)
 
 	-- Clear highlight
-	u.create_map("n", "<space><leader>", ":nohlsearch<cr>", opts)
+	u.create_map("n", "<Space><leader>", ":nohlsearch<cr>", opts)
 
 	-- Print highlight group under cursor
 	u.create_map("n", "<leader>hi", function()
@@ -76,7 +80,7 @@ function map_base_keys()
 
 	-- Tab create, delete, navigation
 	u.create_map("n", "tn", ":tabnew<cr>", opts)
-	u.create_map("n", "tnf", ":tabnew<space>", opts)
+	u.create_map("n", "tnf", ":tabnew<Space>", opts)
 	u.create_map("n", "[t", ":tabprevious<cr>", opts)
 	u.create_map("n", "]t", ":tabnext<cr>", opts)
 	u.create_map("n", "tq", ":confirm tabclose<cr>", opts)
@@ -103,7 +107,7 @@ function map_base_keys()
 	u.create_map("n", "<leader><", "<C-w>50<", opts)
 
 	-- Toggle expand/collapse blocks
-	u.create_map("n", "<space>m", ":TSJToggle<cr>", opts)
+	u.create_map("n", "<Space>m", ":TSJToggle<cr>", opts)
 
 	-- Gitsigns hunks
 	u.create_map("n", "[h", ":Gitsigns prev_hunk<cr><cr>", opts)
@@ -116,11 +120,11 @@ function map_base_keys()
 	u.create_map("n", "<leader>hD", function()
 		require("gitsigns").diffthis("~")
 	end, opts)
-	u.create_map("n", "<leader>hb", ":Gitsigns blame<cr>", opts)
+    u.create_map('n', '<leader>hb', ":Gitsigns blame<cr>", opts)
 
 	-- Git conflicts
-	u.create_map("n", "[c", ":GitConflictPrevConflict<cr>", opts)
-	u.create_map("n", "]c", ":GitConflictNextConflict<cr>", opts)
+	-- u.create_map("n", "[c", ":GitConflictPrevConflict<cr>", opts)
+	-- u.create_map("n", "]c", ":GitConflictNextConflict<cr>", opts)
 
 	-- Copy buffer file name
 	u.create_map("n", "<leader>cf", '<cmd>let @+ = expand("%:t")<cr>', opts)
@@ -134,29 +138,6 @@ function map_base_keys()
 
 	-- Toggle inlay hints
 	u.create_map("n", "<leader>H", "<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<cr>", {})
-
-	-- Refactoring
-	u.create_map("x", "<leader>re", ":Refactor extract ")
-	u.create_map("x", "<leader>rf", ":Refactor extract_to_file ")
-	u.create_map("x", "<leader>rv", ":Refactor extract_var ")
-	u.create_map({ "n", "x" }, "<leader>ri", ":Refactor inline_var")
-	u.create_map("n", "<leader>rI", ":Refactor inline_func")
-	u.create_map("n", "<leader>rb", ":Refactor extract_block")
-	u.create_map("n", "<leader>rbf", ":Refactor extract_block_to_file")
-	-- You can also use below = true here to to change the position of the printf
-	-- statement (or set two remaps for either one). This remap must be made in normal mode.
-	u.create_map("n", "<leader>rp", function()
-		require("refactoring").debug.printf({ below = false })
-	end)
-	-- Print var
-	u.create_map({ "x", "n" }, "<leader>rv", function()
-		require("refactoring").debug.print_var({ below = true })
-	end)
-	-- Supports both visual and normal mode
-	u.create_map("n", "<leader>rc", function()
-		require("refactoring").debug.cleanup({})
-	end)
-	-- Supports only normal mode
 end
 
 -- LSP Keymaps --
@@ -169,7 +150,7 @@ function P.map_lsp_keys(bufnr)
 	u.create_map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", opts)
 	u.create_map("n", "gp", "<cmd>Lspsaga peek_definition<cr>", opts)
 	u.create_map("n", "gt", "<cmd>Lspsaga peek_type_definition<cr>", opts)
-	u.create_map("n", "<space>f", "<cmd>Lspsaga finder<cr>", opts)
+	u.create_map("n", "<Space>f", "<cmd>Lspsaga finder<cr>", opts)
 
 	u.create_map("n", "K", "<cmd>Lspsaga hover_doc<cr>", opts)
 	u.create_map("n", "rn", "<cmd>Lspsaga rename<cr>", opts)
@@ -190,3 +171,4 @@ end
 map_base_keys()
 
 return P
+
