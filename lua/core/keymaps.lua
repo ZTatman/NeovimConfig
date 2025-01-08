@@ -24,10 +24,10 @@ function map_base_keys()
 	u.create_map("i", "<c-space>", "<ESC>", opts)
 
 	-- Move faster between windows
-	u.create_map("n", "<C-h>", "<C-w>h", opts)
-	u.create_map("n", "<C-j>", "<C-w>j", opts)
-	u.create_map("n", "<C-k>", "<C-w>k", opts)
-	u.create_map("n", "<C-l>", "<C-w>l", opts)
+	u.create_map("n", "<C-Up>", "<C-w>k", opts)
+	u.create_map("n", "<C-Down>", "<C-w>j", opts)
+	u.create_map("n", "<C-Left>", "<C-w>h", opts)
+	u.create_map("n", "<C-Right>", "<C-w>l", opts)
 
 	-- Source files and init vim
 	u.create_map("n", "<leader>ev", ":vsplit $MYVIMRC<cr>", opts)
